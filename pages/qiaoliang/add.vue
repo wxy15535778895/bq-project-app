@@ -84,7 +84,7 @@
 					下部结构
 				</view>
 			</view>
-			<view class="box">
+			<view class="box" v-show="nowIndex==0">
 				<t-table border="1" border-color="#F3F4F6" v-model="table">
 					<t-tr font-size="14" color="color: #000000;" align="left">
 						<t-th align="center">部件名称</t-th>
@@ -92,22 +92,95 @@
 						<t-th align="center">缺损范围</t-th>
 						<t-th align="center">保养措施</t-th>
 					</t-tr>
-					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers" :key="index">
+					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers0" :key="index">
 						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
 						<t-td align="center">
 							<radio-group name="radio" @change="change11($event,index)">
 								<label>
-									<radio value="完好" :checked="form.detailList[index].damageType=='完好'? true:false" /><text>完好</text>
+									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
 								</label>
 								<label>
-									<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>有损坏</text>
+									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
 								</label>
 							</radio-group>
 						</t-td>
-						<t-td align="left"><input v-if="form.detailList[index]" v-model="form.detailList[index].damageScope" name="" id=""
-							 style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
-						<t-td align="left"><input v-if="form.detailList[index]" v-model="form.detailList[index].opinion" name="" id=""
-							 style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
+						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
+						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
+					</t-tr>
+				</t-table>
+			</view>
+			<view class="box" v-show="nowIndex==1">
+				<t-table border="1" border-color="#F3F4F6" v-model="table">
+					<t-tr font-size="14" color="color: #000000;" align="left">
+						<t-th align="center">部件名称</t-th>
+						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损范围</t-th>
+						<t-th align="center">保养措施</t-th>
+					</t-tr>
+					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers1" :key="index">
+						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
+						<t-td align="center">
+							<radio-group name="radio" @change="change11($event,index)">
+								<label>
+									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
+								</label>
+								<label>
+									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
+								</label>
+							</radio-group>
+						</t-td>
+						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
+						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
+					</t-tr>
+				</t-table>
+			</view>
+			<view class="box" v-show="nowIndex==2">
+				<t-table border="1" border-color="#F3F4F6" v-model="table">
+					<t-tr font-size="14" color="color: #000000;" align="left">
+						<t-th align="center">部件名称</t-th>
+						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损范围</t-th>
+						<t-th align="center">保养措施</t-th>
+					</t-tr>
+					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers1" :key="index">
+						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
+						<t-td align="center">
+							<radio-group name="radio" @change="change11($event,index)">
+								<label>
+									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
+								</label>
+								<label>
+									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
+								</label>
+							</radio-group>
+						</t-td>
+						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
+						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
+					</t-tr>
+				</t-table>
+			</view>
+			<view class="box" v-show="nowIndex==3">
+				<t-table border="1" border-color="#F3F4F6" v-model="table">
+					<t-tr font-size="14" color="color: #000000;" align="left">
+						<t-th align="center">部件名称</t-th>
+						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损范围</t-th>
+						<t-th align="center">保养措施</t-th>
+					</t-tr>
+					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers1" :key="index">
+						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
+						<t-td align="center">
+							<radio-group name="radio" @change="change11($event,index)">
+								<label>
+									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
+								</label>
+								<label>
+									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
+								</label>
+							</radio-group>
+						</t-td>
+						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
+						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
 					</t-tr>
 				</t-table>
 			</view>
@@ -143,7 +216,8 @@
 				format: true
 			})
 			return {
-				pickers: [],
+				pickers0: [],
+				pickers1: [],
 				damage: ['损坏', '未损坏'],
 				form: {
 					roadDataId: '',
@@ -202,9 +276,9 @@
 				arr: [], //按钮
 				list: [],
 				table: [],
-				rankDataId:'',
-				id:'',
-				Array:[]
+				rankDataId: '',
+				id: '',
+				Array: []
 			}
 		},
 		computed: {
@@ -229,43 +303,59 @@
 		methods: {
 			change11(e, index) {
 				console.log(e, index)
-				this.form.detailList[index].damageType = e.detail.value
+				if (this.nowIndex == 0) {
+					this.pickers0[index].damageType = e.detail.value
+				}
+				if (this.nowIndex == 1) {
+					this.pickers1[index].damageType = e.detail.value
+				}
+				if (this.nowIndex == 2) {
+					this.pickers2[index].damageType = e.detail.value
+				}
+				if (this.nowIndex == 3) {
+					this.pickers3[index].damageType = e.detail.value
+				}
 			},
 			show() {
 				console.log(this.tabs);
 			},
 			selectType(i, v) {
-				this.pickers = []
+				console.log(this.Array.length)
+				if (this.Array.length == 0) {
+					this.pickers0 = []
+				}
+				if (this.Array.length == 0) {
+					this.pickers1 = []
+				}
+				if (this.Array.length == 0) {
+					this.pickers2 = []
+				}
+				if (this.Array.length == 0) {
+					this.pickers3 = []
+				}
 				this.nowIndex = i;
 				this.nowItem = v;
 				this.surveyArr1.forEach(res => {
-					if(this.nowIndex==0){
-					  if (res.type == '其他') {
-					  	this.pickers.push(res)
-					  	console.log(res)
-					  }	
-					}
-					if(this.nowIndex==1){
-					  if (res.type == '上部结构') {
-					  	this.pickers.push(res)
-					  	console.log(res)
-					  }	
-					}
-					if(this.nowIndex==2){
-					  if (res.type == '桥面系') {
-					  	this.pickers.push(res)
-					  	console.log(res)
-					  }	
-					}
-					if(this.nowIndex==3){
-					  if (res.type == '下部结构') {
-					  	this.pickers.push(res)
-					  	console.log(res)
-					  }	
-					}
-				})
-				this.pickers.forEach((item, index) => {
-					this.form.detailList.push(item)
+						if (res.type == '其他') {
+							if (this.Array.length == 0) {
+								this.pickers0.push(res)
+							}
+						}
+						if (res.type == '上部结构') {
+							if (this.Array.length == 0) {
+								this.pickers1.push(res)
+							}
+						}
+						if (res.type == '桥面系') {
+							if (this.Array.length == 0) {
+								this.pickers2.push(res)
+							}
+						}
+						if (res.type == '下部结构') {
+							if (this.Array.length == 0) {
+								this.pickers3.push(res)
+							}
+						}
 				})
 			},
 			bindDateChange: function(e) {
@@ -287,8 +377,8 @@
 				return `${year}-${month}-${day}`;
 			},
 			getCouponSelected0(e) {
-			    this.Array=[]
-				this.timeArr=[]
+				this.Array = []
+				this.timeArr = []
 				console.log(e)
 				this.e0 = e
 				this.index0 = e.target.value;
@@ -309,27 +399,66 @@
 						console.log(res)
 						this.timeArr.push(res.time.substring(0, 7))
 						this.Array.push(res)
+					} else {
+						this.pickers0.forEach(ite => [
+							ite.damageScope = "",
+							ite.damageType = "",
+							ite.opinion = ""
+						])
+						this.pickers1.forEach(ite => [
+							ite.damageScope = "",
+							ite.damageType = "",
+							ite.opinion = ""
+						])
+						this.pickers2.forEach(ite => [
+							ite.damageScope = "",
+							ite.damageType = "",
+							ite.opinion = ""
+						])
+						this.pickers3.forEach(ite => [
+							ite.damageScope = "",
+							ite.damageType = "",
+							ite.opinion = ""
+						])
 					}
 				})
-				console.log(this.Array)
-				if(this.Array.length){
-				  this.id=this.Array[0].id
-				  uni.request({
-				  	header: {
-				  		'content-Type': 'application/json'
-				  	},
-				  	url: "http://119.27.171.77:8077/bridgeExamine/find", //仅为示例，并非真实接口地址。
-				  	method: 'POST',
-				  	data: {
-				  		id:this.id
-				  	},
-				  
-				  	success: (res) => {
-				  		console.log(res)
-				  		  this.form.detailList = res.data.data.detailList
-				  		  console.log(this.form.detailList)	
-				  	}
-				  });	
+				if (this.Array.length) {
+					console.log('111')
+					this.id = this.Array[0].id
+					uni.request({
+						header: {
+							'content-Type': 'application/json'
+						},
+						url: "http://119.27.171.77:8077/bridgeExamine/find", //仅为示例，并非真实接口地址。
+						method: 'POST',
+						data: {
+							id: this.id
+						},
+
+						success: (res) => {
+							console.log(res)
+							this.form.detailList = res.data.data.detailList
+							this.pickers0 = []
+							this.pickers1 = []
+							this.pickers2 = []
+							this.pickers3 = []
+							this.form.detailList.forEach(ite => {
+								console.log(ite)
+								if (ite.type == "其他") {
+									this.pickers0.push(ite)
+								}
+								if (ite.type == "上部结构") {
+									this.pickers1.push(ite)
+								}
+								if (ite.type == "桥面系") {
+									this.pickers2.push(ite)
+								}
+								if (ite.type == "下部结构") {
+									this.pickers3.push(ite)
+								}
+							})
+						}
+					});
 				}
 			},
 			getCouponSelected(e) {
@@ -357,23 +486,12 @@
 					console.log(error);
 				})
 			},
-			// zhList() {
-			// 	let opts = {
-			// 		url: '/pilenumber/listAll',
-			// 		method: 'post'
-			// 	};
-			// 	this.$http.httpRequest(opts, {}).then(res => {
-			// 		console.log(res)
-			// 	}, error => {
-			// 		console.log(error);
-			// 	})
-			// },
 			surveyList() {
 				uni.request({
 					header: {
 						'Content-Type': 'application/json'
 					},
-					url: "http://119.27.171.77:8077/bridge/listAll", //仅为示例，并非真实接口地址。
+					url: "http://119.27.171.77:8077/bridge/listAll",
 					method: 'POST',
 					data: {},
 					dataType: 'json',
@@ -390,7 +508,7 @@
 					header: {
 						'content-Type': 'application/json'
 					},
-					url: "http://119.27.171.77:8077/bridgeExamine/page/list", //仅为示例，并非真实接口地址。
+					url: "http://119.27.171.77:8077/bridgeExamine/page/list",
 					method: 'POST',
 					data: {
 						currentPage: 1,
@@ -413,6 +531,9 @@
 						res.data.data.forEach(item => {
 							this.$delete(item, 'id')
 							this.$set(item, 'id', '')
+							this.$set(item, 'damageType', '')
+							this.$set(item, 'damageScope', '')
+							this.$set(item, 'opinion', '')
 							this.surveyArr1.push(item)
 							this.surveyArr.push(item.type)
 							var arr2 = this.surveyArr.filter(function(value, index, self) {
@@ -436,16 +557,19 @@
 						content: '该桥梁本月已检查！',
 					});
 				} else {
-					    this.rankDataId = JSON.parse(
-					      sessionStorage.getItem('currentUser')
-					    ).rankDataId
+					this.rankDataId = JSON.parse(
+						sessionStorage.getItem('currentUser')
+					).rankDataId
+					console.log(this.pickers0,this.pickers1)
+					this.form.detailList=[...this.pickers0,...this.pickers1,...this.pickers2,...this.pickers3]
+					console.log(this.form.detailList)
 					this.form.detailList.forEach(res => {
 						// console.log(res)
 						// this.$set(res,'rankDataId','484775156963741696')
 						this.$delete(res, 'bridgeExamineId')
 						res.id = ""
 					})
-					const data={
+					const data = {
 						direction: this.direction,
 						roadDataId: this.roadDataId,
 						stake: "k" + this.centreZh1 + "+" + this.centreZh2,
@@ -466,7 +590,7 @@
 						},
 						url: "http://119.27.171.77:8077/bridgeExamine/add", //仅为示例，并非真实接口地址。
 						method: 'POST',
-						data:data,
+						data: data,
 						dataType: 'json',
 						success: (res) => {
 							console.log(res)

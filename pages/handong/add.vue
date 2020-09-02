@@ -97,6 +97,9 @@
 								<label>
 									<radio value="其他" :checked="form.detailList[index].damageType=='其他'? true:false" /><text>其他</text>
 								</label>
+								<label>
+									<radio value="无结构" :checked="form.detailList[index].damageType=='无结构'? true:false" /><text>无结构</text>
+								</label>
 							</radio-group>
 						</t-td>
 						<t-td align="left"><input v-model="form.detailList[index].damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
@@ -224,6 +227,9 @@
 				console.log(e, index)
 				this.index = index
 				console.log(this.form.detailList)
+				if(e.detail.value=='其他'){
+					this.form.detailList[index].damageScope = ""
+				  }
 				this.form.detailList[index].damageType = e.detail.value
 			},
 			show() {
@@ -282,10 +288,6 @@
 						res.data.data.list.forEach(item => {
 							if (item.culverId == this.roadData[e.target.value - 1].id) {
 								itemArray.push(item)
-								// this.ArrayDate = {
-								// 	culverId: item.culverId,
-								// 	time: item.time.substring(0, 7)
-								// }
 								console.log(item.time)
 								this.timeArr.push(item.time.substring(0, 7))
 								this.rummager = item.rummager

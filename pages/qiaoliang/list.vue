@@ -150,13 +150,17 @@
 							this.picker.push(res)
 						}
 					}
-					// if (res.type == '桥面系') {
-					// 	console.log(res)
-					// 	this.picker.push(res)
-					// }
-					// if (res.type == '下部结构') {
-					// 	this.picker.push(res)
-					// }
+					if (this.nowIndex == 2) {
+						if (res.type == '桥面系') {
+							console.log(res)
+							this.picker.push(res)
+						}
+					}
+					if (this.nowIndex == 3) {
+						if (res.type == '下部结构') {
+							this.picker.push(res)
+						}
+					}
 					if (this.nowIndex == 1) {
 						if (res.type == '上部结构') {
 							this.picker.push(res)
