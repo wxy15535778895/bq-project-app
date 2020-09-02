@@ -89,9 +89,11 @@
 								<label>
 									<radio value="完好" :checked="form.detailList[index].damageType=='完好'? true:false" /><text>完好</text>
 								</label>
-								<label>
-									<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>有损坏</text>
-								</label>
+								<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="roadDataList">
+									<label>
+										<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>有损坏</text>
+									</label>
+								</picker>
 							</radio-group>
 						</t-td>
 						<t-td align="left"><input v-model="form.detailList[index].damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
@@ -210,7 +212,7 @@
 			getCouponSelected0(newVal, oldVal) {
 				console.log(newVal, oldVal)
 			},
-			damageType(newval,oldVal){
+			damageType(newval, oldVal) {
 				console.log(newValue)
 			}
 		},
@@ -220,6 +222,7 @@
 		methods: {
 			change11(e, index) {
 				console.log(e, index)
+				this.index=index
 				console.log(this.form.detailList)
 				this.form.detailList[index].damageType = e.detail.value
 			},
@@ -245,7 +248,7 @@
 				return `${year}-${month}-${day}`;
 			},
 			getCouponSelected0(e) {
-				this.timeArr=[]
+				this.timeArr = []
 				console.log(e)
 				this.e0 = e
 				this.index0 = e.target.value;
@@ -283,7 +286,7 @@
 							if (item.culverId == this.roadData[e.target.value - 1].id) {
 								console.log(item.time)
 								this.timeArr.push(item.time.substring(0, 7))
-								this.rummager=item.rummager
+								this.rummager = item.rummager
 								uni.request({
 									header: {
 										'content-Type': 'application/json'
@@ -292,11 +295,11 @@
 									method: 'POST',
 									data: this.ArrayDate,
 									success: (res) => {
-										this.Array=[]
+										this.Array = []
 										console.log(res)
 										this.Array.push(res)
 										console.log(this.Array[0].data.data[0].detailList)
-										if(this.Array[0].data.data[0].detailList.length){
+										if (this.Array[0].data.data[0].detailList.length) {
 											this.form.detailList = this.Array[0].data.data[0].detailList
 											this.form.detailList.forEach(ite => {
 												this.$delete(ite, 'culvertExamineId')
@@ -311,11 +314,10 @@
 				});
 
 			},
-			getCouponSelected(e) {
+			getCouponSelected(e, index) {
 				console.log(e)
 				this.e = e
-				this.index = e.target.value;
-				this.direction = this.couponList[e.target.value]
+				this.form.detailList[index].damageScope=this.couponList[e.target.value]
 			},
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
@@ -383,6 +385,9 @@
 							});
 							this.arr = arr2
 							this.form.detailList = this.surveyArr1
+							this.form.detailList.forEach(it=>{
+								this.$set(it,'damageScope',"")
+							})
 						})
 					}
 				});
