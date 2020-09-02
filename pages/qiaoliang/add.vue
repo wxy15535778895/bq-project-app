@@ -43,7 +43,7 @@
 				</view>
 			</view>
 			<view class="list-1">
-				<view>养护人</view>
+				<view>养护负责人</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
 					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="principal"

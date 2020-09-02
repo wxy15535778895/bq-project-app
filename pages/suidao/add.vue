@@ -387,45 +387,47 @@
 
 					success: (res) => {
 						console.log(res)
+						let itemArray=[]
 						res.data.data.list.forEach(ite => {
-							console.log(ite)
 							if (ite.tunnelId == this.roadData[e.target.value - 1].id) {
+								console.log(ite.rummager)
 								this.rummager = ite.rummager
-								console.log(ite)
-								uni.request({
-									header: {
-										'content-Type': 'application/json'
-									},
-									url: "http://119.27.171.77:8077/tunnelExamine/findByIdList", //仅为示例，并非真实接口地址。
-									method: 'POST',
-									data: {
-										tunnelId: ite.tunnelId,
-										time: ite.time.substring(0, 7)
-									},
-									success: (res) => {
-										this.Array=[]
-										console.log(res)
-										this.Array.push(res)
-										console.log(this.Array[0].data.data[0].detailList)
-										if(this.Array[0].data.data[0].detailList.length){
-											this.form.detailList = this.Array[0].data.data[0].detailList
-											this.form.detailList.forEach(ite => {
-												this.$delete(ite, 'tunnelExamineId')
-												this.$delete(ite, 'id')
-												if (ite.startStake == 'K+undefined') {
-													this.$delete(ite, 'startStake')
-													this.$set(ite,'startStake','K')
-												}
-												if (ite.endStake == 'K+undefined') {
-													this.$delete(ite, 'endStake')
-													this.$set(ite,'endStake','K')
-												}
-											})
-										}
-									}
-								});
+								itemArray.push(ite)
 							}
 						})
+						this.ArrayDate = {
+							culverId: itemArray[0].culverId,
+							time: itemArray[0].time.substring(0, 7)
+						}
+						uni.request({
+							header: {
+								'content-Type': 'application/json'
+							},
+							url: "http://119.27.171.77:8077/tunnelExamine/findByIdList", //仅为示例，并非真实接口地址。
+							method: 'POST',
+							data: this.ArrayDate,
+							success: (res) => {
+								this.Array=[]
+								console.log(res)
+								this.Array.push(res)
+								console.log(this.Array[0].data.data[0].detailList)
+								if(this.Array[0].data.data[0].detailList.length){
+									this.form.detailList = this.Array[0].data.data[0].detailList
+									this.form.detailList.forEach(ite => {
+										this.$delete(ite, 'tunnelExamineId')
+										this.$delete(ite, 'id')
+										if (ite.startStake == 'K+undefined') {
+											this.$delete(ite, 'startStake')
+											this.$set(ite,'startStake','K')
+										}
+										if (ite.endStake == 'K+undefined') {
+											this.$delete(ite, 'endStake')
+											this.$set(ite,'endStake','K')
+										}
+									})
+								}
+							}
+						});
 
 
 					}

@@ -94,6 +94,9 @@
 										<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>有损坏</text>
 									</label>
 								</picker>
+								<label>
+									<radio value="其他" :checked="form.detailList[index].damageType=='其他'? true:false" /><text>其他</text>
+								</label>
 							</radio-group>
 						</t-td>
 						<t-td align="left"><input v-model="form.detailList[index].damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
@@ -211,9 +214,6 @@
 		watch: {
 			getCouponSelected0(newVal, oldVal) {
 				console.log(newVal, oldVal)
-			},
-			damageType(newval, oldVal) {
-				console.log(newValue)
 			}
 		},
 		created() {
@@ -222,7 +222,7 @@
 		methods: {
 			change11(e, index) {
 				console.log(e, index)
-				this.index=index
+				this.index = index
 				console.log(this.form.detailList)
 				this.form.detailList[index].damageType = e.detail.value
 			},
@@ -278,38 +278,47 @@
 
 					success: (res) => {
 						console.log(res)
+						let itemArray=[]
 						res.data.data.list.forEach(item => {
-							this.ArrayDate = {
-								culverId: item.culverId,
-								time: item.time.substring(0, 7)
-							}
 							if (item.culverId == this.roadData[e.target.value - 1].id) {
+								itemArray.push(item)
+								// this.ArrayDate = {
+								// 	culverId: item.culverId,
+								// 	time: item.time.substring(0, 7)
+								// }
 								console.log(item.time)
 								this.timeArr.push(item.time.substring(0, 7))
 								this.rummager = item.rummager
-								uni.request({
-									header: {
-										'content-Type': 'application/json'
-									},
-									url: "http://119.27.171.77:8077/culvertExamine/findByIdList", //仅为示例，并非真实接口地址。
-									method: 'POST',
-									data: this.ArrayDate,
-									success: (res) => {
-										this.Array = []
-										console.log(res)
-										this.Array.push(res)
-										console.log(this.Array[0].data.data[0].detailList)
-										if (this.Array[0].data.data[0].detailList.length) {
-											this.form.detailList = this.Array[0].data.data[0].detailList
-											this.form.detailList.forEach(ite => {
-												this.$delete(ite, 'culvertExamineId')
-												this.$delete(ite, 'id')
-											})
-										}
-									}
-								});
 							}
 						})
+						this.ArrayDate = {
+							culverId: itemArray[0].culverId,
+							time: itemArray[0].time.substring(0, 7)
+						}
+						uni.request({
+							header: {
+								'content-Type': 'application/json'
+							},
+							url: "http://119.27.171.77:8077/culvertExamine/findByIdList", //仅为示例，并非真实接口地址。
+							method: 'POST',
+							data: this.ArrayDate,
+							success: (res) => {
+								this.Array = []
+								console.log(res)
+								this.Array.push(res)
+								console.log(this.Array[0].data.data[0].detailList)
+								if (this.Array[0].data.data[0].detailList.length) {
+									console.log(this.Array[0].data.data[0].detailList)
+									console.log(this.form.detailList)
+									this.form.detailList = this.Array[0].data.data[0].detailList
+									console.log(this.form.detailList)
+									this.form.detailList.forEach(ite => {
+										this.$delete(ite, 'culvertExamineId')
+										this.$delete(ite, 'id')
+									})
+								}
+							}
+						});
 					}
 				});
 
@@ -317,7 +326,8 @@
 			getCouponSelected(e, index) {
 				console.log(e)
 				this.e = e
-				this.form.detailList[index].damageScope=this.couponList[e.target.value]
+				console.log(this.form.detailList)
+				this.form.detailList[index].damageScope = this.couponList[e.target.value]
 			},
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
@@ -385,8 +395,9 @@
 							});
 							this.arr = arr2
 							this.form.detailList = this.surveyArr1
-							this.form.detailList.forEach(it=>{
-								this.$set(it,'damageScope',"")
+							this.form.detailList.forEach(it => {
+								this.$set(it, 'damageScope', "")
+								this.$set(it, 'damageType', "")
 							})
 						})
 					}
@@ -440,12 +451,6 @@
 					setTimeout(() => {
 						uni.switchTab({
 							url: "../jiancha/index",
-							success() {
-								let page = getCurrentPages().pop(); //跳转页面成功之后                 
-								console.log(page)
-								if (!page) return;
-								page.onLoad(); //如果页面存在，则重新刷新页面
-							}
 						})
 					}, 1500)
 					uni.setStorageSync("username", "1")
