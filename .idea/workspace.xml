@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b69e239f-6c34-42dc-b131-b782d03beb21" name="Default Changelist" comment="Default Changelist">
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/高速养护.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.vscode/launch.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorui/animation.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorui/components/cu-custom.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorui/icon.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorui/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/t-table/t-table.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/t-table/t-td.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/t-table/t-th.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/components/t-table/t-tr.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/handong/add.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/handong/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/handong/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/homePage/homePage.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/jiancha/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/loading/loading.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/login.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/luji/add.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/luji/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/luji/index/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/luji/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/lumian/add.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/lumian/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/lumian/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/my/my.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/pingding/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/qiaoliang/add.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/qiaoliang/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/qiaoliang/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/suidao/add.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/suidao/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/suidao/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/yanxian/add.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/yanxian/index.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pages/yanxian/list.vue" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/Bridge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/admin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/banner1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/banner2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/banner3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/curing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/evaluate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/highway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/homePage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/homePage1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/ins.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/inspect.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/inspect1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/kefu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/login.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/my.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/my1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/static/images/technology.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/store/index.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/template.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/debug/.roid.ins" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/debug/android_debug.apk" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/.automator/app-plus/.automator.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/.automator/h5/.automator.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappchooselocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappes6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappopenlocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniapppicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappquill.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappquillimageresize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappscan.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappsuccess.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/__uniappview.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/app-config-service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/app-config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/app-service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/app-view.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/Bridge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/admin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/banner1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/banner2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/banner3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/curing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/evaluate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/highway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/homePage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/homePage1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/ins.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/inspect.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/inspect1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/kefu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/login.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/my.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/my1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/images/technology.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/static/uni.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/app-plus/view.umd.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5.zip" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/Bridge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/admin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/banner1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/banner2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/banner3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/curing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/evaluate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/highway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/homePage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/homePage1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/ins.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/inspect.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/inspect1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/kefu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/login.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/my.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/my1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/images/technology.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/Bridge.2b6c1096.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/background.44bc8dd1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/curing.c1959f06.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/highway.9894fd43.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/ins.d69a372a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/kefu.8eeda91a.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/img/login.a35041bd.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/chunk-vendors.edfe785f.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/index.58ec394e.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-handong-add.41ac1e51.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-handong-add~pages-handong-list~pages-qiaoliang-add~pages-qiaoliang-list~pages-suidao-add~pages~3e55b527.b94efe55.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-handong-index.6f456643.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-handong-list.8b2c04dc.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-homePage-homePage.c4bd6fe5.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-jiancha-index.0c4cd44a.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-login.3c774f4f.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-luji-add.87e3bafd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-luji-index.6015fb9a.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-luji-list.cf32b44b.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-lumian-add.4775403b.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-lumian-index.3f2cc4bd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-lumian-list.9cf57a5d.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-my-my.d7873656.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-pingding-index.f995431b.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-qiaoliang-add.85853faf.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-qiaoliang-index.9b85dde4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-qiaoliang-list.aa9269c2.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-suidao-add.41f4237d.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-suidao-index.a53943a4.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-suidao-list.9dd3cbfd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-yanxian-add.eb90066a.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-yanxian-index.745d2dd6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/js/pages-yanxian-list.510e64cb.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/build/h5/static/uni.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/Bridge.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/admin.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/background.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/banner1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/banner2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/banner3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/curing.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/evaluate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/highway.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/homePage.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/homePage1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/ins.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/inspect.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/inspect1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/kefu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/login.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/login.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/my.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/my1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/static/images/technology.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappchooselocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappes6.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappopenlocation.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniapppicker.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappquill.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappquillimageresize.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappscan.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappsuccess.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/__uniappview.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/app-config-service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/app-config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/app-service.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/app-view.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/manifest.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/static/images/login.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/static/uni.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/view.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unpackage/resources/__UNI__ABCDAA6/www/view.umd.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/http.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/http.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages.json" beforeDir="false" afterPath="$PROJECT_DIR$/pages.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pages/index/index.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-config-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-config-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-service.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-view.js" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/app-view.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/unpackage/dist/dev/app-plus/manifest.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1fwuRVeFIeAqgCJbfUCE2SHTBSZ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../4r-sass-web" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b69e239f-6c34-42dc-b131-b782d03beb21" name="Default Changelist" comment="" />
+      <created>1597141468630</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1597141468630</updated>
+      <workItem from="1597141470330" duration="1527000" />
+      <workItem from="1597143071070" duration="409000" />
+      <workItem from="1597143487991" duration="28000" />
+      <workItem from="1597143516817" duration="728000" />
+      <workItem from="1597304885224" duration="4000" />
+      <workItem from="1597643885849" duration="16000" />
+      <workItem from="1597644703843" duration="338000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Default Changelist" />
+    <option name="LAST_COMMIT_MESSAGE" value="Default Changelist" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="500" y="184" key="FileChooserDialogImpl" timestamp="1597645035630">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="500" y="184" key="FileChooserDialogImpl/0.0.1440.860@0.0.1440.860" timestamp="1597645035630" />
+    <state x="221" y="74" key="SettingsEditor" timestamp="1597142801914">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="221" y="74" key="SettingsEditor/0.0.1440.860@0.0.1440.860" timestamp="1597142801914" />
+    <state x="523" y="342" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1597644951295">
+      <screen x="0" y="0" width="1440" height="860" />
+    </state>
+    <state x="523" y="342" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1440.860@0.0.1440.860" timestamp="1597644951295" />
+  </component>
+</project>
