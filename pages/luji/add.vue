@@ -28,14 +28,16 @@
 				<view>线路编号</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="form.highData.number" type="text" />
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="form.highData.number"
+					 type="text" />
 				</view>
 			</view>
 			<view class="list-1">
 				<view>管理公司</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="rankData.name" type="text" />
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="rankData.name"
+					 type="text" />
 				</view>
 			</view>
 			<view class="list-1">
@@ -56,14 +58,15 @@
 			<view class="btn-3" style="margin-left: 10px;">
 				调查内容
 			</view>
-			<view class="list-1 surveyBox">
-				<view class="contentItem" v-if="item.name!==null" v-for="(item,index) in surveyArr" :key="index" @click="selectType(index,item)"
-				 :class="{active:nowIndex==index}">
-					{{item.name}}-{{item.extent}}
+			<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)"  :range="selectArray" style="width: 100%;">
+				<view class="list-1 surveyBox">
+					<view class="contentItem" v-for="(item,index) in butten" :key="index" @click="selectType(index,item)" :class="{active:nowIndex1==index}">
+						{{item}}
+					</view>
 				</view>
-			</view>
+			</picker>
 			<view class="desc">
-				{{nowItem.name}}
+				{{nowItem}}-{{endqz}}
 			</view>
 			<view>
 				<span>百米损坏</span>
@@ -71,8 +74,8 @@
 			</view>
 			<view v-for="(item,index) in inspect" v-show="nowIndex==index">
 				<view class="rankbox">
-					<p style="background-color: #ffd978;">{{proprityItem.degree}}</p>
-					<p>权重{{surveyArr[index].weight}}单位扣分：{{surveyArr[index].unitPoint}} 单位：{{surveyArr[index].unit}}</p>
+					<p style="background-color: #ffd978;">{{endqz}}</p>
+					<p>权重{{end.weight}}单位扣分：{{end.unitPoint}} 单位：{{end.unit}}</p>
 				</view>
 				<view class="table">
 					<table border="" cellspacing="" cellpadding="">
@@ -179,9 +182,6 @@
 						<view class="uni-input">{{time}}</view>
 					</picker>
 				</view>
-				<!-- <view class="input-time-img" style="padding-top:6px">
-					<input id="mydatepicker" placeholder="请输入日期" class="laydate-icon" style="width: 200px;" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
-				</view> -->
 			</view>
 			<view class="submit" @click="save">
 				提交
@@ -220,15 +220,21 @@
 					detailList: [],
 				},
 				nowIndex: 0,
+				nowIndex1: 0,
 				extent: "",
 				width: "",
 				zh1: "",
 				zh2: "",
 				index: 0,
-				weekday:"",
+				typeIndex:"",
+				weekday: "",
 				index0: 0,
-				nowItem: "路肩损坏",
+				nowItem: "",
+				butten: [],
 				roadDataList: ['请选择'],
+				selectArray: [],
+				endqz:"",
+				end: {}, //最后选中的部件
 				roadData: [],
 				couponList: ['请选择', '上行线', '下行线'],
 				time: new Date().toISOString().slice(0, 10), //日期
@@ -242,182 +248,11 @@
 				surveyArr: [],
 				list: [],
 				inspect: [],
-				rankData:{
-					name:""
-					},
+				rankData: {
+					name: ""
+				},
 				proprityItem: {
 					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem1: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem2: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem3: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem4: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem5: {
-					degree: "轻",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem6: {
-					degree: "轻",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem7: {
-					degree: "轻",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem8: {
-					degree: "轻",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem9: {
-					degree: "轻",
 					mark: "",
 					weight: "",
 					unit: "",
@@ -460,14 +295,6 @@
 		},
 		created() {
 			this.surveyList()
-			var that = this;
-			// uni.getStorage({
-			// 	key: 'currentUser',
-			// 	success: function(res) {
-			// 		if (JSON.parse(res.data)) {
-			// 		}
-			// 	}
-			// });
 		},
 		methods: {
 			newValue(index) {
@@ -492,8 +319,20 @@
 				})
 			},
 			selectType(i, v) {
+				this.endqz=""
+				this.end=""
 				this.nowIndex = i;
+				this.nowIndex1 = i;
 				this.nowItem = v;
+				let selectArray1=[]
+				this.surveyArr.forEach(res=>{
+					console.log(res)
+					if(res.name==this.nowItem){
+						console.log(res.extent)
+						selectArray1.push(res.extent)
+					}
+				})
+				this.selectArray=[...new Set(selectArray1)]
 			},
 			bindDateChange: function(e) {
 				this.time = e.target.value
@@ -524,8 +363,8 @@
 				this.roadData.forEach(res => {
 					if (this.direction0 === res.name) {
 						this.roadDataId = res.id
-						this.rankData.name=res.rankData.name
-						this.form.highData.number=res.highData.number
+						this.rankData.name = res.rankData.name
+						this.form.highData.number = res.highData.number
 					}
 				})
 				let data = {
@@ -539,23 +378,39 @@
 					url: "http://119.27.171.77:8077/roadbedSurvey/page/list", //仅为示例，并非真实接口地址。
 					method: 'POST',
 					data: data,
-				
+
 					success: (res) => {
 						console.log(res.data.data.list[1])
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[1].startStake.indexOf('k')+1,res.data.data.list[1].startStake.lastIndexOf('+'))
+						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[1].startStake.indexOf('k') + 1, res.data
+							.data.list[1].startStake.lastIndexOf('+'))
 						this.zh2 = (res.data.data.list[1].startStake.split('+')[1])
-						this.extent=res.data.data.list[1].extent
-						this.width=res.data.data.list[1].width
-						this.staff=res.data.data.list[1].staff
-				
+						this.extent = res.data.data.list[1].extent
+						this.width = res.data.data.list[1].width
+						this.staff = res.data.data.list[1].staff
+
 					}
 				});
 			},
-			getCouponSelected(e) {
+			getCouponSelected(e, index) {
 				console.log(e)
 				this.e = e
 				this.index = e.target.value;
 				this.direction = this.couponList[e.target.value]
+				console.log(this.selectArray[e.target.value])
+				this.endqz=this.selectArray[e.target.value]
+				console.log(this.butten[this.nowIndex])
+				let endObj = []
+				let endindex = []
+				console.log(this.surveyArr)
+				this.surveyArr.forEach((res,index) => {
+					if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[e.target.value]) {
+						endindex.push(index)
+						endObj.push(res)
+					}
+				})
+				this.end = endObj[0]
+				this.nowIndex=endindex[0]
+				console.log(this.nowIndex)
 			},
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
@@ -576,17 +431,6 @@
 					console.log(error);
 				})
 			},
-			// zhList() {
-			// 	let opts = {
-			// 		url: '/pilenumber/listAll',
-			// 		method: 'post'
-			// 	};
-			// 	this.$http.httpRequest(opts, {}).then(res => {
-			// 		console.log(res)
-			// 	}, error => {
-			// 		console.log(error);
-			// 	})
-			// },
 			surveyList() {
 				uni.request({
 					header: {
@@ -617,13 +461,18 @@
 					success: (res) => {
 						// var result = JSON.parse(res.data.projectList);
 						console.log(res)
+						let surveyNameArr = []
 						res.data.data.forEach(item => {
 							console.log(item)
+							console.log(item.name)
+							surveyNameArr.push(item.name)
+							console.log(surveyNameArr)
+							this.butten = [...new Set(surveyNameArr)]
+							console.log(this.butten)
 							this.surveyArr.push(item)
 							console.log(this.surveyArr)
 							this.inspect = []
 							for (let i = 0; i < this.surveyArr.length; i++) {
-								console.log(this.surveyArr[i])
 								this.inspect.push({
 									degree: this.surveyArr[i].extent,
 									mark: this.surveyArr[i].unitPoint,
@@ -645,7 +494,6 @@
 									value: "",
 									score: ""
 								})
-								console.log(this.inspect)
 							}
 						})
 					}
@@ -708,7 +556,7 @@
 							direction: this.direction,
 							roadDataId: this.roadDataId,
 							startStake: "k" + this.zh1 + "+" + this.zh2,
-							rankData:this.rankData,
+							rankData: this.rankData,
 							extent: this.extent,
 							width: this.width,
 							staff: this.staff,

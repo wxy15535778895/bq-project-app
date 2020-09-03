@@ -91,7 +91,7 @@
 								</label>
 								<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="roadDataList">
 									<label>
-										<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>有损坏</text>
+										<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>{{form.detailList[index].damageScope}}</text>
 									</label>
 								</picker>
 								<label>
@@ -189,7 +189,7 @@
 				nowItem: "路肩损坏",
 				roadDataList: ['- 请选择 -'],
 				roadData: [],
-				couponList: ['请选择', '上行线', '下行线'],
+				couponList: ['请选择', '开裂', '倾斜'],
 				direction: "",
 				direction0: {}, //当前选择的桥梁
 				tableList: [],
@@ -225,6 +225,7 @@
 		methods: {
 			change11(e, index) {
 				console.log(e, index)
+				console.log(this.arr[index])
 				this.index = index
 				console.log(this.form.detailList)
 				if(e.detail.value=='其他'){
