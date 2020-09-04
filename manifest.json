@@ -57,13 +57,13 @@
             },
             "icons" : {
                 "ios" : {
-                    "appstore" : "C:/Users/Administrator/Desktop/微信图片_20200810110724.png"
+                    "appstore" : "D:/logo.png"
                 },
                 "android" : {
-                    "hdpi" : "C:/Users/Administrator/Desktop/微信图片_20200810110724.png",
-                    "xhdpi" : "C:/Users/Administrator/Desktop/微信图片_20200810110724.png",
-                    "xxhdpi" : "C:/Users/Administrator/Desktop/微信图片_20200810110724.png",
-                    "xxxhdpi" : "C:/Users/Administrator/Desktop/微信图片_20200810110724.png"
+                    "hdpi" : "D:/logo.png",
+                    "xhdpi" : "D:/logo.png",
+                    "xxhdpi" : "D:/logo.png",
+                    "xxxhdpi" : "D:/logo.png"
                 }
             }
         }

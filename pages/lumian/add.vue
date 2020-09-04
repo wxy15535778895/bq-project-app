@@ -98,31 +98,31 @@
 								<td>
 									<view class>
 										<span>1</span>
-										<input type="number" @input="newValue(index)" v-model="item.one" maxlength="2" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one" maxlength="2" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>2</span>
-										<input type="number" @input="newValue(index)" v-model="item.two" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.two" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>3</span>
-										<input type="number" @input="newValue(index)" v-model="item.three" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.three" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>4</span>
-										<input type="number" @input="newValue(index)" v-model="item.four" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.four" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>5</span>
-										<input type="number" @input="newValue(index)" v-model="item.five" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.five" />
 									</view>
 								</td>
 							</tr>
@@ -130,31 +130,31 @@
 								<td>
 									<view class>
 										<span>6</span>
-										<input type="number" @input="newValue(index)" v-model="item.six" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.six" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>7</span>
-										<input type="number" @input="newValue(index)" v-model="item.seven" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.seven" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>8</span>
-										<input type="number" @input="newValue(index)" v-model="item.eight" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.eight" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>9</span>
-										<input type="number" @input="newValue(index)" v-model="item.nine" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.nine" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>10</span>
-										<input type="number" @input="newValue(index)" v-model="item.ten" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.ten" />
 									</view>
 								</td>
 							</tr>
@@ -227,31 +227,31 @@
 								<td>
 									<view class>
 										<span>1</span>
-										<input type="number" @input="newValue(index)" v-model="item.one" maxlength="2" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one" maxlength="2" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>2</span>
-										<input type="number" @input="newValue(index)" v-model="item.two" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.two" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>3</span>
-										<input type="number" @input="newValue(index)" v-model="item.three" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.three" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>4</span>
-										<input type="number" @input="newValue(index)" v-model="item.four" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.four" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>5</span>
-										<input type="number" @input="newValue(index)" v-model="item.five" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.five" />
 									</view>
 								</td>
 							</tr>
@@ -259,31 +259,31 @@
 								<td>
 									<view class>
 										<span>6</span>
-										<input type="number" @input="newValue(index)" v-model="item.six" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.six" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>7</span>
-										<input type="number" @input="newValue(index)" v-model="item.seven" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.seven" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>8</span>
-										<input type="number" @input="newValue(index)" v-model="item.eight" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.eight" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>9</span>
-										<input type="number" @input="newValue(index)" v-model="item.nine" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.nine" />
 									</view>
 								</td>
 								<td>
 									<view class>
 										<span>10</span>
-										<input type="number" @input="newValue(index)" v-model="item.ten" />
+										<input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.ten" />
 									</view>
 								</td>
 							</tr>
