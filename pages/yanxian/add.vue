@@ -56,14 +56,16 @@
 			<view class="btn-3" style="margin-left: 10px;">
 				调查内容
 			</view>
+			<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)"  :range="selectArray" style="width: 100%;">
 			<view class="list-1 surveyBox">
-				<view class="contentItem" v-if="item.name!==null" v-for="(item,index) in surveyArr" :key="index" @click="selectType(index,item)"
-				 :class="{active:nowIndex==index}">
-										{{item.name}}-{{item.extent}}
+				<view class="contentItem" v-if="item.name!==null" v-for="(item,index) in butten" :key="index" @click="selectType(index,item)"
+				 :class="{active:nowIndex1==index}">
+										{{item}}
 				</view>
 			</view>
+			</picker>
 			<view class="desc">
-				{{nowItem.name}}
+				{{nowItem}}-{{endqz}}
 			</view>
 			<view>
 				<span>百米损坏</span>
@@ -71,62 +73,62 @@
 			</view>
 			<view v-for="(item,index) in inspect" v-show="nowIndex==index">
 				<view class="rankbox">
-					<p style="background-color: #ffd978;">{{proprityItem.degree}}</p>
-					<p>权重{{surveyArr[index].weight}}单位扣分：{{surveyArr[index].unitPoint}} 单位：{{surveyArr[index].unit}}</p>
+					<p style="background-color: #ffd978;">{{endqz}}</p>
+					<p>权重{{end.weight}}单位扣分：{{end.unitPoint}} 单位：{{end.unit}}</p>
 				</view>
 				<view class="table">
 					<table border="0" cellspacing="0" cellpadding="0">
 						<tr v-model="item[index]">
 							<td>
 								<view class="">
-									<span>1</span><input type="number" @input="newValue(index)" v-model="item.one" maxlength="2">
+									<span>1</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one" maxlength="2">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>2</span><input type="number" @input="newValue(index)" v-model="item.two">
+									<span>2</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.two">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>3</span><input type="number" @input="newValue(index)" v-model="item.three">
+									<span>3</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.three">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>4</span><input type="number" @input="newValue(index)" v-model="item.four">
+									<span>4</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.four">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>5</span><input type="number" @input="newValue(index)" v-model="item.five">
+									<span>5</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.five">
 								</view>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<view class="">
-									<span>6</span><input type="number" @input="newValue(index)" v-model="item.six">
+									<span>6</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.six">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>7</span><input type="number" @input="newValue(index)" v-model="item.seven">
+									<span>7</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.seven">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>8</span><input type="number" @input="newValue(index)" v-model="item.eight">
+									<span>8</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.eight">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>9</span><input type="number" @input="newValue(index)" v-model="item.nine">
+									<span>9</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.nine">
 								</view>
 							</td>
 							<td style="border-bottom: 1px solid #ddd;padding: 5px;">
 								<view class="">
-									<span>10</span><input type="number" @input="newValue(index)" v-model="item.ten">
+									<span>10</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.ten">
 								</view>
 							</td>
 						</tr>
@@ -217,6 +219,7 @@
 					detailList: [],
 				},
 				nowIndex: 0,
+				nowIndex1:0,
 				pageList:[],
 				addPage:[],
 				weekday:"",
@@ -227,9 +230,13 @@
 				index: 0,
 				index0: 0,
 				nowItem: "路肩损坏",
+				butten: [],
 				roadDataList: ['请选择'],
+				selectArray: [],
+				endqz:"",
+				end: {}, //最后选中的部件
 				roadData: [],
-				couponList: ['上行线', '下行线'],
+				couponList: ['请选择', '上行线', '下行线'],
 				time: new Date().toISOString().slice(0, 10), //日期
 				direction: "",
 				direction0: "",
@@ -262,178 +269,7 @@
 					total: "",
 					value: "",
 					score: ""
-				},
-				proprityItem1: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem2: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem3: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem4: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem5: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem6: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem7: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "m²",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem8: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
-				proprityItem9: {
-					degree: "",
-					mark: "",
-					weight: "",
-					unit: "",
-					one: "",
-					two: "",
-					three: "",
-					four: "",
-					five: "",
-					six: "",
-					seven: "",
-					eight: "",
-					nine: "",
-					ten: "",
-					total: "",
-					value: "",
-					score: ""
-				},
+				}
 			}
 		},
 		computed: {
@@ -494,8 +330,23 @@
 				})
 			},
 			selectType(i, v) {
+				console.log(v)
+				this.index=0
+				this.endqz=""
+				this.end=""
 				this.nowIndex = i;
+				this.nowIndex1 = i;
 				this.nowItem = v;
+				let selectArray1=[]
+				console.log(this.nowItem)
+				this.surveyArr.forEach(res=>{
+					console.log(res)
+					if(res.name==this.nowItem){
+						console.log(res.extent)
+						selectArray1.push(res.extent)
+					}
+				})
+				this.selectArray=[...new Set(selectArray1)]
 			},
 			bindDateChange: function(e) {
 				this.time = e.target.value
@@ -521,7 +372,6 @@
 				this.index0 = e.target.value;
 				this.direction0 = this.roadDataList[e.target.value]
 				this.roadData.forEach(res => {
-					// console.log(res)
 					if (this.direction0 === res.name) {
 						this.roadDataId = res.id
 						this.rankData.name=res.rankData.name
@@ -541,21 +391,43 @@
 					data: data,
 				
 					success: (res) => {
-						console.log(res.data.data.list[1])	
-						this.zh1 = res.data.data.list[1].startStake.substring(res.data.data.list[1].startStake.indexOf('K')+1,res.data.data.list[1].startStake.lastIndexOf('+'))
-						this.zh2 = (res.data.data.list[1].startStake.split('+')[1])
-						this.extent=res.data.data.list[1].extent
-						this.width=res.data.data.list[1].width
-						this.staff=res.data.data.list[1].staff
+						if(res.data.data.list[0].direction=='上行线'){
+							this.index=1
+							this.e=e
+						}else{
+							this.index=2
+							this.e=e
+						}
+						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
+						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+						this.extent = res.data.data.list[0].extent
+						this.width = res.data.data.list[0].width
+						this.staff = res.data.data.list[0].staff
+						this.direction = res.data.data.list[0].direction
 					}
 				});
 			},
-			getCouponSelected(e) {
+			getCouponSelected(e, index) {
 				console.log(e)
 				this.e = e
 				this.index = e.target.value;
 				this.direction = this.couponList[e.target.value]
-			},
+				console.log(this.index)
+				this.endqz=this.selectArray[this.index]
+				console.log(this.butten[this.nowIndex])
+				let endObj = []
+				let endindex = []
+				console.log(this.surveyArr)
+				this.surveyArr.forEach((res,index) => {
+					if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[this.index]) {
+						endindex.push(index)
+						endObj.push(res)
+					}
+				})
+				this.end = endObj[0]
+				this.nowIndex=endindex[0]
+				console.log(this.nowIndex)
+			  },
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
 					// console.log(res);
@@ -606,9 +478,13 @@
 					success: (res) => {
 						// var result = JSON.parse(res.data.projectList);
 						console.log(res)
+						let surveyNameArr=[]
 						res.data.data.forEach(item => {
 							console.log(item)
-
+							surveyNameArr.push(item.name)
+							console.log(surveyNameArr)
+							this.butten = [...new Set(surveyNameArr)]
+							console.log(this.butten)
 							this.surveyArr.push(item)
 							console.log(this.surveyArr)
 							this.inspect = []

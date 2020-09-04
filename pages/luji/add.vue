@@ -82,54 +82,54 @@
 						<tr v-model="proprityItem">
 							<td>
 								<view class="">
-									<span>1</span><input type="number" @input="newValue(index)" v-model="item.one" maxlength="2">
+									<span>1</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one" maxlength="2">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>2</span><input type="number" @input="newValue(index)" v-model="item.two">
+									<span>2</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.two">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>3</span><input type="number" @input="newValue(index)" v-model="item.three">
+									<span>3</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.three">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>4</span><input type="number" @input="newValue(index)" v-model="item.four">
+									<span>4</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.four">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>5</span><input type="number" @input="newValue(index)" v-model="item.five">
+									<span>5</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.five">
 								</view>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<view class="">
-									<span>6</span><input type="number" @input="newValue(index)" v-model="item.six">
+									<span>6</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.six">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>7</span><input type="number" @input="newValue(index)" v-model="item.seven">
+									<span>7</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.seven">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>8</span><input type="number" @input="newValue(index)" v-model="item.eight">
+									<span>8</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.eight">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>9</span><input type="number" @input="newValue(index)" v-model="item.nine">
+									<span>9</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.nine">
 								</view>
 							</td>
 							<td>
 								<view class="">
-									<span>10</span><input type="number" @input="newValue(index)" v-model="item.ten">
+									<span>10</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.ten">
 								</view>
 							</td>
 						</tr>
@@ -319,6 +319,7 @@
 				})
 			},
 			selectType(i, v) {
+				this.index=0
 				this.endqz=""
 				this.end=""
 				this.nowIndex = i;
@@ -368,7 +369,7 @@
 					}
 				})
 				let data = {
-					currentPage: "1",
+					currentPage: 1,
 					startStake: "",
 				};
 				uni.request({
@@ -380,13 +381,20 @@
 					data: data,
 
 					success: (res) => {
-						console.log(res.data.data.list[1])
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[1].startStake.indexOf('k') + 1, res.data
-							.data.list[1].startStake.lastIndexOf('+'))
-						this.zh2 = (res.data.data.list[1].startStake.split('+')[1])
-						this.extent = res.data.data.list[1].extent
-						this.width = res.data.data.list[1].width
-						this.staff = res.data.data.list[1].staff
+						if(res.data.data.list[0].direction=='上行线'){
+							this.index=1
+							this.e=e
+						}else{
+							this.index=2
+							this.e=e
+						}
+						console.log(this.index)
+						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
+						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+						this.extent = res.data.data.list[0].extent
+						this.width = res.data.data.list[0].width
+						this.staff = res.data.data.list[0].staff
+						this.direction = res.data.data.list[0].direction
 
 					}
 				});
@@ -396,14 +404,13 @@
 				this.e = e
 				this.index = e.target.value;
 				this.direction = this.couponList[e.target.value]
-				console.log(this.selectArray[e.target.value])
-				this.endqz=this.selectArray[e.target.value]
+				this.endqz=this.selectArray[this.index]
 				console.log(this.butten[this.nowIndex])
 				let endObj = []
 				let endindex = []
 				console.log(this.surveyArr)
 				this.surveyArr.forEach((res,index) => {
-					if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[e.target.value]) {
+					if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[this.index]) {
 						endindex.push(index)
 						endObj.push(res)
 					}

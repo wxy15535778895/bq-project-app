@@ -31,14 +31,16 @@
 				<view>线路编号</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="form.highData.number" type="text" />
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="form.highData.number"
+					 type="text" />
 				</view>
 			</view>
 			<view class="list-1">
 				<view>管理公司</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="rankData.name" type="text" />
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="rankData.name"
+					 type="text" />
 				</view>
 			</view>
 			<view class="list-1">
@@ -68,17 +70,27 @@
 				<p class="choice" @tap="change(1)" :class="{btna:btnnum == 1}">沥青路</p>
 			</view>
 			<view class="list-1 surveyBox" :class="{dis:btnnum == 0}">
-				<view class="contentItem" v-for="(item,index) in surveyArr" v-if="item.countScore2!==null" :key="index" @click="selectType(index,item)"
-				 :class="{active:nowIndex==index}">					{{item.name}}-{{item.extent}}</view>
-				<view class="desc">{{nowItem.name}}</view>
+				<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="selectArray" style="width: 100%;">
+					<view class="picker_box" style="-webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;width: 100%;">
+						<view class="contentItem" v-for="(item,index) in butten" v-if="item.countScore2!==null" :key="index" @click="selectType(index,item)"
+						 :class="{active:nowIndex1==index}"> {{item}}</view>
+					</view>
+				</picker>
+				<view class="desc">
+					{{nowItem}}-{{endqz}}
+				</view>
 				<view>
 					<span>百米损坏</span>
 					<span>以千米为检测单元，每个数字，代表第 * 百米 区间。</span>
 				</view>
 				<view v-for="(item,index) in inspect" v-show="nowIndex==index">
 					<view class="rankbox">
-						<p style="background-color: #ffd978;">{{proprityItem.degree}}</p>
-						<p>权重{{surveyArr[index].weight}}单位扣分：{{surveyArr[index].unitPoint}} 单位：{{surveyArr[index].unit}}</p>
+						<p style="background-color: #ffd978;">{{endqz}}</p>
+						<p>权重{{end.weight}}单位扣分：{{end.unitPoint}} 单位：{{end.unit}}</p>
 					</view>
 					<view class="table">
 						<table border="1" cellspacing="0" cellpadding="0">
@@ -187,17 +199,27 @@
 			</view>
 
 			<view class="list-1 surveyBox" :class="{dis:btnnum == 1}">
-				<view class="contentItem" v-for="(item,index) in surveyArr0" v-if="item.countScore2!==null" :key="index" @click="selectType(index,item)"
-				 :class="{active:nowIndexZ==index}">{{item.name}}</view>
-				<view class="desc">{{nowItem.name}}</view>
+				<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="selectArray" style="width: 100%;">
+					<view class="picker_box" style="-webkit-flex-wrap: wrap;
+				flex-wrap: wrap;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;width: 100%;">
+						<view class="contentItem" v-for="(item,index) in butten0" v-if="item.countScore2!==null" :key="index" @click="selectType(index,item)"
+						 :class="{active:nowIndexZ1==index}">{{item}}</view>
+					</view>
+				</picker>
+				<view class="desc">
+					{{nowItem}}-{{endqz}}
+				</view>
 				<view>
 					<span>百米损坏</span>
 					<span>以千米为检测单元，每个数字，代表第 * 百米 区间。</span>
 				</view>
 				<view v-for="(item,index) in inspect1" v-show="nowIndexZ==index">
 					<view class="rankbox">
-						<p style="background-color: #ffd978;">{{proprityItemZ.degree}}</p>
-						<p>权重{{surveyArr0[index].weight}}单位扣分：{{surveyArr0[index].unitPoint}} 单位：{{surveyArr0[index].unit}}</p>
+						<p style="background-color: #ffd978;">{{endqz}}</p>
+						<p>权重{{end.weight}}单位扣分：{{end.unitPoint}} 单位：{{end.unit}}</p>
 					</view>
 					<view class="table">
 						<table border cellspacing cellpadding>
@@ -357,6 +379,8 @@
 				},
 				nowIndex: 0,
 				nowIndexZ: 0,
+				nowIndex1: 0,
+				nowIndexZ1: 0,
 				extent: "",
 				width: "",
 				zh1: "", //起点桩号
@@ -364,15 +388,21 @@
 				btnnum: 0, //tab选项卡
 				e: null, //非空判断
 				e0: null, //非空判断
-								time: new Date().toISOString().slice(0, 10), //日期
+				time: new Date().toISOString().slice(0, 10), //日期
 				index: 0,
 				index0: 0,
 				nowItem: "路肩损坏",
 				roadDataList: ['请选择'],
+				butten: [],
+				butten0: [],
 				roadData: [],
 				couponList: ['请选择', '上行线', '下行线'],
+				butten: [],
+				selectArray: [],
+				endqz: "",
+				end: {}, //最后选中的部件
 				direction: "",
-				weekday:"",
+				weekday: "",
 				direction0: "",
 				roadDataId: "",
 				time: currentDate,
@@ -381,11 +411,11 @@
 				surveyArr0: [],
 				Array: [],
 				list: [],
-				inspect:[],
-				inspect1:[],
-				rankData:{
-					name:""
-					},
+				inspect: [],
+				inspect1: [],
+				rankData: {
+					name: ""
+				},
 				proprityItem: {
 					degree: "",
 					mark: "",
@@ -651,7 +681,7 @@
 		},
 		methods: {
 			newValue(index) {
-				if(this.btnnum==0){
+				if (this.btnnum == 0) {
 					var Sum = 0;
 					this.inspect.forEach(res => {
 						res.total = Number(res.one) +
@@ -664,13 +694,13 @@
 							Number(res.eight) +
 							Number(res.nine) +
 							Number(res.ten)
-						 res.score=(res.total*res.weight*res.unitPoint)
-						 console.log(res.score)
-						 Sum += res.score
-					     this.form.countScore=(Sum).toFixed(2)
-						 this.form.totalScore = (100 - this.form.countScore).toFixed(2)
+						res.score = (res.total * res.weight * res.unitPoint)
+						console.log(res.score)
+						Sum += res.score
+						this.form.countScore = (Sum).toFixed(2)
+						this.form.totalScore = (100 - this.form.countScore).toFixed(2)
 					})
-				}else{
+				} else {
 					var Sum1 = 0;
 					this.inspect1.forEach(res => {
 						res.total = Number(res.one) +
@@ -683,19 +713,46 @@
 							Number(res.eight) +
 							Number(res.nine) +
 							Number(res.ten)
-						 res.score=(res.total*res.weight*res.unitPoint)
-						 console.log(res.score)
-						 Sum1 += res.score
-					     this.form.countScoreZ=(Sum1).toFixed(2)
-						 this.form.totalScoreZ = (100 - this.form.countScoreZ).toFixed(2)
+						res.score = (res.total * res.weight * res.unitPoint)
+						console.log(res.score)
+						Sum1 += res.score
+						this.form.countScoreZ = (Sum1).toFixed(2)
+						this.form.totalScoreZ = (100 - this.form.countScoreZ).toFixed(2)
 					})
-					
+
 				}
 			},
 			selectType(i, v) {
-				this.nowIndex = i;
-				this.nowIndexZ = i;
-				this.nowItem = v;
+				this.index = 0
+				this.endqz = ""
+				this.end = ""
+				if (this.btnnum == 0) {
+					this.nowIndex = i;
+					this.nowIndex1 = i;
+					this.nowItem = v;
+					let selectArray1 = []
+					this.surveyArr.forEach(res => {
+						console.log(res)
+						if (res.name == this.nowItem) {
+							console.log(res.extent)
+							selectArray1.push(res.extent)
+						}
+					})
+					this.selectArray = [...new Set(selectArray1)]
+				} else {
+					this.nowIndexZ = i;
+					this.nowIndexZ1 = i;
+					this.nowItem = v;
+					let selectArray1 = []
+					this.surveyArr0.forEach(res => {
+						console.log(res)
+						if (res.name == this.nowItem) {
+							console.log(res.extent)
+							selectArray1.push(res.extent)
+						}
+					})
+					this.selectArray = [...new Set(selectArray1)]
+				}
 			},
 			bindDateChange: function(e) {
 				this.time = e.target.value
@@ -726,10 +783,10 @@
 				this.direction0 = this.roadDataList[e.target.value]
 				this.roadData.forEach(res => {
 					if (this.direction0 === res.name) {
-											console.log(res)
+						console.log(res)
 						this.roadDataId = res.id
-						this.rankData.name=res.rankData.name
-						this.form.highData.number=res.highData.number
+						this.rankData.name = res.rankData.name
+						this.form.highData.number = res.highData.number
 					}
 				})
 				const data = {
@@ -743,14 +800,21 @@
 					url: "http://119.27.171.77:8077/roadSurvey/page/list", //仅为示例，并非真实接口地址。
 					method: 'POST',
 					data: data,
-				
+
 					success: (res) => {
-						console.log(res.data.data.list[1])	
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[1].startStake.indexOf('k')+1,res.data.data.list[1].startStake.lastIndexOf('+'))
-						this.zh2 = (res.data.data.list[1].startStake.split('+')[1])
-						this.extent=res.data.data.list[1].extent
-						this.width=res.data.data.list[1].width
-						this.staff=res.data.data.list[1].staff
+						if(res.data.data.list[0].direction=='上行线'){
+							this.index=1
+							this.e=e
+						}else{
+							this.index=2
+							this.e=e
+						}
+						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
+						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+						this.extent = res.data.data.list[0].extent
+						this.width = res.data.data.list[0].width
+						this.staff = res.data.data.list[0].staff
+						this.direction = res.data.data.list[0].direction
 					}
 				});
 			},
@@ -759,6 +823,33 @@
 				this.e = e
 				this.index = e.target.value;
 				this.direction = this.couponList[e.target.value]
+				this.endqz = this.selectArray[this.index]
+				if (this.btnnum == 0) {
+					let endObj = []
+					let endindex = []
+					console.log(this.surveyArr)
+					this.surveyArr.forEach((res, index) => {
+						if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[this.index]) {
+							endindex.push(index)
+							endObj.push(res)
+						}
+					})
+					this.end = endObj[0]
+					this.nowIndex = endindex[0]
+				} else {
+					let endObj = []
+					let endindex = []
+					this.surveyArr0.forEach((res, index) => {
+						if (res.name == this.butten0[this.nowIndexZ] && res.extent == this.selectArray[this.index]) {
+							console.log(res)
+							endindex.push(index)
+							console.log(res)
+							endObj.push(res)
+						}
+					})
+					this.end = endObj[0]
+					this.nowIndexZ = endindex[0]
+				}
 			},
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
@@ -820,8 +911,13 @@
 					success: (res) => {
 						// var result = JSON.parse(res.data.projectList);
 						console.log(res)
+						let surveyNameArr = []
 						res.data.data.forEach(item => {
 							console.log(item)
+							surveyNameArr.push(item.name)
+							console.log(surveyNameArr)
+							this.butten = [...new Set(surveyNameArr)]
+							console.log(this.butten)
 							this.surveyArr.push(item)
 							console.log(this.surveyArr)
 							this.inspect = []
@@ -833,7 +929,7 @@
 									weight: this.surveyArr[i].weight,
 									unitPoint: this.surveyArr[i].unitPoint,
 									unit: this.surveyArr[i].unit,
-									damageType:this.surveyArr[i].name,
+									damageType: this.surveyArr[i].name,
 									one: "",
 									two: "",
 									three: "",
@@ -864,8 +960,12 @@
 					success: (res) => {
 						// var result = JSON.parse(res.data.projectList);
 						console.log(res)
+						let surveyNameArr = []
 						res.data.data.forEach(item => {
 							console.log(item)
+							surveyNameArr.push(item.name)
+							console.log(surveyNameArr)
+							this.butten0 = [...new Set(surveyNameArr)]
 							this.surveyArr0.push(item)
 							console.log(this.surveyArr0)
 							this.inspect1 = []
@@ -876,7 +976,7 @@
 									weight: this.surveyArr0[i].weight,
 									unitPoint: this.surveyArr0[i].unitPoint,
 									unit: this.surveyArr0[i].unit,
-									damageType:this.surveyArr0[i].name,
+									damageType: this.surveyArr0[i].name,
 									one: "",
 									two: "",
 									three: "",
@@ -915,73 +1015,73 @@
 					if (this.btnnum == 0) {
 						this.form.countScore2 = '水泥路面'
 						this.inspect.forEach((ite, ind) => {
-								if (ite.one === "") {
-									ite.one = "0"
-								}
-								if (ite.two === "") {
-									ite.two = "0"
-								}
-								if (ite.three === "") {
-									ite.three = "0"
-								}
-								if (ite.four === "") {
-									ite.four = "0"
-								}
-								if (ite.five === "") {
-									ite.five = "0"
-								}
-								if (ite.six === "") {
-									ite.six = "0"
-								}
-								if (ite.seven === "") {
-									ite.seven = "0"
-								}
-								if (ite.eight === "") {
-									ite.eight = "0"
-								}
-								if (ite.nine === "") {
-									ite.nine = "0"
-								}
-								if (ite.ten === "") {
-									ite.ten = "0"
-								}
-								})
+							if (ite.one === "") {
+								ite.one = "0"
+							}
+							if (ite.two === "") {
+								ite.two = "0"
+							}
+							if (ite.three === "") {
+								ite.three = "0"
+							}
+							if (ite.four === "") {
+								ite.four = "0"
+							}
+							if (ite.five === "") {
+								ite.five = "0"
+							}
+							if (ite.six === "") {
+								ite.six = "0"
+							}
+							if (ite.seven === "") {
+								ite.seven = "0"
+							}
+							if (ite.eight === "") {
+								ite.eight = "0"
+							}
+							if (ite.nine === "") {
+								ite.nine = "0"
+							}
+							if (ite.ten === "") {
+								ite.ten = "0"
+							}
+						})
 					} else {
 						this.form.countScore2 = '沥青路面'
 						this.inspect1.forEach((ite, ind) => {
-								if (ite.one === "") {
-									ite.one = "0"
-								}
-								if (ite.two === "") {
-									ite.two = "0"
-								}
-								if (ite.three === "") {
-									ite.three = "0"
-								}
-								if (ite.four === "") {
-									ite.four = "0"
-								}
-								if (ite.five === "") {
-									ite.five = "0"
-								}
-								if (ite.six === "") {
-									ite.six = "0"
-								}
-								if (ite.seven === "") {
-									ite.seven = "0"
-								}
-								if (ite.eight === "") {
-									ite.eight = "0"
-								}
-								if (ite.nine === "") {
-									ite.nine = "0"
-								}
-								if (ite.ten === "") {
-									ite.ten = "0"
-								}
-							})
+							if (ite.one === "") {
+								ite.one = "0"
+							}
+							if (ite.two === "") {
+								ite.two = "0"
+							}
+							if (ite.three === "") {
+								ite.three = "0"
+							}
+							if (ite.four === "") {
+								ite.four = "0"
+							}
+							if (ite.five === "") {
+								ite.five = "0"
+							}
+							if (ite.six === "") {
+								ite.six = "0"
+							}
+							if (ite.seven === "") {
+								ite.seven = "0"
+							}
+							if (ite.eight === "") {
+								ite.eight = "0"
+							}
+							if (ite.nine === "") {
+								ite.nine = "0"
+							}
+							if (ite.ten === "") {
+								ite.ten = "0"
+							}
+						})
 					}
-						console.log(this.form.detailList)
+					console.log(this.form.detailList)
 					uni.request({
 						header: {
 							'Content-Type': 'application/json'
@@ -996,10 +1096,10 @@
 							width: this.width,
 							staff: this.staff,
 							time: this.time,
-							rankData:this.rankData,
-							detailList: this.btnnum==0?this.inspect:this.inspect1,
-							countScore: this.btnnum==0?this.form.countScore:this.form.countScoreZ,
-							totalScore: this.btnnum==0?this.form.totalScore:this.form.totalScoreZ,
+							rankData: this.rankData,
+							detailList: this.btnnum == 0 ? this.inspect : this.inspect1,
+							countScore: this.btnnum == 0 ? this.form.countScore : this.form.countScoreZ,
+							totalScore: this.btnnum == 0 ? this.form.totalScore : this.form.totalScoreZ,
 							countScore2: this.form.countScore2
 						},
 						dataType: 'json',
@@ -1135,12 +1235,13 @@
 	.contentItem {
 		width: 100%;
 		padding: 2px 0px;
+		margin-left: 10px;
 		color: #333;
 		font-size: 14px;
 		background-color: #f7f4ed;
 		margin-bottom: 10px;
 		text-align: center;
-		width: 32%;
+		width: 30%;
 	}
 
 	.desc {

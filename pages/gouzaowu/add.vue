@@ -831,6 +831,7 @@
 				this.e0 = e
 				this.index0 = e.target.value;
 				this.direction0 = this.roadDataList[e.target.value]
+				console.log(this.roadDataList[e.target.value])
 				this.roadData.forEach(res => {
 					if (this.direction0 === res.name) {
 						this.roadDataId = res.id
@@ -838,8 +839,9 @@
 					}
 				})
 				let data = {
-					currentPage: "1",
+					currentPage: 1,
 					startStake: "",
+					time:""
 				};
 				uni.request({
 					header: {
@@ -850,12 +852,19 @@
 					data: data,
 				
 					success: (res) => {
-						console.log(res.data.data.list[1])
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[1].startStake.indexOf('k')+1,res.data.data.list[1].startStake.lastIndexOf('+'))
-						this.zh2 = (res.data.data.list[1].startStake.split('+')[1])
-						this.extent=res.data.data.list[1].extent
-						this.width=res.data.data.list[1].width
-						this.staff=res.data.data.list[1].staff
+						if(res.data.data.list[0].direction=='上行线'){
+							this.index=1
+							this.e=e
+						}else{
+							this.index=2
+							this.e=e
+						}
+						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
+						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+						this.extent = res.data.data.list[0].extent
+						this.width = res.data.data.list[0].width
+						this.staff = res.data.data.list[0].staff
+						this.direction = res.data.data.list[0].direction
 				
 					}
 				});
@@ -908,8 +917,8 @@
 					success: (res) => {
 						console.log(res)
 						res.data.data.forEach(item => {
-							console.log(item)
 							this.roadDataList.push(item.name)
+							console.log(this.roadDataList)
 							this.roadData.push(item)
 							console.log(this.roadData)
 						})
