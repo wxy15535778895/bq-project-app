@@ -28,25 +28,41 @@
 			};
 		},
 		onShow() {
-		        //拿到showPoster缓存
-		    let	showPoster=uni.getStorageSync("username")
+			//拿到showPoster缓存
+			let showPoster = uni.getStorageSync("username")
 			console.log(showPoster)
-		    if (showPoster) {
+			if (showPoster) {
 				console.log(showPoster)
-			this.btnnum=showPoster
-			if(showPoster==0){
-						this.$refs.mainindex.childMethod();
+				this.btnnum = showPoster
+				if (showPoster == 0) {
+					console.log('111')
+					this.$refs.mainindex.childMethod1();
+				}
+				if (showPoster == 1) {
+					console.log('111')
+					this.$refs.mainindex1.childMethod1();
+				}
+				if (showPoster == 2) {
+					this.$refs.mainindex2.childMethod1();
+				}
+				if (showPoster == 3) {
+					this.btnnum = 2
+				}
 			}
-			if(showPoster==1){
-				this.$refs.mainindex1.childMethod();	
+		},
+		onReachBottom: function(str) {
+			if (this.btnnum == 0) {
+				this.$refs.mainindex.childMethod();
 			}
-			if(showPoster==2){
-								this.$refs.mainindex2.childMethod();	
+			if (this.btnnum == 1) {
+				this.$refs.mainindex1.childMethod();
 			}
-			if(showPoster==3){
-						this.btnnum=2
+			if (this.btnnum == 2) {
+				this.$refs.mainindex2.childMethod();
 			}
-		  }
+			if (this.btnnum == 3) {
+				this.$refs.mainindex3.childMethod();
+			}
 		},
 		components: {
 			Luji: Luji,
@@ -57,7 +73,7 @@
 			change(e) {
 				this.btnnum = e
 				console.log(this.btnnum)
-				uni.setStorageSync("username",this.btnnum)
+				uni.setStorageSync("username", this.btnnum)
 			},
 		}
 	}

@@ -90,7 +90,7 @@
 				<view v-for="(item,index) in inspect" v-show="nowIndex==index">
 					<view class="rankbox">
 						<p style="background-color: #ffd978;">{{endqz}}</p>
-						<p>权重{{end.weight}}单位扣分：{{end.unitPoint}} 单位：{{end.unit}}</p>
+						<p>权重：{{end.weight}}单位扣分：{{end.unitPoint}} 单位：{{end.unit}}</p>
 					</view>
 					<view class="table">
 						<table border="1" cellspacing="0" cellpadding="0">

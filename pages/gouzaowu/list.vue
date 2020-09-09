@@ -3,7 +3,7 @@
 		<view class="">
 			<view class="list-1">
 				<p><span style="margin: 0;" v-if="list.highData">{{list.highData.number}}</span><span style="margin: 0;" v-if="list.highData">{{list.highData.name}}</span><span style="margin: 0;" v-if="list.highData">{{list.roadData.name}}</span></p>
-				<p class="location">白河管理所</p>
+				<!-- <p class="location">白河管理所</p> -->
 			</view>
 			<view class="info">
 				<p>起点桩号:</p>

@@ -29,8 +29,8 @@
 export default {
   data() {
     return {
-      acct: "bq",
-      password: "123456"
+      acct: "",
+      password: ""
     };
   },
   methods: {
@@ -67,8 +67,7 @@ export default {
 				  	   });
 				    },1500)
 				    this.loginData(res.data.data.rankDataId)
-				  sessionStorage.removeItem("currentUser");
-				  sessionStorage.setItem("currentUser", JSON.stringify(res.data.data));
+				  uni.setStorageSync("currentUser", JSON.stringify(res.data.data))
 			  }else{
 				  uni.showToast({
 				    title: "用户名或密码错误",

@@ -50,14 +50,6 @@
 					 type="text" />
 				</view>
 			</view>
-			<view class="list-1">
-				<view>记录管理所</view>
-				<view class="zhInput">
-					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="updater"
-					 type="text" />
-				</view>
-			</view>
 			<view class="list-1 border">
 				<view>桥位桩号</view>
 				<view class="zhInput">
@@ -88,21 +80,33 @@
 				<t-table border="1" border-color="#F3F4F6" v-model="table">
 					<t-tr font-size="14" color="color: #000000;" align="left">
 						<t-th align="center">部件名称</t-th>
-						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损类型</t-th>
 						<t-th align="center">缺损范围</t-th>
 						<t-th align="center">保养措施</t-th>
 					</t-tr>
 					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers0" :key="index">
 						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
 						<t-td align="center">
-							<radio-group name="radio" @change="change11($event,index)">
-								<label>
-									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
-								</label>
-								<label>
-									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
-								</label>
-							</radio-group>
+							<checkbox-group class="block" @change="changeCheckbox($event,index)">
+								<radio-group name="radio" @change="change11($event,index)">
+									<label style="padding-bottom: 0px;">
+										<view v-if="String(item.typeList).includes('完好')" style="width: 100%;padding-bottom: 10px;">
+											<radio value="完好" :checked="item.damageTypeList.includes('完好')" /><text>完好</text>
+										</view>
+										<view v-if="String(item.typeList).includes('其他')" style="width: 100%;padding-bottom: 10px;">
+											<radio value="其他" :checked="item.damageTypeList.includes('其他')" /><text>其他</text>
+										</view>
+										<view v-if="String(item.typeList).includes('无')" style="width: 100%;padding-bottom: 10px;">
+											<radio value="无" :checked="item.damageTypeList.includes('无')" /><text>无</text>
+										</view>
+									</label>
+								</radio-group>
+								<view v-if="value=='完好'||value=='其他'||value=='无'?false:true" v-for="(value,key) in item.typeList" :key="key" style="padding-bottom: 10px;">
+									<checkbox  :value="String(value)" :checked="pickers0[index].damageTypeList.includes(String(value))"
+									 :class="{'checked':pickers0[index].damageTypeList.includes(String(value))}"></checkbox>
+									<text>{{value}}</text>
+								</view>
+							</checkbox-group>
 						</t-td>
 						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
 						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
@@ -113,21 +117,33 @@
 				<t-table border="1" border-color="#F3F4F6" v-model="table">
 					<t-tr font-size="14" color="color: #000000;" align="left">
 						<t-th align="center">部件名称</t-th>
-						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损类型</t-th>
 						<t-th align="center">缺损范围</t-th>
 						<t-th align="center">保养措施</t-th>
 					</t-tr>
 					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers1" :key="index">
 						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
 						<t-td align="center">
-							<radio-group name="radio" @change="change11($event,index)">
-								<label>
-									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
-								</label>
-								<label>
-									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
-								</label>
-							</radio-group>
+							<checkbox-group class="block" @change="changeCheckbox($event,index)">
+								<radio-group name="radio" @change="change11($event,index)">
+									<label style="padding-bottom: 0px;">
+										<view v-if="String(item.typeList).includes('完好')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="完好" :checked="item.damageTypeList.includes('完好')" /><text>完好</text>
+										</view>
+										<view v-if="String(item.typeList).includes('其他')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="其他" :checked="item.damageTypeList.includes('其他')" /><text>其他</text>
+										</view>
+										<view v-if="String(item.typeList).includes('无')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="无" :checked="item.damageTypeList.includes('无')" /><text>无</text>
+										</view>
+									</label>
+								</radio-group>
+								<view v-for="(value,key) in item.typeList" :key="key" style="padding-bottom: 10px;">
+									<checkbox v-if="value=='完好'||value=='其他'||value=='无'?false:true" :value="String(value)" :checked="pickers1[index].damageTypeList.includes(String(value))"
+									 :class="{'checked':pickers1[index].damageTypeList.includes(String(value))}"></checkbox>
+									<text v-if="value=='完好'||value=='其他'||value=='无'?false:true">{{value}}</text>
+								</view>
+							</checkbox-group>
 						</t-td>
 						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
 						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
@@ -138,21 +154,33 @@
 				<t-table border="1" border-color="#F3F4F6" v-model="table">
 					<t-tr font-size="14" color="color: #000000;" align="left">
 						<t-th align="center">部件名称</t-th>
-						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损类型</t-th>
 						<t-th align="center">缺损范围</t-th>
 						<t-th align="center">保养措施</t-th>
 					</t-tr>
-					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers1" :key="index">
+					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers2" :key="index">
 						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
 						<t-td align="center">
-							<radio-group name="radio" @change="change11($event,index)">
-								<label>
-									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
-								</label>
-								<label>
-									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
-								</label>
-							</radio-group>
+							<checkbox-group class="block" @change="changeCheckbox($event,index)">
+								<radio-group name="radio" @change="change11($event,index)">
+									<label style="padding-bottom: 0px;">
+										<view v-if="String(item.typeList).includes('完好')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="完好" :checked="item.damageTypeList.includes('完好')" /><text>完好</text>
+										</view>
+										<view v-if="String(item.typeList).includes('其他')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="其他" :checked="item.damageTypeList.includes('其他')" /><text>其他</text>
+										</view>
+										<view v-if="String(item.typeList).includes('无')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="无" :checked="item.damageTypeList.includes('无')" /><text>无</text>
+										</view>
+									</label>
+								</radio-group>
+								<view v-for="(value,key) in item.typeList" :key="key" style="padding-bottom: 10px;">
+									<checkbox v-if="value=='完好'||value=='其他'||value=='无'?false:true" :value="String(value)" :checked="pickers2[index].damageTypeList.includes(String(value))"
+									 :class="{'checked':pickers2[index].damageTypeList.includes(String(value))}"></checkbox>
+									<text v-if="value=='完好'||value=='其他'||value=='无'?false:true">{{value}}</text>
+								</view>
+							</checkbox-group>
 						</t-td>
 						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
 						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
@@ -163,26 +191,46 @@
 				<t-table border="1" border-color="#F3F4F6" v-model="table">
 					<t-tr font-size="14" color="color: #000000;" align="left">
 						<t-th align="center">部件名称</t-th>
-						<t-th align="center">损坏类型</t-th>
+						<t-th align="center">缺损类型</t-th>
 						<t-th align="center">缺损范围</t-th>
 						<t-th align="center">保养措施</t-th>
 					</t-tr>
-					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers1" :key="index">
+					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in pickers3" :key="index">
 						<t-td align="center" v-model="table.name">{{ item.name }}</t-td>
 						<t-td align="center">
-							<radio-group name="radio" @change="change11($event,index)">
-								<label>
-									<radio value="完好" :checked="item.damageType=='完好'? true:false" /><text>完好</text>
-								</label>
-								<label>
-									<radio value="有损坏" :checked="item.damageType=='有损坏'? true:false" /><text>有损坏</text>
-								</label>
-							</radio-group>
+							<checkbox-group class="block" @change="changeCheckbox($event,index)">
+								<radio-group name="radio" @change="change11($event,index)">
+									<label style="padding-bottom: 0px;">
+										<view v-if="String(item.typeList).includes('完好')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="完好" :checked="item.damageTypeList.includes('完好')" /><text>完好</text>
+										</view>
+										<view v-if="String(item.typeList).includes('其他')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="其他" :checked="item.damageTypeList.includes('其他')" /><text>其他</text>
+										</view>
+										<view v-if="String(item.typeList).includes('无')" style="width: 100%;padding-bottom: 0px;">
+											<radio value="无" :checked="item.damageTypeList.includes('无')" /><text>无</text>
+										</view>
+									</label>
+								</radio-group>
+								<view v-for="(value,key) in item.typeList" :key="key" style="padding-bottom: 10px;">
+									<checkbox v-if="value=='完好'||value=='其他'||value=='无'?false:true" :value="String(value)" :checked="pickers3[index].damageTypeList.includes(String(value))"
+									 :class="{'checked':pickers3[index].damageTypeList.includes(String(value))}"></checkbox>
+									<text v-if="value=='完好'||value=='其他'||value=='无'?false:true">{{value}}</text>
+								</view>
+							</checkbox-group>
 						</t-td>
 						<t-td align="left"><input v-if="item" v-model="item.damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
 						<t-td align="left"><input v-if="item" v-model="item.opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
 					</t-tr>
 				</t-table>
+			</view>
+			<view class="list-1">
+				<view>记录人</view>
+				<view class="zhInput">
+					<!-- <text>k</text> -->
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="updater"
+					 type="text" />
+				</view>
 			</view>
 			<view class="list-1">
 				<view>调查时间： </view>
@@ -218,6 +266,8 @@
 			return {
 				pickers0: [],
 				pickers1: [],
+				pickers2: [],
+				pickers3: [],
 				damage: ['损坏', '未损坏'],
 				form: {
 					roadDataId: '',
@@ -244,6 +294,28 @@
 					name: 'unfold',
 					isShow: true
 				}],
+				checkboxData: [{
+						'value': 0,
+						'label': '选项一'
+					},
+					{
+						'value': 1,
+						'label': '选项二'
+					},
+					{
+						'value': 2,
+						'label': '选项三'
+					},
+					{
+						'value': 3,
+						'label': '选项四'
+					},
+					{
+						'value': 4,
+						'label': '选项五'
+					},
+				],
+				checkedArr: [], //复选框选中的值
 				nowIndex: 0,
 				extent: "",
 				bridge: [], //所有桥梁列表
@@ -304,16 +376,47 @@
 			change11(e, index) {
 				console.log(e, index)
 				if (this.nowIndex == 0) {
-					this.pickers0[index].damageType = e.detail.value
+					this.pickers0[index].damageTypeList = []
+					this.pickers0[index].damageTypeList.push(e.detail.value)
+					console.log(this.pickers0[index].damageTypeList)
 				}
 				if (this.nowIndex == 1) {
-					this.pickers1[index].damageType = e.detail.value
+					this.pickers1[index].damageTypeList = []
+					this.pickers1[index].damageTypeList.push(e.detail.value)
+					console.log(this.pickers1[index].damageTypeList)
 				}
 				if (this.nowIndex == 2) {
-					this.pickers2[index].damageType = e.detail.value
+					this.pickers2[index].damageTypeList = []
+					this.pickers2[index].damageTypeList.push(e.detail.value)
+					console.log(this.pickers2[index].damageTypeList)
 				}
 				if (this.nowIndex == 3) {
-					this.pickers3[index].damageType = e.detail.value
+					this.pickers3[index].damageTypeList = []
+					this.pickers3[index].damageTypeList.push(e.detail.value)
+					console.log(this.pickers3[index].damageTypeList)
+				}
+			},
+			// 多选复选框改变事件
+			changeCheckbox(e, index) {
+				if (this.nowIndex == 0) {
+					console.log(e.detail.value)
+					this.pickers0[index].damageTypeList = []
+					this.pickers0[index].damageTypeList = e.detail.value
+				}
+				if (this.nowIndex == 1) {
+					this.pickers1[index].damageTypeList = []
+					this.pickers1[index].damageTypeList = e.detail.value
+					console.log(this.pickers1[index].damageTypeList)
+				}
+				if (this.nowIndex == 2) {
+					this.pickers2[index].damageTypeList = []
+					this.pickers2[index].damageTypeList = e.detail.value
+					console.log(this.pickers2[index].damageTypeList)
+				}
+				if (this.nowIndex == 3) {
+					this.pickers3[index].damageTypeList = []
+					this.pickers3[index].damageTypeList = e.detail.value
+					console.log(this.pickers3[index].damageTypeList)
 				}
 			},
 			show() {
@@ -336,26 +439,28 @@
 				this.nowIndex = i;
 				this.nowItem = v;
 				this.surveyArr1.forEach(res => {
-						if (res.type == '其他') {
-							if (this.Array.length == 0) {
-								this.pickers0.push(res)
-							}
+					if (res.type == '其他') {
+						if (this.Array.length == 0) {
+							this.pickers0.push(res)
+							console.log(this.pickers0)
 						}
-						if (res.type == '上部结构') {
-							if (this.Array.length == 0) {
-								this.pickers1.push(res)
-							}
+					}
+					if (res.type == '上部结构') {
+						if (this.Array.length == 0) {
+							this.pickers1.push(res)
 						}
-						if (res.type == '桥面系') {
-							if (this.Array.length == 0) {
-								this.pickers2.push(res)
-							}
+					}
+					if (res.type == '桥面系') {
+						if (this.Array.length == 0) {
+							this.pickers2.push(res)
+							console.log(this.pickers2)
 						}
-						if (res.type == '下部结构') {
-							if (this.Array.length == 0) {
-								this.pickers3.push(res)
-							}
+					}
+					if (res.type == '下部结构') {
+						if (this.Array.length == 0) {
+							this.pickers3.push(res)
 						}
+					}
 				})
 			},
 			bindDateChange: function(e) {
@@ -434,18 +539,29 @@
 						data: {
 							id: this.id
 						},
-
 						success: (res) => {
-							console.log(res)
+							console.log(res.data.data.detailList)
 							this.form.detailList = res.data.data.detailList
+							this.form.detailList.forEach(re => {
+								this.surveyArr1.forEach(it => {
+									if (it.name == re.name) {
+										console.log(it)
+										console.log(re)
+										re.typeList = it.typeList
+									}
+
+								})
+							})
 							this.pickers0 = []
 							this.pickers1 = []
 							this.pickers2 = []
 							this.pickers3 = []
 							this.form.detailList.forEach(ite => {
-								console.log(ite)
+								this.$delete(ite,'damageTypeList')
+								this.$set(ite,'damageTypeList',ite.damageType.split(","))
 								if (ite.type == "其他") {
 									this.pickers0.push(ite)
+									console.log(this.pickers0)
 								}
 								if (ite.type == "上部结构") {
 									this.pickers1.push(ite)
@@ -523,7 +639,7 @@
 					header: {
 						'Content-Type': 'application/json'
 					},
-					url: "http://119.27.171.77:8077/bridgeComponent/listAll", //仅为示例，并非真实接口地址。
+					url: "http://119.27.171.77:8077/bridgeComponent/listAll",
 					method: 'POST',
 					data: {},
 					dataType: 'json',
@@ -531,7 +647,7 @@
 						res.data.data.forEach(item => {
 							this.$delete(item, 'id')
 							this.$set(item, 'id', '')
-							this.$set(item, 'damageType', '')
+							this.$set(item, 'damageTypeList', [])
 							this.$set(item, 'damageScope', '')
 							this.$set(item, 'opinion', '')
 							this.surveyArr1.push(item)
@@ -545,27 +661,20 @@
 				});
 			},
 			save() {
-				const time = this.time.substring(0, 7);
 				if (this.e0 === null) {
 					uni.showModal({
 						title: '提示',
 						content: '请先选择桥梁名称！',
 					});
-				} else if (this.timeArr.includes(time)) {
-					uni.showModal({
-						title: '提示',
-						content: '该桥梁本月已检查！',
-					});
 				} else {
 					this.rankDataId = JSON.parse(
-						sessionStorage.getItem('currentUser')
+						uni.getStorageSync("currentUser")
 					).rankDataId
-					console.log(this.pickers0,this.pickers1)
-					this.form.detailList=[...this.pickers0,...this.pickers1,...this.pickers2,...this.pickers3]
+					console.log(this.pickers0, this.pickers1)
+					this.form.detailList = [...this.pickers0, ...this.pickers1, ...this.pickers2, ...this.pickers3]
 					console.log(this.form.detailList)
 					this.form.detailList.forEach(res => {
 						// console.log(res)
-						// this.$set(res,'rankDataId','484775156963741696')
 						this.$delete(res, 'bridgeExamineId')
 						res.id = ""
 					})
@@ -594,25 +703,33 @@
 						dataType: 'json',
 						success: (res) => {
 							console.log(res)
+							if (res.data.data == -1) {
+								uni.showModal({
+									title: '提示',
+									content: '该桥梁本月已检查！',
+								});
+							} else {
+								uni.showToast({
+									title: "添加成功！",
+									icon: "none",
+									duration: 1500
+								});
+								setTimeout(() => {
+									uni.switchTab({
+										url: "../jiancha/index",
+										success() {
+											let page = getCurrentPages().pop(); //跳转页面成功之后                 
+											console.log(page)
+											if (!page) return;
+											page.onLoad(); //如果页面存在，则重新刷新页面
+										}
+									})
+								}, 1500)
+								uni.setStorageSync("username", "0")
+
+							}
 						}
 					});
-					uni.showToast({
-						title: "添加成功！",
-						icon: "none",
-						duration: 1500
-					});
-					setTimeout(() => {
-						uni.switchTab({
-							url: "../jiancha/index",
-							success() {
-								let page = getCurrentPages().pop(); //跳转页面成功之后                 
-								console.log(page)
-								if (!page) return;
-								page.onLoad(); //如果页面存在，则重新刷新页面
-							}
-						})
-					}, 1500)
-					uni.setStorageSync("username", "0")
 
 				}
 			}
@@ -944,5 +1061,16 @@
 	uni-checkbox::before {
 		font-size: 13px;
 		margin-right: -4px;
+	}
+
+	/deep/.uni-checkbox-input {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+	}
+
+	/deep/uni-checkbox.checked .uni-checkbox-input {
+		background-color: #007aff !important;
+		border-color: #007aff !important;
 	}
 </style>

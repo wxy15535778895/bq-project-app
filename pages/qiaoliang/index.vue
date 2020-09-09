@@ -56,7 +56,7 @@
 			</table>
 		</view>
 		<view class="bottom" style="text-align: center;margin-top: -19%;">
-						<p v-show="flag2">{{text.none}}</p>
+			<p v-show="flag2">{{text.none}}</p>
 			<p v-show="flag">{{text.load}}</p>
 			<p v-show="flag1">{{text.normal}}</p>
 		</view>
@@ -92,7 +92,7 @@
 				flag1: false,
 				flag2: true,
 				text: {
-										none: '上拉加载',
+					none: '上拉加载',
 					normal: '没有更多的数据了...',
 					load: '正在加载中...'
 				}
@@ -102,14 +102,14 @@
 			list(newval) {
 				if (newval) {
 					this.listAll()
-				if (this.list.length >= this.total) {
-					this.flag1 = true
-					this.flag = false
-					this.flag2 = false
-					return;
-				} else {
-					this.flag == true
-				}
+					if (this.list.length >= this.total) {
+						this.flag1 = true
+						this.flag = false
+						this.flag2 = false
+						return;
+					} else {
+						this.flag == true
+					}
 				}
 			}
 		},
@@ -159,17 +159,20 @@
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
 				this.startTime = this.array[e.target.value] + '-01-01'
-				this.params.currentPage=1
-				this.list=[]
+				this.params.currentPage = 1
+				this.list = []
 				this.surveyList()
 			},
 			bindPickerChange1: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index1 = e.target.value
 				this.endTime = this.array1[e.target.value] + '-12-30'
-				 this.params.currentPage=1
-				this.list=[]
+				this.params.currentPage = 1
+				this.list = []
 				this.surveyList()
+			},
+			childMethod1() {
+				this.surveyList(1)
 			},
 			childMethod() {
 				if (this.list.length >= this.total) {
@@ -218,8 +221,11 @@
 					}
 				});
 			},
-			surveyList() {
-				this.list = []
+			surveyList(page) {
+				if(page==1){
+					this.list=[]
+					this.params.currentPage=1
+				}
 				uni.request({
 					header: {
 						'content-Type': 'application/json'
@@ -234,10 +240,10 @@
 					},
 
 					success: (res) => {
-						this.total=res.data.data.total
+						this.total = res.data.data.total
 						uni.hideNavigationBarLoading(); //关闭加载动画
 						this.list = this.list.concat(res.data.data.list); //合并数组
-						
+
 
 					}
 				});

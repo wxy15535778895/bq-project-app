@@ -71,19 +71,19 @@
 		}, {
 			"path": "pages/gouzaowu/index",
 			"style": {
-				"navigationBarTitleText": "构造物损坏(SCI)"
+				"navigationBarTitleText": "构造物损坏(BCI)"
 			}
 		},
 		{
 			"path": "pages/gouzaowu/add",
 			"style": {
-				"navigationBarTitleText": "构造物损坏调查表(SCI)"
+				"navigationBarTitleText": "构造物损坏调查表(BCI)"
 			}
 		},
 		{
 			"path": "pages/gouzaowu/list",
 			"style": {
-				"navigationBarTitleText": "构造物损坏调查表(SCI)"
+				"navigationBarTitleText": "构造物损坏调查表(BCI)"
 			}
 		}, {
 			"path": "pages/luji/index",
@@ -94,42 +94,42 @@
 		{
 			"path": "pages/lumian/add",
 			"style": {
-				"navigationBarTitleText": "路面损坏调查表(SCI)"
+				"navigationBarTitleText": "路面损坏调查表(PQI)"
 			}
 		},
 		{
 			"path": "pages/lumian/list",
 			"style": {
-				"navigationBarTitleText": "路面损坏调查表(SCI)"
+				"navigationBarTitleText": "路面损坏调查表(PQI)"
 			}
 		}, {
 			"path": "pages/lumian/index",
 			"style": {
-				"navigationBarTitleText": "路面损坏(SCI)"
+				"navigationBarTitleText": "路面损坏(PQI)"
 			}
 		},
 		{
 			"path": "pages/yanxian/add",
 			"style": {
-				"navigationBarTitleText": "沿线损坏调查表(SCI)"
+				"navigationBarTitleText": "沿线损坏调查表(TCI)"
 			}
 		},
 		{
 			"path": "pages/yanxian/list",
 			"style": {
-				"navigationBarTitleText": "沿线损坏调查表(SCI)"
+				"navigationBarTitleText": "沿线损坏调查表(TCI)"
 				// "onReachBottomDistance":126 //距离底部多远时触发 单位px
 			}
 		}, {
 			"path": "pages/yanxian/index",
 			"style": {
-				"navigationBarTitleText": "沿线设施(SCI)"
+				"navigationBarTitleText": "沿线设施(TCI)"
 			}
 		},
 		{
 			"path": "pages/qiaoliang/add",
 			"style": {
-				"navigationBarTitleText": "桥梁检测调查表(SCI)"
+				"navigationBarTitleText": "桥梁检测调查表"
 			}
 		},
 		{
@@ -146,47 +146,47 @@
 		{
 			"path": "pages/suidao/add",
 			"style": {
-				"navigationBarTitleText": "隧道调查表(SCI)"
+				"navigationBarTitleText": "隧道调查表"
 			}
 		},
 		{
 			"path": "pages/suidao/list",
 			"style": {
-				"navigationBarTitleText": "隧道调查表(SCI)"
+				"navigationBarTitleText": "隧道调查表"
 			}
 		}, {
 			"path": "pages/suidao/index",
 			"style": {
-				"navigationBarTitleText": "隧道调查表(SCI)"
+				"navigationBarTitleText": "隧道调查表"
 			}
 		},
 		{
 			"path": "pages/handong/add",
 			"style": {
-				"navigationBarTitleText": "涵洞调查表(SCI)"
+				"navigationBarTitleText": "涵洞调查表"
 			}
 		},
 		{
 			"path": "pages/handong/list",
 			"style": {
-				"navigationBarTitleText": "涵洞调查表(SCI)"
+				"navigationBarTitleText": "涵洞调查表"
 			}
 		}, {
 			"path": "pages/handong/index",
 			"style": {
-				"navigationBarTitleText": "涵洞调查表(SCI)"
+				"navigationBarTitleText": "涵洞调查表"
 			}
 		}, {
 			"path": "pages/pingding/index",
 			"style": {
-				"navigationBarTitleText": "公路技术性评定(SCI)"
+				"navigationBarTitleText": "公路技术性评定"
 
 
 			}
 		}, {
 			"path": "pages/jiancha/index",
 			"style": {
-				"navigationBarTitleText": "经常性检查(SCI)"
+				"navigationBarTitleText": "经常性检查"
 			}
 		}
 
@@ -224,7 +224,7 @@
 				"pagePath": "pages/my/my",
 				"text": "我的",
 				"iconPath": "static/images/my.png",
-				"selectedIconPath": "static/images/my.png"
+				"selectedIconPath": "static/images/my1.png"
 
 			}
 		]

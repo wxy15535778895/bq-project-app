@@ -157,6 +157,9 @@
 				this.params.currentPage=1
 				this.surveyList()
 			},
+			childMethod1(){
+				this.surveyList(1)
+				},
 			childMethod() {
 			              if (this.list.length >= this.total) {
 					this.flag1 = true
@@ -205,8 +208,11 @@
 				});
 				uni.setStorageSync("indexObj", this.list[index])
 			},
-			surveyList() {
-				this.list=[]
+			surveyList(page) {
+				if(page==1){
+					this.list=[]
+					this.params.currentPage=1
+				}
 				uni.request({
 					header: {
 						'content-Type': 'application/json'

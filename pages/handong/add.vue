@@ -85,22 +85,25 @@
 					<t-tr font-size="12" color="color: #000000;" align="center" v-for="(item,index) in arr" :key="index">
 						<t-td align="center" v-model="table.name">{{ item }}</t-td>
 						<t-td align="center">
-							<radio-group name="radio" @change="change11($event,index)">
-								<label>
-									<radio value="完好" :checked="form.detailList[index].damageType=='完好'? true:false" /><text>完好</text>
-								</label>
-								<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="roadDataList">
-									<label>
-										<radio value="有损坏" :checked="form.detailList[index].damageType=='有损坏'? true:false" /><text>{{form.detailList[index].damageScope}}</text>
+							<checkbox-group class="block" @change="changeCheckbox($event,index)">
+																<radio-group name="radio" @change="change11($event,index)">
+									<label style="padding-bottom: 0px;">
+										<view v-if="form.detailList[index].typeList.includes('完好')" style="width: 100%;padding-bottom: 10px;">
+											<radio value="完好" :checked="form.detailList[index].damageTypeList.includes('完好')" /><text>完好</text>
+										</view>
+										<view v-if="form.detailList[index].typeList.includes('其他')" style="width: 100%;padding-bottom: 10px;">
+											<radio value="其他" :checked="form.detailList[index].damageTypeList.includes('其他')" /><text>其他</text>
+										</view>
+										<view v-if="form.detailList[index].typeList.includes('无')" style="width: 100%;padding-bottom: 10px;">
+											<radio value="无" :checked="form.detailList[index].damageTypeList.includes('无')" /><text>无</text>
+										</view>
 									</label>
-								</picker>
-								<label>
-									<radio value="其他" :checked="form.detailList[index].damageType=='其他'? true:false" /><text>其他</text>
-								</label>
-								<label>
-									<radio value="无结构" :checked="form.detailList[index].damageType=='无结构'? true:false" /><text>无结构</text>
-								</label>
-							</radio-group>
+								</radio-group>
+								<view v-if="item=='完好'||item=='其他'||item=='无'?false:true" v-for="item in form.detailList[index].typeList" :key="item.value" style="padding-bottom: 10px;">
+									<checkbox :value="String(item)" :checked="form.detailList[index].damageTypeList.includes(String(item))" :class="{'checked':form.detailList[index].damageTypeList.includes(String(item))}"></checkbox>
+									<text>{{item}}</text>
+								</view>
+							</checkbox-group>
 						</t-td>
 						<t-td align="left"><input v-model="form.detailList[index].damageScope" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></input></t-td>
 						<t-td align="left"><input v-model="form.detailList[index].opinion" name="" id="" style="vertical-align:top;outline:none;width: 100%;height: 10%;-webkit-user-select:text !important;"></textarea></t-td>
@@ -144,6 +147,30 @@
 				format: true
 			})
 			return {
+				isChecked: false,
+				checkboxData: [{
+						'value': 0,
+						'label': '选项一'
+					},
+					{
+						'value': 1,
+						'label': '选项二'
+					},
+					{
+						'value': 2,
+						'label': '选项三'
+					},
+					{
+						'value': 3,
+						'label': '选项四'
+					},
+					{
+						'value': 4,
+						'label': '选项五'
+					},
+				],
+				checkedArr: [], //复选框选中的值
+				allChecked: false, //是否全选
 				picker: [],
 				damage: ['损坏', '未损坏'],
 				form: {
@@ -224,14 +251,15 @@
 		},
 		methods: {
 			change11(e, index) {
-				console.log(e, index)
-				console.log(this.arr[index])
+				this.form.detailList[index].damageTypeList = []
 				this.index = index
-				console.log(this.form.detailList)
-				if(e.detail.value=='其他'){
-					this.form.detailList[index].damageScope = ""
-				  }
-				this.form.detailList[index].damageType = e.detail.value
+				this.form.detailList[index].damageTypeList.push(e.detail.value)
+			},
+			// 多选复选框改变事件
+			changeCheckbox(e, index) {
+				this.checkedArr = e.detail.value;
+				this.form.detailList[index].damageTypeList = e.detail.value
+				console.log(this.checkedArr)
 			},
 			show() {
 				console.log(this.tabs);
@@ -276,7 +304,7 @@
 					header: {
 						'content-Type': 'application/json'
 					},
-					url: "http://119.27.171.77:8080/api/culvertExamine/page/list", //仅为示例，并非真实接口地址。
+					url: "http://119.27.171.77:8077/culvertExamine/page/list", //仅为示例，并非真实接口地址。
 					method: 'POST',
 					data: {
 						currentPage: 1,
@@ -285,13 +313,12 @@
 
 					success: (res) => {
 						console.log(res)
-						let itemArray=[]
+						let itemArray = []
 						res.data.data.list.forEach(item => {
 							if (item.culverId == this.roadData[e.target.value - 1].id) {
 								itemArray.push(item)
-								console.log(item.time)
 								this.timeArr.push(item.time.substring(0, 7))
-								this.rummager = item.rummager
+								this.rummager = itemArray[0].rummager
 							}
 						})
 						this.ArrayDate = {
@@ -314,11 +341,18 @@
 									console.log(this.Array[0].data.data[0].detailList)
 									console.log(this.form.detailList)
 									this.form.detailList = this.Array[0].data.data[0].detailList
-									console.log(this.form.detailList)
 									this.form.detailList.forEach(ite => {
+										this.surveyArr1.forEach(re => {
+											if (re.name == ite.name) {
+												this.$delete(ite, 'damageTypeList')
+												this.$set(ite, 'damageTypeList', ite.damageType.split(","))
+												ite.typeList = re.typeList
+											}
+										})
 										this.$delete(ite, 'culvertExamineId')
 										this.$delete(ite, 'id')
 									})
+									console.log(this.form.detailList)
 								}
 							}
 						});
@@ -331,6 +365,7 @@
 				this.e = e
 				console.log(this.form.detailList)
 				this.form.detailList[index].damageScope = this.couponList[e.target.value]
+				console.log(this.form.detailList[index].damageScope)
 			},
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
@@ -400,7 +435,7 @@
 							this.form.detailList = this.surveyArr1
 							this.form.detailList.forEach(it => {
 								this.$set(it, 'damageScope', "")
-								this.$set(it, 'damageType', "")
+								this.$set(it, 'damageTypeList', [])
 							})
 						})
 					}
@@ -419,11 +454,6 @@
 					uni.showModal({
 						title: '提示',
 						content: '请先选择涵洞名称！',
-					});
-				} else if (show.length == 2) {
-					uni.showModal({
-						title: '提示',
-						content: '该桥梁本月已检查两次！',
 					});
 				} else {
 					uni.request({
@@ -444,19 +474,28 @@
 						dataType: 'json',
 						success: (res) => {
 							console.log(res)
+							if (res.data.data == -1) {
+								uni.showModal({
+									title: '提示',
+									content: '该涵洞本月已检查两次！',
+								});
+							} else {
+								uni.showToast({
+									title: "添加成功！",
+									icon: "none",
+									duration: 1500
+								});
+								setTimeout(() => {
+									uni.switchTab({
+										url: "../jiancha/index",
+									})
+								}, 1500)
+								uni.setStorageSync("username", "1")
+
+							}
+
 						}
 					});
-					uni.showToast({
-						title: "添加成功！",
-						icon: "none",
-						duration: 1500
-					});
-					setTimeout(() => {
-						uni.switchTab({
-							url: "../jiancha/index",
-						})
-					}, 1500)
-					uni.setStorageSync("username", "1")
 
 				}
 			}
@@ -784,5 +823,16 @@
 	uni-checkbox::before {
 		font-size: 13px;
 		margin-right: -4px;
+	}
+
+	/deep/.uni-checkbox-input {
+		width: 12px;
+		height: 12px;
+		border-radius: 50%;
+	}
+
+	/deep/uni-checkbox.checked .uni-checkbox-input {
+		background-color: #007aff !important;
+		border-color: #007aff !important;
 	}
 </style>

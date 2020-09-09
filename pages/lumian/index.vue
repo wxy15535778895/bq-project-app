@@ -141,6 +141,9 @@
 				this.list=[]
 				this.surveyList()
 			},
+			childMethod1() {
+				this.surveyList(1)
+			},
 			childMethod() {
 				console.log(this.list.length,this.total)
 			               if (this.list.length >= this.total) {
@@ -162,7 +165,11 @@
 					url: '../lumian/list?id=' + this.list[index].id //需要跳转的页面路径，使用问号进行id的传值，然后再拼接一个要传入的id
 				})
 			},
-			surveyList() {
+			surveyList(page) {
+				if(page==1){
+					this.list=[]
+					this.params.currentPage=1
+				}
 				let data = {
 					currentPage: this.params.currentPage,
 					direction: "",

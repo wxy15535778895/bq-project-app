@@ -56,7 +56,7 @@
 			</table>
 		</view>
 		<view class="bottom" style="text-align: center;margin-top: -19%;">
-						<p v-show="flag2">{{text.none}}</p>
+			<p v-show="flag2">{{text.none}}</p>
 			<p v-show="flag">{{text.load}}</p>
 			<p v-show="flag1">{{text.normal}}</p>
 		</view>
@@ -91,7 +91,7 @@
 				flag1: false,
 				flag2: true,
 				text: {
-										none: '上拉加载',
+					none: '上拉加载',
 					normal: '没有更多的数据了...',
 					load: '正在加载中...'
 				}
@@ -115,7 +115,7 @@
 				header: {
 					'content-Type': 'application/json'
 				},
-				url: "http://119.27.171.77:8080/api/rankData/findById", //仅为示例，并非真实接口地址。
+				url: "http://119.27.171.77:8077/rankData/findById", //仅为示例，并非真实接口地址。
 				method: 'POST',
 				data: {
 					id: this.loginData,
@@ -154,8 +154,11 @@
 				this.list = []
 				this.surveyList()
 			},
+			childMethod1() {
+				this.surveyList(1)
+			},
 			childMethod() {
-				console.log(this.list.length,this.total)
+				console.log(this.list.length, this.total)
 				if (this.list.length >= this.total) {
 					this.flag1 = true
 					this.flag = false
@@ -202,19 +205,23 @@
 							success: function() {
 
 								uni.navigateTo({
-									url: '../handong/list?id=' + _self.list[index].culverId+_self.list[index].time.substring(0,7) //需要跳转的页面路径，使用问号进行id的传值，然后再拼接一个要传入的id
+									url: '../handong/list?id=' + _self.list[index].culverId + _self.list[index].time.substring(0, 7) //需要跳转的页面路径，使用问号进行id的传值，然后再拼接一个要传入的id
 								})
 							}
 						})
 					}
 				});
 			},
-			surveyList() {
+			surveyList(page) {
+				if(page==1){
+					this.list=[]
+					this.params.currentPage=1
+				}
 				uni.request({
 					header: {
 						'content-Type': 'application/json'
 					},
-					url: "http://119.27.171.77:8080/api/culvertExamine/page/list", //仅为示例，并非真实接口地址。
+					url: "http://119.27.171.77:8077/culvertExamine/page/list", //仅为示例，并非真实接口地址。
 					method: 'POST',
 					data: {
 						currentPage: this.params.currentPage,

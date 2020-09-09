@@ -390,9 +390,8 @@
 						let itemArray=[]
 						res.data.data.list.forEach(ite => {
 							if (ite.tunnelId == this.roadData[e.target.value - 1].id) {
-								console.log(ite.rummager)
-								this.rummager = ite.rummager
 								itemArray.push(ite)
+							this.rummager = itemArray[0].rummager
 							}
 						})
 						this.ArrayDate = {

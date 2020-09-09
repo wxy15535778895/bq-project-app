@@ -45,16 +45,16 @@
 				console.log(showPoster)
 				this.btnnum = showPoster
 				if (showPoster == 0) {
-					this.$refs.mainindex.childMethod();
+					this.$refs.mainindex.childMethod1();
 				}
 				if (showPoster == 1) {
-					this.$refs.mainindex1.childMethod();
+					this.$refs.mainindex1.childMethod1();
 				}
 				if (showPoster == 2) {
-					this.$refs.mainindex2.childMethod();
+					this.$refs.mainindex2.childMethod1();
 				}
 				if (showPoster == 3) {
-					this.$refs.mainindex3.childMethod();
+					this.$refs.mainindex3.childMethod1();
 				}
 			}
 		},
