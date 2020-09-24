@@ -27,16 +27,26 @@
 						<text>桥隧涵检查</text>
 					</view>
 				</navigator>
-				<view class="cate-item" @tap="scanCode">
-					<image src="../../static/images/yima.png" ></image>
-					<text>一码养护</text>
+				<view class="cate-item" @tap="gotoLunBo">
+					<image src="../../static/images/Bridge.png"></image>
+					<text>考勤打卡</text>
 				</view>
+				<!-- 				<navigator class="add" open-type="switchTab" url="../jiancha/index">
 					<view class="cate-item">
-						<image src="../../static/images/shipin.png"></image>
-						<text>视频监控</text>
+						<image src="../../static/images/Bridge.png"></image>
+						<text>桥隧涵检查</text>
 					</view>
+				</navigator> -->
+				<view class="cate-item">
+					<!-- 					<image src="../../static/images/yima.png" ></image>
+					<text>一码养护</text> -->
+				</view>
+				<view class="cate-item">
+					<!-- 						<image src="../../static/images/shipin.png"></image>
+						<text>视频监控</text> -->
+				</view>
 			</view>
-			<view class="cate-section">
+			<!-- 			<view class="cate-section">
 					<view class="cate-item">
 						<image src="../../static/images/jiguan.png" ></image>
 						<text>机关党建</text>
@@ -53,7 +63,7 @@
 						<image src="../../static/images/gonglu.png"></image>
 						<text>公路巡查</text>
 					</view>
-				</view>
+				</view> -->
 		</view>
 		<view class="inspect">
 			<view class="head">
@@ -128,9 +138,38 @@
 					},
 				],
 				iDays: 0,
+				type: '',
+				cylinderEmpty: ''
 			}
 		},
+		mounted() {
+			uni.request({
+				url: 'http://wthrcdn.etouch.cn/weather_mini?city=西安',
+				method: 'GET',
+				success: res => {
+					console.log(res.data.data.forecast[0]);
+					this.type = res.data.data.forecast[0].type
+					this.temperature = res.data.data.forecast[0].high.slice(3)
+					console.log(this.temperature)
+					let weather = {
+						type: this.type,
+						wendu: this.temperature
+					}
+					uni.setStorageSync('weather', weather);
+				},
+				fail: () => {
+					this.openmsg("警告", "天气接口获取失败")
+				},
+				complete: () => {}
+			});
+		},
 		methods: {
+			gotoLunBo() {
+				uni.navigateTo({
+					url: "../index/index"
+
+				})
+			},
 			onNavigationBarButtonTap: function(e) {
 				var _this = this;
 				uni.scanCode({
@@ -493,7 +532,7 @@
 			align-items: center;
 			font-size: 14upx;
 			color: black;
-			    font-size: 14px;
+			font-size: 14px;
 			// width: 10%;
 			// padding-right: 2%;
 			// padding-left: 2%;

@@ -86,20 +86,21 @@
 						<t-td align="center" v-model="table.name">{{ item }}</t-td>
 						<t-td align="center">
 							<checkbox-group class="block" @change="changeCheckbox($event,index)">
-																<radio-group name="radio" @change="change11($event,index)">
+								<radio-group name="radio" @change="change11($event,index)">
 									<label style="padding-bottom: 0px;">
 										<view v-if="form.detailList[index].typeList.includes('完好')" style="width: 100%;padding-bottom: 10px;">
 											<radio value="完好" :checked="form.detailList[index].damageTypeList.includes('完好')" /><text>完好</text>
 										</view>
 										<view v-if="form.detailList[index].typeList.includes('其他')" style="width: 100%;padding-bottom: 10px;">
-											<radio value="其他" :checked="form.detailList[index].damageTypeList.includes('其他')" /><text>其他</text>
+											<radio value="其他" :checked="form.detailList[index].damageTypeList.includes('其他')" /><input  v-model="struction"></input>
 										</view>
 										<view v-if="form.detailList[index].typeList.includes('无')" style="width: 100%;padding-bottom: 10px;">
 											<radio value="无" :checked="form.detailList[index].damageTypeList.includes('无')" /><text>无</text>
 										</view>
 									</label>
 								</radio-group>
-								<view v-if="item=='完好'||item=='其他'||item=='无'?false:true" v-for="item in form.detailList[index].typeList" :key="item.value" style="padding-bottom: 10px;">
+								<view v-if="item=='完好'||item=='其他'||item=='无'?false:true" v-for="item in form.detailList[index].typeList" :key="item.value"
+								 style="padding-bottom: 10px;">
 									<checkbox :value="String(item)" :checked="form.detailList[index].damageTypeList.includes(String(item))" :class="{'checked':form.detailList[index].damageTypeList.includes(String(item))}"></checkbox>
 									<text>{{item}}</text>
 								</view>
@@ -147,6 +148,7 @@
 				format: true
 			})
 			return {
+				struction:'其他',
 				isChecked: false,
 				checkboxData: [{
 						'value': 0,
@@ -251,6 +253,10 @@
 		},
 		methods: {
 			change11(e, index) {
+				console.log(e.detail.value)
+				if(e.detail.value=='其他'){
+					this.struction=''
+					}
 				this.form.detailList[index].damageTypeList = []
 				this.index = index
 				this.form.detailList[index].damageTypeList.push(e.detail.value)

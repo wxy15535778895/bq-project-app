@@ -13,9 +13,9 @@
 					"bounce": "none",
 					"titleNView": {
 						"buttons": [{
-							"text": "\ue654",
+							"text": "\ue628",
 							"fontSrc": "/static/iconfont.ttf",
-							"fontSize": "22px",
+							"fontSize": "20px",
 							"float": "right"
 						}]
 					}
@@ -43,7 +43,18 @@
 		{
 			"path": "pages/punch/index",
 			"style": {
-				"navigationBarTitleText": "考勤打卡"
+				"navigationBarTitleText": "考勤打卡",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue6b9",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "16px",
+							"float": "right"
+						}]
+					}
+				}
 			}
 		},
 		{
@@ -187,6 +198,53 @@
 			"path": "pages/jiancha/index",
 			"style": {
 				"navigationBarTitleText": "经常性检查"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "考勤打卡",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue6b9",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "16px",
+							"float": "right"
+						}]
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/sign/sign",
+			"style": {
+				"navigationBarTitleText": "考勤打卡",
+				"app-plus": {
+					"scrollIndicator": "all",
+					"titleNView": {
+						"type": "float",
+						"backgroundColor": "rgba(192,192,192,0)"
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/rule/rule",
+			"style": {
+				"navigationBarTitleText": "考勤规则",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							"text": "\ue6b9",
+							"fontSrc": "/static/iconfont.ttf",
+							"fontSize": "16px",
+							"float": "right"
+						}]
+					}
+				}
 			}
 		}
 

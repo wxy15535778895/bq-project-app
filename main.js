@@ -11,6 +11,8 @@ import cuCustom from 'colorui/components/cu-custom.vue'
 Vue.config.productionTip = false
 //登录地址
 Vue.prototype.$http =http;
+import tabBar from '@/pages/tabbar/tabbar.vue'  
+Vue.component('tab-bar', tabBar)
 const app = new Vue({
 	...App
 })

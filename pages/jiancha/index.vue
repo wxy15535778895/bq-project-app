@@ -35,11 +35,10 @@
 				console.log(showPoster)
 				this.btnnum = showPoster
 				if (showPoster == 0) {
-					console.log('111')
 					this.$refs.mainindex.childMethod1();
 				}
 				if (showPoster == 1) {
-					console.log('111')
+
 					this.$refs.mainindex1.childMethod1();
 				}
 				if (showPoster == 2) {

@@ -1,5 +1,5 @@
 // const urlLogin = 'http://119.27.171.77:8077/user/loginApp';
-const baseUrl = 'http://192.168.0.150:8077';
+const baseUrl = 'http://192.168.0.113:8077';
 const httpRequest = (opts, data) => {
 	console.log(baseUrl + opts.url)
 	let httpDefaultOpts = {
@@ -13,7 +13,7 @@ const httpRequest = (opts, data) => {
 			"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
 		} : {
 			'X-Requested-With': 'XMLHttpRequest',
-			'Content-Type': 'application/json; charset=UTF-811'
+			'Content-Type': 'application/json; charset=UTF-8'
 		},
 		dataType: 'json',
 	}
