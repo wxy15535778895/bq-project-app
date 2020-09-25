@@ -480,7 +480,7 @@
 					method: 'post'
 				};
 				let data = {
-					"addr": "巨龙软件信息技术有限公司",
+					"addr": this.covers[0].callout.content,
 					"clockInOut": this.data == null ? "in" : this.division == false ? "in" : "out",
 					"isLate": this.data == null ? "0" : this.division == false ? this.intime : "0",
 					"isLeaveEarly": this.data == null ? "0" : this.division == false ? "0" : this.outtime,
