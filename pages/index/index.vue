@@ -35,12 +35,12 @@
 					<view class="uni-timeline-item-divider" :style="{ background : (!isAm ? '#1AAD19' : '#bbb')}"></view>
 					<view class="uni-timeline-item-content">
 						<view>
-							<view  class="content-show">
+							<view class="content-show">
 								<view v-if="is === true">
 									<view class="module CBlue" @click="clickSign">
-									<view class="text" v-if="division==false&&data!=null">上班打卡</view>
-									<view class="text" v-if="division==true&&data!=null">下班打卡</view>
-									<view class="text" v-if="data==null">打卡</view>
+										<view class="text" v-if="division==false&&data!=null">上班打卡</view>
+										<view class="text" v-if="division==true&&data!=null">下班打卡</view>
+										<view class="text" v-if="data==null">打卡</view>
 										<view class="time">{{time}}</view>
 									</view>
 									<view class="colorGreen" style="text-align: center;margin-top: 50upx;" v-if="is">
@@ -120,13 +120,12 @@
 					img: "",
 					remarks: ""
 				},
-				inout: {
-					in:'in',
-					out:'out'
+				inout: { in: 'in',
+					out: 'out'
 				},
 				type: "",
 
-				r: 80, //半径
+				r: 160, //半径
 				Timer: [{
 					time: "09:00",
 				}, {
@@ -189,48 +188,54 @@
 					},
 				],
 				username: null,
-				data:{},
-				intime:'0',
-				outtime:'0',
-				weather:{},
-			    division:false
+				data: {},
+				intime: '0',
+				outtime: '0',
+				weather: {},
+				division: false
 			}
 		},
-		watch:{
-			time(){
-			   if(this.data!==null){
-				   if(this.time>"12:00"){
-					   this.division=true
-				   }
-				   if(this.time>this.data.inTime){
-				   	this.intime='1'
-				   }else{
-				   	this.intime='0'
-				   }
-				  if(this.time<this.data.outTime){
-				  	this.outtime='1'
-				  }else{
-				  	this.outtime='0'
-				  }
-			   }
+		watch: {
+			time() {
+				if (this.data !== null) {
+					if (this.time > "12:00") {
+						this.division = true
+					}
+					if (this.time > this.data.inTime) {
+						this.intime = '1'
+					} else {
+						this.intime = '0'
+					}
+					if (this.time < this.data.outTime) {
+						this.outtime = '1'
+					} else {
+						this.outtime = '0'
+					}
+				}
 			}
 		},
 		// 初始化
 		onLoad() {
-			this.weather=uni.getStorageSync('weather');
+			this.weather = uni.getStorageSync('weather');
 			let res = uni.getStorageSync("currentUser")
 			this.username = res
 			console.log(res.id)
-		    let userId = res.id
-			const uId=userId
+			let userId = res.id
+			const uId = userId
 			var that = this;
 			let opts = {
-				url: '/clockAreaManager/getClockAreaManager?uId='+userId,
+				url: '/clockAreaManager/getClockAreaManager?uId=' + userId,
 				method: 'post'
 			};
 			that.$http.httpRequest(opts).then(res => {
 				console.log(res)
-				this.data=res.data.data
+				that.data = res.data.data
+				if (that.data !== null) {
+					that.covers[0].callout.content = that.data.creator;
+					that.covers[0].latitude = that.circles[0].latitude = that.data.lat;
+					that.covers[0].longitude = that.circles[0].longitude = that.data.lng;
+					// that.r = that.circles.radius = data.r;
+				}
 			})
 			// uni.request({
 			// 	header: {
@@ -239,7 +244,7 @@
 			// 	url: "http://192.168.0.113:8077/clockAreaManager/getClockAreaManager?uId="+userId, //仅为示例，并非真实接口地址。
 			// 	method: 'POST',
 			// 	data: {},
-   //              success: (res) => {
+			//              success: (res) => {
 			// 		console.log(res)
 			// 		this.data=res.data.data
 			// 	}
@@ -280,7 +285,7 @@
 			this.getTime();
 		},
 		methods: {
-			onNavigationBarButtonTap(){
+			onNavigationBarButtonTap() {
 				uni.switchTab({
 					url: "../homePage/homePage"
 				})
@@ -332,18 +337,18 @@
 			},
 			// 初始化数据  （公司的经纬度 公司名称 打卡范围 ）
 			getData() {
-				var that = this;
-				var url = ``;
-				uni.request({
-					url,
-					success(res) {
-						let data = res.data;
-						that.covers[0].callout.content = data.name;
-						that.covers[0].latitude = that.circles[0].latitude = data.latitude;
-						that.covers[0].longitude = that.circles[0].longitude = data.longitude;
-						that.r = that.circles.radius = data.r;
-					}
-				})
+				// var that = this;
+				// var url = ``;
+				// uni.request({
+				// 	url,
+				// 	success(res) {
+				// 		let data = res.data;
+				// 		that.covers[0].callout.content = data.name;
+				// 		that.covers[0].latitude = that.circles[0].latitude = data.latitude;
+				// 		that.covers[0].longitude = that.circles[0].longitude = data.longitude;
+				// 		that.r = that.circles.radius = data.r;
+				// 	}
+				// })
 			},
 			// 重新定位
 			relocation() {
@@ -421,19 +426,24 @@
 						that.latitude = res.latitude;
 						that.longitude = res.longitude;
 						// console.log(res.latitude,"---",res.longitude)
-						that.covers[1] = {
-							id: 1,
-							latitude: res.latitude,
-							longitude: res.longitude,
-							iconPath: '../../static/location.png'
+						if(that.data!==null){
+						  that.covers[1] = {
+						  	id: 1,
+						  	latitude: res.latitude,
+						  	longitude: res.longitude,
+						  	iconPath: '../../static/location.png'
+						  }
+						  var s = pointInsideCircle([that.latitude, that.longitude], [that.circles[0].latitude, that.circles[0].longitude],
+						  	that.r / 100000);
+						  that.is = s;
+						  
+						  that.signInfo.latitude = res.latitude;
+						  that.signInfo.longitude = res.longitude;
+						  that.signInfo.mode = s ? "正常打卡" : "外勤打卡";	
+						}else{
+							that.signInfo.mode = "正常打卡"
+							that.is = true
 						}
-						var s = pointInsideCircle([that.latitude, that.longitude], [that.circles[0].latitude, that.circles[0].longitude],
-							that.r / 100000);
-						that.is = s;
-
-						that.signInfo.latitude = res.latitude;
-						that.signInfo.longitude = res.longitude;
-						that.signInfo.mode = s ? "正常打卡" : "外勤打卡";
 
 						that.getAdd()
 					},
@@ -462,7 +472,7 @@
 					})
 					return;
 				}
-				
+
 				console.log(data)
 				var that = this;
 				let opts = {
@@ -471,9 +481,9 @@
 				};
 				let data = {
 					"addr": "巨龙软件信息技术有限公司",
-					"clockInOut": this.data==null?"in":this.division==false?"in":"out",
-					"isLate": this.data==null?"0":this.division==false?this.intime:"0",
-					"isLeaveEarly":this.data==null?"0":this.division==false?"0":this.outtime,
+					"clockInOut": this.data == null ? "in" : this.division == false ? "in" : "out",
+					"isLate": this.data == null ? "0" : this.division == false ? this.intime : "0",
+					"isLeaveEarly": this.data == null ? "0" : this.division == false ? "0" : this.outtime,
 					"lat": this.latitude,
 					"lng": this.longitude
 				}
@@ -498,7 +508,7 @@
 					that.allSign = sign.reverse();
 					that.isSign = true;
 					console.log(that.data)
-					if(that.data!==null){
+					if (that.data !== null) {
 						if (that.isAm === false) {
 							that.isAm = true;
 						} else {

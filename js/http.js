@@ -1,5 +1,5 @@
 // const urlLogin = 'http://119.27.171.77:8077/user/loginApp';
-const baseUrl = 'http://192.168.0.109:8077';
+const baseUrl = 'http://119.27.171.77:8077';
 const httpRequest = (opts, data) => {
 	console.log(baseUrl + opts.url)
 	let httpDefaultOpts = {
