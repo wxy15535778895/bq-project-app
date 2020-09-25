@@ -20,22 +20,24 @@
 			</view>
 			<view class="list-1">
 				<view>调查方向</view>
-				<picker @change.prevent.stop="getCouponSelected" :value="index" :range="couponList">
-					<view ref="addRequestState" class="uni-input">{{couponList[index]}}</view>
+				<picker @change.prevent.stop="getCouponSelected2" :value="index" :range="couponList">
+					<view ref="addRequestState" class="uni-input">{{couponList[index1]}}</view>
 				</picker>
 			</view>
 			<view class="list-1">
 				<view>线路编号</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="form.highData.number" type="text" />
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="form.highData.number"
+					 type="text" />
 				</view>
 			</view>
 			<view class="list-1">
 				<view>管理公司</view>
 				<view class="zhInput">
 					<!-- <text>k</text> -->
-					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="rankData.name" type="text" />
+					<input style="border: none;text-align: right;font-size: 15px;width: auto;" class="zhNum" disabled v-model="rankData.name"
+					 type="text" />
 				</view>
 			</view>
 			<view class="list-1">
@@ -56,13 +58,13 @@
 			<view class="btn-3" style="margin-left: 10px;">
 				调查内容
 			</view>
-			<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)"  :range="selectArray" style="width: 100%;">
-			<view class="list-1 surveyBox">
-				<view class="contentItem" v-if="item.name!==null" v-for="(item,index) in butten" :key="index" @click="selectType(index,item)"
-				 :class="{active:nowIndex1==index}">
-										{{item}}
+			<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="selectArray" style="width: 100%;">
+				<view class="list-1 surveyBox">
+					<view class="contentItem" v-if="item.name!==null" v-for="(item,index) in butten" :key="index" @click="selectType(index,item)"
+					 :class="{active:nowIndex1==index}">
+						{{item}}
+					</view>
 				</view>
-			</view>
 			</picker>
 			<view class="desc">
 				{{nowItem}}-{{endqz}}
@@ -81,7 +83,8 @@
 						<tr v-model="item[index]">
 							<td>
 								<view class="">
-									<span>1</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one" maxlength="2">
+									<span>1</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one"
+									 maxlength="2">
 								</view>
 							</td>
 							<td>
@@ -169,23 +172,23 @@
 					</table>
 				</view>
 			</view>
-		<view class="list-1">
-			<view>调查人员：</view>
-			<input type="text" v-model="staff" class="dcinput" />
-		</view>
-		<view class="list-1">
-			<view>调查时间： </view>
-			<view class="uni-list-cell-db">
-				<picker mode="date" :value="time" :start="startDate" :end="endDate" @change="bindDateChange">
-					<view class="uni-input">{{time}}</view>
-				</picker>
+			<view class="list-1">
+				<view>调查人员：</view>
+				<input type="text" v-model="staff" class="dcinput" />
 			</view>
-			<!-- <view class="input-time-img" style="padding-top:6px">
+			<view class="list-1">
+				<view>调查时间： </view>
+				<view class="uni-list-cell-db">
+					<picker mode="date" :value="time" :start="startDate" :end="endDate" @change="bindDateChange">
+						<view class="uni-input">{{time}}</view>
+					</picker>
+				</view>
+				<!-- <view class="input-time-img" style="padding-top:6px">
 				<input id="mydatepicker" placeholder="请输入日期" class="laydate-icon" style="width: 200px;" onclick="laydate({istime: true, format: 'YYYY-MM-DD hh:mm:ss'})" />
 			</view> -->
+			</view>
+			<view class="submit" @click="save">提交</view>
 		</view>
-		<view class="submit" @click="save">提交</view>
-							</view>
 	</view>
 </template>
 
@@ -219,21 +222,22 @@
 					detailList: [],
 				},
 				nowIndex: 0,
-				nowIndex1:0,
-				pageList:[],
-				addPage:[],
-				weekday:"",
+				nowIndex1: 0,
+				pageList: [],
+				addPage: [],
+				weekday: "",
 				extent: "",
 				width: "",
 				zh1: "",
 				zh2: "",
 				index: 0,
 				index0: 0,
+				index1:0,
 				nowItem: "路肩损坏",
 				butten: [],
 				roadDataList: ['请选择'],
 				selectArray: [],
-				endqz:"",
+				endqz: "",
 				end: {}, //最后选中的部件
 				roadData: [],
 				couponList: ['请选择', '上行线', '下行线'],
@@ -248,9 +252,9 @@
 				surveyArr: [],
 				list: [],
 				inspect: [],
-				rankData:{
-					name:""
-					},
+				rankData: {
+					name: ""
+				},
 				proprityItem: {
 					degree: "",
 					mark: "",
@@ -322,31 +326,31 @@
 						Number(res.eight) +
 						Number(res.nine) +
 						Number(res.ten)
-					 res.score=(res.total*res.weight*res.unitPoint)
-					 console.log(res.score)
-					 Sum += res.score
-				     this.form.countScore=(Sum).toFixed(2)
-					 this.form.totalScore = (100 - this.form.countScore).toFixed(2)
+					res.score = (res.total * res.weight * res.unitPoint)
+					console.log(res.score)
+					Sum += res.score
+					this.form.countScore = (Sum).toFixed(2)
+					this.form.totalScore = (100 - this.form.countScore).toFixed(2)
 				})
 			},
 			selectType(i, v) {
 				console.log(v)
-				this.index=0
-				this.endqz=""
-				this.end=""
+				this.index = 0
+				this.endqz = ""
+				this.end = ""
 				this.nowIndex = i;
 				this.nowIndex1 = i;
 				this.nowItem = v;
-				let selectArray1=[]
+				let selectArray1 = []
 				console.log(this.nowItem)
-				this.surveyArr.forEach(res=>{
+				this.surveyArr.forEach(res => {
 					console.log(res)
-					if(res.name==this.nowItem){
+					if (res.name == this.nowItem) {
 						console.log(res.extent)
 						selectArray1.push(res.extent)
 					}
 				})
-				this.selectArray=[...new Set(selectArray1)]
+				this.selectArray = [...new Set(selectArray1)]
 			},
 			bindDateChange: function(e) {
 				this.time = e.target.value
@@ -374,60 +378,68 @@
 				this.roadData.forEach(res => {
 					if (this.direction0 === res.name) {
 						this.roadDataId = res.id
-						this.rankData.name=res.rankData.name
-						this.form.highData.number=res.highData.number
+						this.rankData.name = res.rankData.name
+						this.form.highData.number = res.highData.number
 					}
 				})
-				const data = {
+				let opts = {
+					url: '/roadsideSurvey/page/list',
+					method: 'post'
+				};
+				let param = {
 					currentPage: 1,
 					startStake: "",
 				};
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadsideSurvey/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: data,
-				
-					success: (res) => {
-						if(res.data.data.list[0].direction=='上行线'){
-							this.index=1
-							this.e=e
-						}else{
-							this.index=2
-							this.e=e
-						}
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
-						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
-						this.extent = res.data.data.list[0].extent
-						this.width = res.data.data.list[0].width
-						this.staff = res.data.data.list[0].staff
-						this.direction = res.data.data.list[0].direction
+				this.$http.httpRequest(opts, param).then(res => {
+					console.log(res.data.data.list[0].direction)
+					if (res.data.data.list[0].direction == '上行线') {
+						this.index1 = 1
+						this.e = e
 					}
-				});
+					if (res.data.data.list[0].direction == '下行线') {
+						this.index1 = 2
+						this.e = e
+					}
+					if (res.data.data.list[0].direction == '请选择') {
+						this.index1 = 0
+						this.e = e
+					}
+					this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data
+						.data.list[0].startStake.lastIndexOf('+'))
+					this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+					this.extent = res.data.data.list[0].extent
+					this.width = res.data.data.list[0].width
+					this.staff = res.data.data.list[0].staff
+					this.direction = res.data.data.list[0].direction
+					console.log(this.direction)
+				})
+			},
+			getCouponSelected2(e, index) {
+				console.log(e)
+				this.e = e
+				this.index1 = e.target.value;
+				this.direction = this.couponList[e.target.value]
+				console.log(this.direction)
 			},
 			getCouponSelected(e, index) {
 				console.log(e)
 				this.e = e
 				this.index = e.target.value;
-				this.direction = this.couponList[e.target.value]
-				console.log(this.index)
-				this.endqz=this.selectArray[this.index]
+				this.endqz = this.selectArray[this.index]
 				console.log(this.butten[this.nowIndex])
 				let endObj = []
 				let endindex = []
 				console.log(this.surveyArr)
-				this.surveyArr.forEach((res,index) => {
+				this.surveyArr.forEach((res, index) => {
 					if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[this.index]) {
 						endindex.push(index)
 						endObj.push(res)
 					}
 				})
 				this.end = endObj[0]
-				this.nowIndex=endindex[0]
+				this.nowIndex = endindex[0]
 				console.log(this.nowIndex)
-			  },
+			},
 			weatherFun() {
 				this.$http.weather(101110410).then(res => {
 					// console.log(res);
@@ -441,81 +453,70 @@
 					url: '/user/getCityCode',
 					method: 'post'
 				};
-				that.$http.httpRequest(opts, {}).then(res => {
+				this.$http.httpRequest(opts, {}).then(res => {
 					console.log(res)
 				}, error => {
 					console.log(error);
 				})
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadData/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.addPage.push(item)
-							this.roadDataList.push(item.name)
-							this.roadData.push(item)
-							console.log(this.roadData)
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadside/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// var result = JSON.parse(res.data.projectList);
-						console.log(res)
-						let surveyNameArr=[]
-						res.data.data.forEach(item => {
-							console.log(item)
-							surveyNameArr.push(item.name)
-							console.log(surveyNameArr)
-							this.butten = [...new Set(surveyNameArr)]
-							console.log(this.butten)
-							this.surveyArr.push(item)
-							console.log(this.surveyArr)
-							this.inspect = []
-							for (let i = 0; i < this.surveyArr.length; i++) {
-								console.log(this.surveyArr[i])
-								this.inspect.push({
-									degree: this.surveyArr[i].extent,
-									mark: this.surveyArr[i].unitPoint,
-									weight: this.surveyArr[i].weight,
-									unitPoint: this.surveyArr[i].unitPoint,
-									unit: this.surveyArr[i].unit,
-									damageType:this.surveyArr[i].name,
-									one: "",
-									two: "",
-									three: "",
-									four: "",
-									five: "",
-									six: "",
-									seven: "",
-									eight: "",
-									nine: "",
-									ten: "",
-									total: "",
-									value: "",
-									score: ""
-								})
-								console.log(this.inspect)
-							}
-						})
-					}
-				});
+				let opts = {
+					url: '/roadData/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, {}).then(res => {
+					console.log(res)
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.addPage.push(item)
+						this.roadDataList.push(item.name)
+						this.roadData.push(item)
+						console.log(this.roadData)
+					})
+				})
+				let opts1 = {
+					url: '/roadside/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts1, {}).then(res => {
+					console.log(res)
+					let surveyNameArr = []
+					res.data.data.forEach(item => {
+						console.log(item)
+						surveyNameArr.push(item.name)
+						console.log(surveyNameArr)
+						this.butten = [...new Set(surveyNameArr)]
+						console.log(this.butten)
+						this.surveyArr.push(item)
+						console.log(this.surveyArr)
+						this.inspect = []
+						for (let i = 0; i < this.surveyArr.length; i++) {
+							console.log(this.surveyArr[i])
+							this.inspect.push({
+								degree: this.surveyArr[i].extent,
+								mark: this.surveyArr[i].unitPoint,
+								weight: this.surveyArr[i].weight,
+								unitPoint: this.surveyArr[i].unitPoint,
+								unit: this.surveyArr[i].unit,
+								damageType: this.surveyArr[i].name,
+								one: "",
+								two: "",
+								three: "",
+								four: "",
+								five: "",
+								six: "",
+								seven: "",
+								eight: "",
+								nine: "",
+								ten: "",
+								total: "",
+								value: "",
+								score: ""
+							})
+							console.log(this.inspect)
+						}
+					})
+				})
 			},
 			save() {
 				console.log(this.time)
@@ -563,31 +564,27 @@
 							ite.ten = "0"
 						}
 					})
-					console.log(this.inspect)
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/roadsideSurvey/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							direction: this.direction,
-							roadDataId: this.roadDataId,
-							startStake: "k" + this.zh1 + "+" + this.zh2,
-							extent: this.extent,
-							width: this.width,
-							staff: this.staff,
-							time: this.time,
-							rankData:this.rankData,
-							detailList: this.inspect,
-							countScore: this.form.countScore,
-							totalScore: this.form.totalScore
-						},
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-						}
-					});
+					let opts = {
+						url: '/roadsideSurvey/add',
+						method: 'post'
+					};
+					let data = {
+						direction: this.direction,
+						roadDataId: this.roadDataId,
+						startStake: "K" + this.zh1 + "+" + this.zh2,
+						extent: this.extent,
+						width: this.width,
+						staff: this.staff,
+						time: this.time,
+						rankData: this.rankData,
+						detailList: this.inspect,
+						countScore: this.form.countScore,
+						totalScore: this.form.totalScore
+					}
+					console.log(data)
+					this.$http.httpRequest(opts, data).then(res => {
+						console.log(res)
+					})
 					uni.showToast({
 						title: "添加成功！",
 						icon: "none",

@@ -92,7 +92,7 @@
 											<radio value="完好" :checked="form.detailList[index].damageTypeList.includes('完好')" /><text>完好</text>
 										</view>
 										<view v-if="form.detailList[index].typeList.includes('其他')" style="width: 100%;padding-bottom: 10px;">
-											<radio value="其他" :checked="form.detailList[index].damageTypeList.includes('其他')" /><input  v-model="struction"></input>
+											<radio value="其他" :checked="form.detailList[index].damageTypeList.includes('其他')" /><text>其他</text>
 										</view>
 										<view v-if="form.detailList[index].typeList.includes('无')" style="width: 100%;padding-bottom: 10px;">
 											<radio value="无" :checked="form.detailList[index].damageTypeList.includes('无')" /><text>无</text>
@@ -254,9 +254,6 @@
 		methods: {
 			change11(e, index) {
 				console.log(e.detail.value)
-				if(e.detail.value=='其他'){
-					this.struction=''
-					}
 				this.form.detailList[index].damageTypeList = []
 				this.index = index
 				this.form.detailList[index].damageTypeList.push(e.detail.value)
@@ -305,65 +302,56 @@
 					.indexOf(
 						'K') + 1, this.roadData[e.target.value - 1].centreStation.lastIndexOf('+'))
 				this.centreZh2 = (this.roadData[e.target.value - 1].centreStation.split('+')[1])
-
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/culvertExamine/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {
-						currentPage: 1,
-						stake: "",
-					},
-
-					success: (res) => {
-						console.log(res)
-						let itemArray = []
-						res.data.data.list.forEach(item => {
-							if (item.culverId == this.roadData[e.target.value - 1].id) {
-								itemArray.push(item)
-								this.timeArr.push(item.time.substring(0, 7))
-								this.rummager = itemArray[0].rummager
-							}
-						})
-						this.ArrayDate = {
-							culverId: itemArray[0].culverId,
-							time: itemArray[0].time.substring(0, 7)
+                let data = {
+                	currentPage: 1,
+                	stake: "",
+                };
+                let opts = {
+                	url: '/culvertExamine/page/list',
+                	method: 'post'
+                };
+                this.$http.httpRequest(opts, data).then(res => {
+					let itemArray = []
+					res.data.data.list.forEach(item => {
+						if (item.culverId == this.roadData[e.target.value - 1].id) {
+							itemArray.push(item)
+							this.timeArr.push(item.time.substring(0, 7))
+							this.rummager = itemArray[0].rummager
 						}
-						uni.request({
-							header: {
-								'content-Type': 'application/json'
-							},
-							url: "http://119.27.171.77:8077/culvertExamine/findByIdList", //仅为示例，并非真实接口地址。
-							method: 'POST',
-							data: this.ArrayDate,
-							success: (res) => {
-								this.Array = []
-								console.log(res)
-								this.Array.push(res)
-								console.log(this.Array[0].data.data[0].detailList)
-								if (this.Array[0].data.data[0].detailList.length) {
-									console.log(this.Array[0].data.data[0].detailList)
-									console.log(this.form.detailList)
-									this.form.detailList = this.Array[0].data.data[0].detailList
-									this.form.detailList.forEach(ite => {
-										this.surveyArr1.forEach(re => {
-											if (re.name == ite.name) {
-												this.$delete(ite, 'damageTypeList')
-												this.$set(ite, 'damageTypeList', ite.damageType.split(","))
-												ite.typeList = re.typeList
-											}
-										})
-										this.$delete(ite, 'culvertExamineId')
-										this.$delete(ite, 'id')
-									})
-									console.log(this.form.detailList)
-								}
-							}
-						});
+					})
+					this.ArrayDate = {
+						culverId: itemArray[0].culverId,
+						time: itemArray[0].time.substring(0, 7)
 					}
-				});
+					let data1 = this.ArrayDate
+					let opts1 = {
+						url: '/culvertExamine/findByIdList',
+						method: 'post'
+					};
+					this.$http.httpRequest(opts1, data1).then(res => {
+						this.Array = []
+						console.log(res)
+						this.Array.push(res)
+						console.log(this.Array[0].data.data[0].detailList)
+						if (this.Array[0].data.data[0].detailList.length) {
+							console.log(this.Array[0].data.data[0].detailList)
+							console.log(this.form.detailList)
+							this.form.detailList = this.Array[0].data.data[0].detailList
+							this.form.detailList.forEach(ite => {
+								this.surveyArr1.forEach(re => {
+									if (re.name == ite.name) {
+										this.$delete(ite, 'damageTypeList')
+										this.$set(ite, 'damageTypeList', ite.damageType.split(","))
+										ite.typeList = re.typeList
+									}
+								})
+								this.$delete(ite, 'culvertExamineId')
+								this.$delete(ite, 'id')
+							})
+							console.log(this.form.detailList)
+						}
+					})
+				})
 
 			},
 			getCouponSelected(e, index) {
@@ -393,59 +381,50 @@
 				})
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/culvert/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {
+				let data = {
 						areaId: "",
 						circuitType: "",
 						culvertType: "",
 						currentPage: 1,
 						keyword: "",
 						searchTxt: ""
-					},
-					dataType: 'json',
-					success: (res) => {
-						console.log(res)
-						res.data.data.list.forEach(item => {
-							console.log(item)
-							this.roadDataList.push(item.culvertName)
-							this.roadData.push(item)
-							// console.log(this.roadData)
+				};
+				let opts = {
+					url: '/culvert/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					res.data.data.list.forEach(item => {
+						console.log(item)
+						this.roadDataList.push(item.culvertName)
+						this.roadData.push(item)
+						// console.log(this.roadData)
+					})
+				})
+				let data1 = {
+				};
+				let opts1 = {
+					url: '/culverParts/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts1, data1).then(res => {
+					res.data.data.forEach(item => {
+						this.$delete(item, 'id')
+						this.$set(item, 'id', '')
+						console.log(item)
+						this.surveyArr1.push(item)
+						this.surveyArr.push(item.name)
+						var arr2 = this.surveyArr.filter(function(value, index, self) {
+							return self.indexOf(value) === index;
+						});
+						this.arr = arr2
+						this.form.detailList = this.surveyArr1
+						this.form.detailList.forEach(it => {
+							this.$set(it, 'damageScope', "")
+							this.$set(it, 'damageTypeList', [])
 						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/culverParts/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							this.$delete(item, 'id')
-							this.$set(item, 'id', '')
-							console.log(item)
-							this.surveyArr1.push(item)
-							this.surveyArr.push(item.name)
-							var arr2 = this.surveyArr.filter(function(value, index, self) {
-								return self.indexOf(value) === index;
-							});
-							this.arr = arr2
-							this.form.detailList = this.surveyArr1
-							this.form.detailList.forEach(it => {
-								this.$set(it, 'damageScope', "")
-								this.$set(it, 'damageTypeList', [])
-							})
-						})
-					}
-				});
+					})
+				})
 			},
 			save() {
 				let time = this.time.substring(0, 7);
@@ -462,46 +441,40 @@
 						content: '请先选择涵洞名称！',
 					});
 				} else {
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/culvertExamine/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							direction: this.direction,
-							roadDataId: this.roadDataId,
-							stake: "k" + this.centreZh1 + "+" + this.centreZh2,
-							time: this.time,
-							rummager: this.rummager,
-							detailList: this.form.detailList,
-							culverId: this.culverId
-						},
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-							if (res.data.data == -1) {
-								uni.showModal({
-									title: '提示',
-									content: '该涵洞本月已检查两次！',
-								});
-							} else {
-								uni.showToast({
-									title: "添加成功！",
-									icon: "none",
-									duration: 1500
-								});
-								setTimeout(() => {
-									uni.switchTab({
-										url: "../jiancha/index",
-									})
-								}, 1500)
-								uni.setStorageSync("username", "1")
-
-							}
-
+					let data = {
+						direction: this.direction,
+						roadDataId: this.roadDataId,
+						stake: "k" + this.centreZh1 + "+" + this.centreZh2,
+						time: this.time,
+						rummager: this.rummager,
+						detailList: this.form.detailList,
+						culverId: this.culverId
+					};
+					let opts = {
+						url: '/culvertExamine/add',
+						method: 'post'
+					};
+					this.$http.httpRequest(opts, data).then(res => {
+						if (res.data.data == -1) {
+							uni.showModal({
+								title: '提示',
+								content: '该涵洞本月已检查两次！',
+							});
+						} else {
+							uni.showToast({
+								title: "添加成功！",
+								icon: "none",
+								duration: 1500
+							});
+							setTimeout(() => {
+								uni.switchTab({
+									url: "../jiancha/index",
+								})
+							}, 1500)
+							uni.setStorageSync("username", "1")
+						
 						}
-					});
+					})
 
 				}
 			}

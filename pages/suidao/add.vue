@@ -113,7 +113,7 @@
 								<radio value="维修处置" :checked="form.detailList[index].trailCheckout=='维修处置'? true:false" /><text>维修处置</text>
 							</label>
 							<label>
-								<radio value="定期或专项检查"  :checked="form.detailList[index].trailCheckout=='定期或专项检查'? true:false" /><text>定期或专项检查</text>
+								<radio value="定期或专项检查" :checked="form.detailList[index].trailCheckout=='定期或专项检查'? true:false" /><text>定期或专项检查</text>
 							</label>
 						</radio-group>
 					</view>
@@ -370,68 +370,59 @@
 				this.code = this.roadData[e.target.value - 1].code
 				this.managementUnit = this.roadData[e.target.value - 1].managementUnit
 
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/tunnelExamine/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {
-						currentPage: 1,
-						endTime: "",
-						keyword: "",
-						rummager: "",
-						startTime: "",
-						year: ""
-					},
-
-					success: (res) => {
-						console.log(res)
-						let itemArray=[]
-						res.data.data.list.forEach(ite => {
-							if (ite.tunnelId == this.roadData[e.target.value - 1].id) {
-								itemArray.push(ite)
+				let opts = {
+					url: '/tunnelExamine/page/list',
+					method: 'post'
+				};
+				let data = {
+					currentPage: 1,
+					endTime: "",
+					keyword: "",
+					rummager: "",
+					startTime: "",
+					year: ""
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					console.log(res)
+					let itemArray = []
+					res.data.data.list.forEach(ite => {
+						if (ite.tunnelId == this.roadData[e.target.value - 1].id) {
+							itemArray.push(ite)
 							this.rummager = itemArray[0].rummager
-							}
-						})
-						this.ArrayDate = {
-							culverId: itemArray[0].culverId,
-							time: itemArray[0].time.substring(0, 7)
 						}
-						uni.request({
-							header: {
-								'content-Type': 'application/json'
-							},
-							url: "http://119.27.171.77:8077/tunnelExamine/findByIdList", //仅为示例，并非真实接口地址。
-							method: 'POST',
-							data: this.ArrayDate,
-							success: (res) => {
-								this.Array=[]
-								console.log(res)
-								this.Array.push(res)
-								console.log(this.Array[0].data.data[0].detailList)
-								if(this.Array[0].data.data[0].detailList.length){
-									this.form.detailList = this.Array[0].data.data[0].detailList
-									this.form.detailList.forEach(ite => {
-										this.$delete(ite, 'tunnelExamineId')
-										this.$delete(ite, 'id')
-										if (ite.startStake == 'K+undefined') {
-											this.$delete(ite, 'startStake')
-											this.$set(ite,'startStake','K')
-										}
-										if (ite.endStake == 'K+undefined') {
-											this.$delete(ite, 'endStake')
-											this.$set(ite,'endStake','K')
-										}
-									})
-								}
-							}
-						});
-
-
+					})
+					this.ArrayDate = {
+						culverId: itemArray[0].culverId,
+						time: itemArray[0].time.substring(0, 7)
 					}
-				});
+					let opts = {
+						url: '/tunnelExamine/findByIdList',
+						method: 'post'
+					};
+					let data = this.ArrayDate;
+					this.$http.httpRequest(opts, data).then(res => {
+						this.Array = []
+						console.log(res)
+						this.Array.push(res)
+						console.log(this.Array[0].data.data[0].detailList)
+						if (this.Array[0].data.data[0].detailList.length) {
+							this.form.detailList = this.Array[0].data.data[0].detailList
+							this.form.detailList.forEach(ite => {
+								this.$delete(ite, 'tunnelExamineId')
+								this.$delete(ite, 'id')
+								if (ite.startStake == 'K+undefined') {
+									this.$delete(ite, 'startStake')
+									this.$set(ite, 'startStake', 'K')
+								}
+								if (ite.endStake == 'K+undefined') {
+									this.$delete(ite, 'endStake')
+									this.$set(ite, 'endStake', 'K')
+								}
+							})
+						}
+					})
 
+				})
 			},
 			getCouponSelected(e) {
 				console.log(e)
@@ -464,53 +455,42 @@
 				console.log(this.btnnum)
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/tunnel/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.roadDataList.push(item.name)
-							this.roadData.push(item)
-							// console.log(this.roadData)
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/tunnelParts/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.$set(item, 'startStake', 'K')
-							this.$set(item, 'endStake', 'K')
-							this.surveyArr1.push(item)
-							this.surveyArr.push(item.type)
-							var arr2 = this.surveyArr.filter(function(value, index, self) {
-								return self.indexOf(value) === index;
-							});
-							console.log(arr2)
-							this.arr = arr2
-						})
-					}
-				});
+				let opts = {
+					url: '/tunnel/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts,{}).then(res => {
+					// console.log(res)
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.roadDataList.push(item.name)
+						this.roadData.push(item)
+						// console.log(this.roadData)
+					})
+				})
+				let opts1 = {
+					url: '/tunnelParts/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts1,{}).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.$set(item, 'startStake', 'K')
+						this.$set(item, 'endStake', 'K')
+						this.surveyArr1.push(item)
+						this.surveyArr.push(item.type)
+						var arr2 = this.surveyArr.filter(function(value, index, self) {
+							return self.indexOf(value) === index;
+						});
+						console.log(arr2)
+						this.arr = arr2
+					})
+				})
 			},
 			save() {
 				this.form.detailList = [...this.form.detailList, ...this.form.detailList1]
-				this.picker=[...this.picker,...this.picker1]
-				this.form.detailList.forEach((res,index) => {
+				this.picker = [...this.picker, ...this.picker1]
+				this.form.detailList.forEach((res, index) => {
 					this.$set(res, 'opinion', this.picker[index].content)
 					res.startStake = res.startStake
 					res.endStake = res.endStake
@@ -520,33 +500,29 @@
 				if (this.e0 === null) {
 					uni.showModal({
 						title: '提示',
-						content: '请先选择桥梁名称！',
+						content: '请先选择隧道名称！',
 					});
 				} else {
 					console.log(this.form.detailList)
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/tunnelExamine/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							tunnelType: this.tunnelType,
-							roadDataId: this.roadDataId,
-							stake: this.zh1,
-							extent: this.extent,
-							rummager: this.rummager,
-							time: this.time,
-							detailList: this.form.detailList,
-							tunnelId: this.tunnel,
-							countScore: this.form.countScore,
-							totalScore: this.form.totalScore
-						},
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-						}
-					});
+					let opts = {
+						url: '/tunnelExamine/add',
+						method: 'post'
+					};
+					let data = {
+						tunnelType: this.tunnelType,
+						roadDataId: this.roadDataId,
+						stake: this.zh1,
+						extent: this.extent,
+						rummager: this.rummager,
+						time: this.time,
+						detailList: this.form.detailList,
+						tunnelId: this.tunnel,
+						countScore: this.form.countScore,
+						totalScore: this.form.totalScore
+					}
+					this.$http.httpRequest(opts,data).then(res => {
+						console.log(res)
+					})
 					uni.showToast({
 						title: "添加成功！",
 						icon: "none",

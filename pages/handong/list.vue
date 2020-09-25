@@ -92,53 +92,39 @@
 			 console.log(params)
 			 const culverId=params.id.substring(0,params.id.length-7);
 			 const time=params.id.substring((params.id.length-7),params.id.length);
-			 uni.request({
-			 	header: {
-			 		'content-Type': 'application/json'
-			 	},
-			 	url: "http://119.27.171.77:8077/culvertExamine/findByIdList", //仅为示例，并非真实接口地址。
-			 	method: 'POST',
-			 	data: {
+			 let data = {
 			 		culverId,
-					time
-			 	},
-			 	
-			 	success: (res) => {
-			 		console.log(res)
-					this.details=res.data.data
-					this.list=res.data.data[0]
-					// res.data.data.forEach(item=>{
-					// 	console.log(item)
-					// 	this.list=item
-					// })
-			 
-			 	}
-			 });
+			 		time
+			 };
+			 let opts = {
+			 	url: '/culvertExamine/findByIdList',
+			 	method: 'post'
+			 };
+			 this.$http.httpRequest(opts, data).then(res => {
+				 this.details=res.data.data
+				 this.list=res.data.data[0]
+			 })
 		},
 		methods: {
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridgeComponent/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.surveyArr1.push(item)
-							this.surveyArr.push(item.type)
-							console.log(this.surveyArr)
-							this.arr = this.surveyArr.filter(function(value, index, self) {
-								return self.indexOf(value) === index;
-							});
-							console.log(this.arr)
-						})
-					}
-				});
+				let data = {
+				};
+				let opts = {
+					url: '/bridgeComponent/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.surveyArr1.push(item)
+						this.surveyArr.push(item.type)
+						console.log(this.surveyArr)
+						this.arr = this.surveyArr.filter(function(value, index, self) {
+							return self.indexOf(value) === index;
+						});
+						console.log(this.arr)
+					})
+				})
 			}
 			
 		}

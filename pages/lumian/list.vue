@@ -130,62 +130,52 @@
 		},
 		onLoad(params) {
 			console.log(params)
-			const id = params.id
-			uni.request({
-				header: {
-					'content-Type': 'application/json'
-				},
-				url: "http://119.27.171.77:8077/roadSurvey/find", //仅为示例，并非真实接口地址。
-				method: 'POST',
-				data: {
-					id
-				},
-				success: (res) => {
-					console.log(res)
-					this.list = res.data.data
-					console.log(this.list)
-					this.list.detailList.forEach(res => {
-						console.log(this.cement)
-						res.total = Number(res.one) +
-							Number(res.two) +
-							Number(res.three) +
-							Number(res.four) +
-							Number(res.five) +
-							Number(res.six) +
-							Number(res.seven) +
-							Number(res.eight) +
-							Number(res.nine) +
-							Number(res.ten)
-						res.score = (res.total * res.weight * res.mark).toFixed(2)
-						this.cement.push(res)
-					})
-
-				}
-			});
+			let data = {
+				"id":params.id
+			}
+			let opts = {
+				url: '/roadSurvey/find',
+				method: 'post'
+			};
+			this.$http.httpRequest(opts,data).then(res => {
+				console.log(res)
+				this.list = res.data.data
+				console.log(this.list)
+				this.list.detailList.forEach(res => {
+					console.log(this.cement)
+					res.total = Number(res.one) +
+						Number(res.two) +
+						Number(res.three) +
+						Number(res.four) +
+						Number(res.five) +
+						Number(res.six) +
+						Number(res.seven) +
+						Number(res.eight) +
+						Number(res.nine) +
+						Number(res.ten)
+					res.score = (res.total * res.weight * res.mark).toFixed(2)
+					this.cement.push(res)
+				})
+			})
 		},
 		methods: {
 			getListAll(){
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadData/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item.id)
-							console.log(this.list.roadDataId)
-							
-							if(item.id==this.list.roadDataId){
-								console.log(item)
-								this.item=item
-							}
-						})
-					}
-				});
+				let data = {}
+				let opts = {
+					url: '/roadData/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts,data).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item.id)
+						console.log(this.list.roadDataId)
+						
+						if(item.id==this.list.roadDataId){
+							console.log(item)
+							this.item=item
+						}
+					})
+				})
 			},
 			selectType(i, v) {
 				this.nowIndex = i;

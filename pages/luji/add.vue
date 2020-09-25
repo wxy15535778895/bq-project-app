@@ -20,8 +20,8 @@
 			</view>
 			<view class="list-1">
 				<view>调查方向</view>
-				<picker @change.prevent.stop="getCouponSelected" :value="index" :range="couponList">
-					<view ref="addRequestState" class="uni-input">{{couponList[index]}}</view>
+				<picker @change.prevent.stop="getCouponSelected2" :value="index" :range="couponList">
+					<view ref="addRequestState" class="uni-input">{{couponList[index1]}}</view>
 				</picker>
 			</view>
 			<view class="list-1">
@@ -58,7 +58,7 @@
 			<view class="btn-3" style="margin-left: 10px;">
 				调查内容
 			</view>
-			<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)"  :range="selectArray" style="width: 100%;">
+			<picker :value="index" @change.prevent.stop="getCouponSelected($event,index)" :range="selectArray" style="width: 100%;">
 				<view class="list-1 surveyBox">
 					<view class="contentItem" v-for="(item,index) in butten" :key="index" @click="selectType(index,item)" :class="{active:nowIndex1==index}">
 						{{item}}
@@ -82,7 +82,8 @@
 						<tr v-model="proprityItem">
 							<td>
 								<view class="">
-									<span>1</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one" maxlength="2">
+									<span>1</span><input type="number" :disabled="endqz?false:true" @input="newValue(index)" v-model="item.one"
+									 maxlength="2">
 								</view>
 							</td>
 							<td>
@@ -226,14 +227,15 @@
 				zh1: "",
 				zh2: "",
 				index: 0,
-				typeIndex:"",
+				typeIndex: "",
 				weekday: "",
 				index0: 0,
+				index1:0,
 				nowItem: "",
 				butten: [],
 				roadDataList: ['请选择'],
 				selectArray: [],
-				endqz:"",
+				endqz: "",
 				end: {}, //最后选中的部件
 				roadData: [],
 				couponList: ['请选择', '上行线', '下行线'],
@@ -319,21 +321,21 @@
 				})
 			},
 			selectType(i, v) {
-				this.index=0
-				this.endqz=""
-				this.end=""
+				this.index = 0
+				this.endqz = ""
+				this.end = ""
 				this.nowIndex = i;
 				this.nowIndex1 = i;
 				this.nowItem = v;
-				let selectArray1=[]
-				this.surveyArr.forEach(res=>{
+				let selectArray1 = []
+				this.surveyArr.forEach(res => {
 					console.log(res)
-					if(res.name==this.nowItem){
+					if (res.name == this.nowItem) {
 						console.log(res.extent)
 						selectArray1.push(res.extent)
 					}
 				})
-				this.selectArray=[...new Set(selectArray1)]
+				this.selectArray = [...new Set(selectArray1)]
 			},
 			bindDateChange: function(e) {
 				this.time = e.target.value
@@ -372,51 +374,58 @@
 					currentPage: 1,
 					startStake: "",
 				};
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadbedSurvey/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: data,
-
-					success: (res) => {
-						if(res.data.data.list[0].direction=='上行线'){
-							this.index=1
-							this.e=e
-						}else{
-							this.index=2
-							this.e=e
-						}
-						console.log(this.index)
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
-						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
-						this.extent = res.data.data.list[0].extent
-						this.width = res.data.data.list[0].width
-						this.staff = res.data.data.list[0].staff
-						this.direction = res.data.data.list[0].direction
-
+				let opts = {
+					url: '/roadbedSurvey/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					if (res.data.data.list[0].direction == '上行线') {
+						this.index1 = 1
+						this.e = e
 					}
-				});
+					 if (res.data.data.list[0].direction == '下行线') {
+						this.index1 = 2
+						this.e = e
+					}
+					if (res.data.data.list[0].direction == '请选择') {
+						this.index1 = 0
+						this.e = e
+					}
+					console.log(this.index)
+					this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data
+						.data.list[0].startStake.lastIndexOf('+'))
+					this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+					this.extent = res.data.data.list[0].extent
+					this.width = res.data.data.list[0].width
+					this.staff = res.data.data.list[0].staff
+					this.direction = res.data.data.list[0].direction
+				})
+			},
+			getCouponSelected2(e, index) {
+				console.log(e)
+				this.e = e
+				this.index1 = e.target.value;
+				this.direction = this.couponList[e.target.value]
+				console.log(this.direction)
 			},
 			getCouponSelected(e, index) {
 				console.log(e)
 				this.e = e
 				this.index = e.target.value;
-				this.direction = this.couponList[e.target.value]
-				this.endqz=this.selectArray[this.index]
+				// this.direction = this.couponList[e.target.value]
+				this.endqz = this.selectArray[this.index]
 				console.log(this.butten[this.nowIndex])
 				let endObj = []
 				let endindex = []
 				console.log(this.surveyArr)
-				this.surveyArr.forEach((res,index) => {
+				this.surveyArr.forEach((res, index) => {
 					if (res.name == this.butten[this.nowIndex] && res.extent == this.selectArray[this.index]) {
 						endindex.push(index)
 						endObj.push(res)
 					}
 				})
 				this.end = endObj[0]
-				this.nowIndex=endindex[0]
+				this.nowIndex = endindex[0]
 				console.log(this.nowIndex)
 			},
 			weatherFun() {
@@ -439,72 +448,62 @@
 				})
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadData/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.roadDataList.push(item.name)
-							this.roadData.push(item)
-							console.log(this.roadData)
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadbed/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// var result = JSON.parse(res.data.projectList);
-						console.log(res)
-						let surveyNameArr = []
-						res.data.data.forEach(item => {
-							console.log(item)
-							console.log(item.name)
-							surveyNameArr.push(item.name)
-							console.log(surveyNameArr)
-							this.butten = [...new Set(surveyNameArr)]
-							console.log(this.butten)
-							this.surveyArr.push(item)
-							console.log(this.surveyArr)
-							this.inspect = []
-							for (let i = 0; i < this.surveyArr.length; i++) {
-								this.inspect.push({
-									degree: this.surveyArr[i].extent,
-									mark: this.surveyArr[i].unitPoint,
-									weight: this.surveyArr[i].weight,
-									unitPoint: this.surveyArr[i].unitPoint,
-									unit: this.surveyArr[i].unit,
-									damageType: this.surveyArr[i].name,
-									one: "",
-									two: "",
-									three: "",
-									four: "",
-									five: "",
-									six: "",
-									seven: "",
-									eight: "",
-									nine: "",
-									ten: "",
-									total: "",
-									value: "",
-									score: ""
-								})
-							}
-						})
-					}
-				});
+				let data = {};
+				let opts = {
+					url: '/roadData/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.roadDataList.push(item.name)
+						this.roadData.push(item)
+						console.log(this.roadData)
+					})
+				})
+				let data1 = {};
+				let opts1 = {
+					url: '/roadbed/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts1, data1).then(res => {
+					console.log(res)
+					let surveyNameArr = []
+					res.data.data.forEach(item => {
+						console.log(item)
+						console.log(item.name)
+						surveyNameArr.push(item.name)
+						console.log(surveyNameArr)
+						this.butten = [...new Set(surveyNameArr)]
+						console.log(this.butten)
+						this.surveyArr.push(item)
+						console.log(this.surveyArr)
+						this.inspect = []
+						for (let i = 0; i < this.surveyArr.length; i++) {
+							this.inspect.push({
+								degree: this.surveyArr[i].extent,
+								mark: this.surveyArr[i].unitPoint,
+								weight: this.surveyArr[i].weight,
+								unitPoint: this.surveyArr[i].unitPoint,
+								unit: this.surveyArr[i].unit,
+								damageType: this.surveyArr[i].name,
+								one: "",
+								two: "",
+								three: "",
+								four: "",
+								five: "",
+								six: "",
+								seven: "",
+								eight: "",
+								nine: "",
+								ten: "",
+								total: "",
+								value: "",
+								score: ""
+							})
+						}
+					})
+				})
 			},
 			save() {
 				// console.log(this.e, this.e0)
@@ -552,31 +551,26 @@
 							ite.ten = "0"
 						}
 					})
-					console.log(this.form.detailList)
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/roadbedSurvey/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							direction: this.direction,
-							roadDataId: this.roadDataId,
-							startStake: "k" + this.zh1 + "+" + this.zh2,
-							rankData: this.rankData,
-							extent: this.extent,
-							width: this.width,
-							staff: this.staff,
-							time: this.time,
-							detailList: this.inspect,
-							countScore: this.form.countScore,
-							totalScore: this.form.totalScore
-						},
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-						}
-					});
+					let data = {
+						direction: this.direction,
+						roadDataId: this.roadDataId,
+						startStake: "K" + this.zh1 + "+" + this.zh2,
+						rankData: this.rankData,
+						extent: this.extent,
+						width: this.width,
+						staff: this.staff,
+						time: this.time,
+						detailList: this.inspect,
+						countScore: this.form.countScore,
+						totalScore: this.form.totalScore
+					};
+					let opts = {
+						url: '/roadbedSurvey/add',
+						method: 'post'
+					};
+					this.$http.httpRequest(opts, data).then(res => {
+						console.log(res)
+					})
 					uni.showToast({
 						title: "添加成功！",
 						icon: "none",

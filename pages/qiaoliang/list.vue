@@ -120,24 +120,18 @@
 			console.log(this.indexObj1)
 		},
 		onLoad(params) {
-			const id = params.id
-			uni.request({
-				header: {
-					'content-Type': 'application/json'
-				},
-				url: "http://119.27.171.77:8077/bridgeExamine/find", //仅为示例，并非真实接口地址。
-				method: 'POST',
-				data: {
-					id
-				},
-
-				success: (res) => {
-					console.log(res)
-					this.list = res.data.data
-					console.log(this.list)
-
-				}
-			});
+			let data = {
+				"id":params.id
+			}
+			let opts = {
+				url: '/bridgeExamine/find',
+				method: 'post'
+			};
+			this.$http.httpRequest(opts,data).then(res => {
+				console.log(res)
+				this.list = res.data.data
+				console.log(this.list)
+			})
 		},
 		methods: {
 			selectType(i, v) {
@@ -180,27 +174,23 @@
 				})
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridgeComponent/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item.type)
-							this.surveyArr1.push(item)
-							this.surveyArr.push(item.type)
-							console.log(this.surveyArr)
-							this.arr = this.surveyArr.filter(function(value, index, self) {
-								return self.indexOf(value) === index;
-							});
-						})
-					}
-				});
+				let data = {
+				}
+				let opts = {
+					url: '/bridgeComponent/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts,data).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item.type)
+						this.surveyArr1.push(item)
+						this.surveyArr.push(item.type)
+						console.log(this.surveyArr)
+						this.arr = this.surveyArr.filter(function(value, index, self) {
+							return self.indexOf(value) === index;
+						});
+					})
+				})
 			}
 		}
 	}

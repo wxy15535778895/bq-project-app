@@ -146,32 +146,19 @@
 					this.params.currentPage=1
 				}
 				let data = {
-					currentPage: this.params.currentPage,
-					direction: "",
-					keyword: "",
-					startStake: "",
-					time: this.year
-				};
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridgecSurvey/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {
 						currentPage: 1,
 						startStake: "",
 						time: this.year
-					},
-
-					success: (res) => {
-						console.log(res)
-						this.total = res.data.data.total
-						uni.hideNavigationBarLoading(); //关闭加载动画
-						this.list = this.list.concat(res.data.data.list); //合并数组
-
-					}
-				});
+				};
+				let opts = {
+					url: '/bridgecSurvey/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					this.total = res.data.data.total
+					uni.hideNavigationBarLoading(); //关闭加载动画
+					this.list = this.list.concat(res.data.data.list); //合并数组
+				})
 				uni.request({
 					url: 'http://wthrcdn.etouch.cn/weather_mini?city=西安',
 					method: 'GET',

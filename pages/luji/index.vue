@@ -105,22 +105,16 @@
 		},
 		created() {
 			this.surveyList()
-			console.log(this.loginData)
-			uni.request({
-				header: {
-					'content-Type': 'application/json'
-				},
-				url: "http://119.27.171.77:8077/rankData/findById", //仅为示例，并非真实接口地址。
-				method: 'POST',
-				data: {
-					id: this.loginData
-				},
-
-				success: (res) => {
-					console.log(res)
-					this.position = res.data.data.name
-				}
-			});
+			let data = {
+				id: this.loginData
+			};
+			let opts = {
+				url: '/rankData/findById',
+				method: 'post'
+			};
+			this.$http.httpRequest(opts, data).then(res => {
+				this.position = res.data.data.name
+			})
 		},
 		computed: {
 			...mapState(['loginData'])
@@ -176,21 +170,15 @@
 					startStake: "",
 					time: this.year
 				};
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadbedSurvey/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: data,
-
-					success: (res) => {
-						this.total=res.data.data.total
-						uni.hideNavigationBarLoading(); //关闭加载动画
-						this.list = this.list.concat(res.data.data.list); //合并数组
-
-					}
-				});
+				let opts = {
+					url: '/roadbedSurvey/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					this.total=res.data.data.total
+					uni.hideNavigationBarLoading(); //关闭加载动画
+					this.list = this.list.concat(res.data.data.list); //合并数组
+				})
 				uni.request({
 					url: 'http://wthrcdn.etouch.cn/weather_mini?city=西安',
 					method: 'GET',

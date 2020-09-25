@@ -99,25 +99,18 @@
 		},
 		onLoad(params) {
 			console.log(params)
-			const id = params.id
-			uni.request({
-				header: {
-					'content-Type': 'application/json'
-				},
-				url: "http://119.27.171.77:8077/tunnelExamine/find", //仅为示例，并非真实接口地址。
-				method: 'POST',
-				data: {
-					id
-				},
-
-				success: (res) => {
-					console.log(res)
-					this.list = res.data.data
-					console.log(this.list)
-
-
-				}
-			});
+			let opts = {
+				url: '/tunnelExamine/find',
+				method: 'post'
+			};
+			let id = {
+							 id:params.id
+			};
+			this.$http.httpRequest(opts, id).then(res => {
+				console.log(res)
+				this.list = res.data.data
+				console.log(this.list)
+			})
 		},
 		methods: {
 			selectType(i, v) {
@@ -140,28 +133,22 @@
 				})
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/tunnelParts/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.surveyArr1.push(item)
-							this.surveyArr.push(item.type)
-							console.log(this.surveyArr)
-							this.arr = this.surveyArr.filter(function(value, index, self) {
-								return self.indexOf(value) === index;
-							});
-							console.log(this.arr)
-						})
-					}
-				});
+				let opts = {
+					url: '/tunnelParts/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts,{}).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.surveyArr1.push(item)
+						this.surveyArr.push(item.type)
+						console.log(this.surveyArr)
+						this.arr = this.surveyArr.filter(function(value, index, self) {
+							return self.indexOf(value) === index;
+						});
+						console.log(this.arr)
+					})
+				})
 			},
 		}
 	}

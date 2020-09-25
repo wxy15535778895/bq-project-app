@@ -23,8 +23,8 @@
 			</view>
 			<view class="list-1">
 				<view>调查方向</view>
-				<picker @change="getCouponSelected" :value="index" :range="couponList">
-					<view ref="addRequestState" class="uni-input">{{couponList[index]}}</view>
+				<picker @change="getCouponSelected2" :value="index" :range="couponList">
+					<view ref="addRequestState" class="uni-input">{{couponList[index1]}}</view>
 				</picker>
 			</view>
 			<view class="list-1">
@@ -391,6 +391,7 @@
 				time: new Date().toISOString().slice(0, 10), //日期
 				index: 0,
 				index0: 0,
+				index1:0,
 				nowItem: "路肩损坏",
 				roadDataList: ['请选择'],
 				butten: [],
@@ -789,40 +790,42 @@
 						this.form.highData.number = res.highData.number
 					}
 				})
-				const data = {
+				let data = {
 					currentPage: 1,
 					startStake: "",
+				}
+				let opts = {
+					url: '/roadSurvey/page/list',
+					method: 'post'
 				};
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadSurvey/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: data,
-
-					success: (res) => {
-						if(res.data.data.list[0].direction=='上行线'){
-							this.index=1
-							this.e=e
-						}else{
-							this.index=2
-							this.e=e
-						}
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
-						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
-						this.extent = res.data.data.list[0].extent
-						this.width = res.data.data.list[0].width
-						this.staff = res.data.data.list[0].staff
-						this.direction = res.data.data.list[0].direction
+				this.$http.httpRequest(opts,data).then(res => {
+					if(res.data.data.list[0].direction=='上行线'){
+						this.index1=1
+						this.e=e
+					}else{
+						this.index1=2
+						this.e=e
 					}
-				});
+					this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
+					this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+					this.extent = res.data.data.list[0].extent
+					this.width = res.data.data.list[0].width
+					this.staff = res.data.data.list[0].staff
+					this.direction = res.data.data.list[0].direction
+				})
+			},
+			getCouponSelected2(e, index) {
+				console.log(e)
+				this.e = e
+				this.index1 = e.target.value;
+				this.direction = this.couponList[e.target.value]
+				console.log(this.direction)
 			},
 			getCouponSelected(e) {
 				console.log(e)
 				this.e = e
 				this.index = e.target.value;
-				this.direction = this.couponList[e.target.value]
+				// this.direction = this.couponList[e.target.value]
 				this.endqz = this.selectArray[this.index]
 				if (this.btnnum == 0) {
 					let endObj = []
@@ -882,120 +885,106 @@
 			// 	})
 			// },
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadData/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							this.roadDataList.push(item.name)
-							this.roadData.push(item)
-							console.log(this.roadData)
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/cement/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// var result = JSON.parse(res.data.projectList);
-						console.log(res)
-						let surveyNameArr = []
-						res.data.data.forEach(item => {
-							console.log(item)
-							surveyNameArr.push(item.name)
-							console.log(surveyNameArr)
-							this.butten = [...new Set(surveyNameArr)]
-							console.log(this.butten)
-							this.surveyArr.push(item)
-							console.log(this.surveyArr)
-							this.inspect = []
-							for (let i = 0; i < this.surveyArr.length; i++) {
-								console.log(this.surveyArr[i])
-								this.inspect.push({
-									degree: this.surveyArr[i].extent,
-									mark: this.surveyArr[i].unitPoint,
-									weight: this.surveyArr[i].weight,
-									unitPoint: this.surveyArr[i].unitPoint,
-									unit: this.surveyArr[i].unit,
-									damageType: this.surveyArr[i].name,
-									one: "",
-									two: "",
-									three: "",
-									four: "",
-									five: "",
-									six: "",
-									seven: "",
-									eight: "",
-									nine: "",
-									ten: "",
-									total: "",
-									value: "",
-									score: ""
-								})
-								console.log(this.inspect)
-							}
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/pitch/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// var result = JSON.parse(res.data.projectList);
-						console.log(res)
-						let surveyNameArr = []
-						res.data.data.forEach(item => {
-							console.log(item)
-							surveyNameArr.push(item.name)
-							console.log(surveyNameArr)
-							this.butten0 = [...new Set(surveyNameArr)]
-							this.surveyArr0.push(item)
-							console.log(this.surveyArr0)
-							this.inspect1 = []
-							for (let i = 0; i < this.surveyArr0.length; i++) {
-								this.inspect1.push({
-									degree: this.surveyArr0[i].extent,
-									mark: this.surveyArr0[i].unitPoint,
-									weight: this.surveyArr0[i].weight,
-									unitPoint: this.surveyArr0[i].unitPoint,
-									unit: this.surveyArr0[i].unit,
-									damageType: this.surveyArr0[i].name,
-									one: "",
-									two: "",
-									three: "",
-									four: "",
-									five: "",
-									six: "",
-									seven: "",
-									eight: "",
-									nine: "",
-									ten: "",
-									total: "",
-									value: "",
-									score: ""
-								})
-								console.log(this.inspect1)
-							}
-						})
-					}
-				});
+				let data = {}
+				let opts = {
+					url: '/roadData/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts,data).then(res => {
+					console.log(res)
+					res.data.data.forEach(item => {
+						console.log(item)
+						this.roadDataList.push(item.name)
+						this.roadData.push(item)
+						console.log(this.roadData)
+					})
+				})
+				let data1 = {}
+				let opts1 = {
+					url: '/cement/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts1,data1).then(res => {
+					console.log(res)
+					let surveyNameArr = []
+					res.data.data.forEach(item => {
+						console.log(item)
+						surveyNameArr.push(item.name)
+						console.log(surveyNameArr)
+						this.butten = [...new Set(surveyNameArr)]
+						console.log(this.butten)
+						this.surveyArr.push(item)
+						console.log(this.surveyArr)
+						this.inspect = []
+						for (let i = 0; i < this.surveyArr.length; i++) {
+							console.log(this.surveyArr[i])
+							this.inspect.push({
+								degree: this.surveyArr[i].extent,
+								mark: this.surveyArr[i].unitPoint,
+								weight: this.surveyArr[i].weight,
+								unitPoint: this.surveyArr[i].unitPoint,
+								unit: this.surveyArr[i].unit,
+								damageType: this.surveyArr[i].name,
+								one: "",
+								two: "",
+								three: "",
+								four: "",
+								five: "",
+								six: "",
+								seven: "",
+								eight: "",
+								nine: "",
+								ten: "",
+								total: "",
+								value: "",
+								score: ""
+							})
+							console.log(this.inspect)
+						}
+					})
+				})
+				let data2 = {}
+				let opts2 = {
+					url: '/pitch/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts2,data2).then(res => {
+					console.log(res)
+					let surveyNameArr = []
+					res.data.data.forEach(item => {
+						console.log(item)
+						surveyNameArr.push(item.name)
+						// console.log(surveyNameArr)
+						this.butten0 = [...new Set(surveyNameArr)]
+						this.surveyArr0.push(item)
+						console.log(this.surveyArr0)
+						this.inspect1 = []
+						for (let i = 0; i < this.surveyArr0.length; i++) {
+							this.inspect1.push({
+								degree: this.surveyArr0[i].extent,
+								mark: this.surveyArr0[i].unitPoint,
+								weight: this.surveyArr0[i].weight,
+								unitPoint: this.surveyArr0[i].unitPoint,
+								unit: this.surveyArr0[i].unit,
+								damageType: this.surveyArr0[i].name,
+								one: "",
+								two: "",
+								three: "",
+								four: "",
+								five: "",
+								six: "",
+								seven: "",
+								eight: "",
+								nine: "",
+								ten: "",
+								total: "",
+								value: "",
+								score: ""
+							})
+							console.log(this.inspect1)
+						}
+					})
+				})
 			},
 			save() {
 				this.form.detailList = []
@@ -1082,31 +1071,28 @@
 						})
 					}
 					console.log(this.form.detailList)
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/roadSurvey/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							direction: this.direction,
-							roadDataId: this.roadDataId,
-							startStake: "k" + this.zh1 + "+" + this.zh2,
-							extent: this.extent,
-							width: this.width,
-							staff: this.staff,
-							time: this.time,
-							rankData: this.rankData,
-							detailList: this.btnnum == 0 ? this.inspect : this.inspect1,
-							countScore: this.btnnum == 0 ? this.form.countScore : this.form.countScoreZ,
-							totalScore: this.btnnum == 0 ? this.form.totalScore : this.form.totalScoreZ,
-							countScore2: this.form.countScore2
-						},
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-						}
-					});
+					let data = {
+						direction: this.direction,
+						roadDataId: this.roadDataId,
+						startStake: "K" + this.zh1 + "+" + this.zh2,
+						extent: this.extent,
+						width: this.width,
+						staff: this.staff,
+						time: this.time,
+						rankData: this.rankData,
+						detailList: this.btnnum == 0 ? this.inspect : this.inspect1,
+						countScore: this.btnnum == 0 ? this.form.countScore : this.form.countScoreZ,
+						totalScore: this.btnnum == 0 ? this.form.totalScore : this.form.totalScoreZ,
+						countScore2: this.form.countScore2
+					}
+					console.log(this.direction)
+					let opts = {
+						url: '/roadSurvey/add',
+						method: 'post'
+					};
+					this.$http.httpRequest(opts,data).then(res => {
+													console.log(res)
+					})
 					uni.showToast({
 						title: "添加成功！",
 						icon: "none",

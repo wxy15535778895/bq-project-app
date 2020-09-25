@@ -639,31 +639,25 @@
 					startStake: "",
 					time:""
 				};
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridgecSurvey/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: data,
-				
-					success: (res) => {
-						if(res.data.data.list[0].direction=='上行线'){
-							this.index=1
-							this.e=e
-						}else{
-							this.index=2
-							this.e=e
-						}
-						this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
-						this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
-						this.extent = res.data.data.list[0].extent
-						this.width = res.data.data.list[0].width
-						this.staff = res.data.data.list[0].staff
-						this.direction = res.data.data.list[0].direction
-				
+				let opts = {
+					url: '/bridgecSurvey/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					if(res.data.data.list[0].direction=='上行线'){
+						this.index=1
+						this.e=e
+					}else{
+						this.index=2
+						this.e=e
 					}
-				});
+					this.zh1 = res.data.data.list[0].startStake.substring(res.data.data.list[0].startStake.indexOf('k') + 1, res.data.data.list[0].startStake.lastIndexOf('+'))
+					this.zh2 = res.data.data.list[0].startStake.substr(res.data.data.list[0].startStake.indexOf('+') + 1);
+					this.extent = res.data.data.list[0].extent
+					this.width = res.data.data.list[0].width
+					this.staff = res.data.data.list[0].staff
+					this.direction = res.data.data.list[0].direction
+				})
 			},
 			getCouponSelected(e) {
 				console.log(e)
@@ -702,126 +696,117 @@
 			// 	})
 			// },
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/roadData/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						console.log(res)
-						res.data.data.forEach(item => {
-							this.roadDataList.push(item.name)
-							console.log(this.roadDataList)
-							this.roadData.push(item)
-							console.log(this.roadData)
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bcStructure/listAll", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						// var result = JSON.parse(res.data.projectList);
-						console.log(res)
-						res.data.data.forEach(item => {
-							console.log(item)
-							if (item.name == "桥梁") {
-								this.surveyArr0.push(item)
-								console.log(this.surveyArr0)
-								this.inspect = []
-								for (let i = 0; i < this.surveyArr0.length; i++) {
-									console.log(this.surveyArr0[i])
-									this.inspect.push({
-										degree: this.surveyArr0[i].grade,
-										mark: this.surveyArr0[i].unitPoint,
-										damageType: this.surveyArr0[i].name,
-										unitPoint: this.surveyArr0[i].unitPoint,
-										unit: this.surveyArr0[i].unit,
-										damageType: this.surveyArr0[i].name,
-										one: "",
-										two: "",
-										three: "",
-										four: "",
-										five: "",
-										six: "",
-										seven: "",
-										eight: "",
-										nine: "",
-										ten: "",
-										total: "",
-										value: "",
-										score: ""
-									})
-									console.log(this.inspect)
-								}
-							} else if (item.name == "涵洞") {
-								this.surveyArr1.push(item)
-								this.inspect1 = []
-								for (let i = 0; i < this.surveyArr1.length; i++) {
-									console.log(this.surveyArr1[i])
-									this.inspect1.push({
-										degree: this.surveyArr1[i].grade,
-										mark: this.surveyArr1[i].unitPoint,
-										damageType: this.surveyArr1[i].name,
-										unitPoint: this.surveyArr1[i].unitPoint,
-										unit: this.surveyArr1[i].unit,
-										damageType: this.surveyArr1[i].name,
-										one: "",
-										two: "",
-										three: "",
-										four: "",
-										five: "",
-										six: "",
-										seven: "",
-										eight: "",
-										nine: "",
-										ten: "",
-										total: "",
-										value: "",
-										score: ""
-									})
-									console.log(this.inspect1)
-								}
-							} else if (item.name == "隧道") {
-								this.surveyArr2.push(item)
-								this.inspect2 = []
-								for (let i = 0; i < this.surveyArr2.length; i++) {
-									console.log(this.surveyArr2[i])
-									this.inspect2.push({
-										degree: this.surveyArr2[i].grade,
-										mark: this.surveyArr2[i].unitPoint,
-										damageType: this.surveyArr2[i].name,
-										unitPoint: this.surveyArr2[i].unitPoint,
-										unit: this.surveyArr2[i].unit,
-										damageType: this.surveyArr2[i].name,
-										one: "",
-										two: "",
-										three: "",
-										four: "",
-										five: "",
-										six: "",
-										seven: "",
-										eight: "",
-										nine: "",
-										ten: "",
-										total: "",
-										value: "",
-										score: ""
-									})
-									console.log(this.inspect2)
-								}
+				let data = {
+				};
+				let opts = {
+					url: '/roadData/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					res.data.data.forEach(item => {
+						this.roadDataList.push(item.name)
+						console.log(this.roadDataList)
+						this.roadData.push(item)
+						console.log(this.roadData)
+					})
+				})
+				let data1 = {
+				};
+				let opts1 = {
+					url: '/bcStructure/listAll',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts1, data1).then(res => {
+					res.data.data.forEach(item => {
+						console.log(item)
+						if (item.name == "桥梁") {
+							this.surveyArr0.push(item)
+							console.log(this.surveyArr0)
+							this.inspect = []
+							for (let i = 0; i < this.surveyArr0.length; i++) {
+								console.log(this.surveyArr0[i])
+								this.inspect.push({
+									degree: this.surveyArr0[i].grade,
+									mark: this.surveyArr0[i].unitPoint,
+									damageType: this.surveyArr0[i].name,
+									unitPoint: this.surveyArr0[i].unitPoint,
+									unit: this.surveyArr0[i].unit,
+									damageType: this.surveyArr0[i].name,
+									one: "",
+									two: "",
+									three: "",
+									four: "",
+									five: "",
+									six: "",
+									seven: "",
+									eight: "",
+									nine: "",
+									ten: "",
+									total: "",
+									value: "",
+									score: ""
+								})
+								console.log(this.inspect)
 							}
-						})
-					}
-				});
+						} else if (item.name == "涵洞") {
+							this.surveyArr1.push(item)
+							this.inspect1 = []
+							for (let i = 0; i < this.surveyArr1.length; i++) {
+								console.log(this.surveyArr1[i])
+								this.inspect1.push({
+									degree: this.surveyArr1[i].grade,
+									mark: this.surveyArr1[i].unitPoint,
+									damageType: this.surveyArr1[i].name,
+									unitPoint: this.surveyArr1[i].unitPoint,
+									unit: this.surveyArr1[i].unit,
+									damageType: this.surveyArr1[i].name,
+									one: "",
+									two: "",
+									three: "",
+									four: "",
+									five: "",
+									six: "",
+									seven: "",
+									eight: "",
+									nine: "",
+									ten: "",
+									total: "",
+									value: "",
+									score: ""
+								})
+								console.log(this.inspect1)
+							}
+						} else if (item.name == "隧道") {
+							this.surveyArr2.push(item)
+							this.inspect2 = []
+							for (let i = 0; i < this.surveyArr2.length; i++) {
+								console.log(this.surveyArr2[i])
+								this.inspect2.push({
+									degree: this.surveyArr2[i].grade,
+									mark: this.surveyArr2[i].unitPoint,
+									damageType: this.surveyArr2[i].name,
+									unitPoint: this.surveyArr2[i].unitPoint,
+									unit: this.surveyArr2[i].unit,
+									damageType: this.surveyArr2[i].name,
+									one: "",
+									two: "",
+									three: "",
+									four: "",
+									five: "",
+									six: "",
+									seven: "",
+									eight: "",
+									nine: "",
+									ten: "",
+									total: "",
+									value: "",
+									score: ""
+								})
+								console.log(this.inspect2)
+							}
+						}
+					})
+				})
 			},
 			save() {
 				if (this.e0 === null) {
@@ -869,29 +854,25 @@
 							ite.ten = "0"
 						}
 					})
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/bridgecSurvey/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							direction: this.direction,
-							roadDataId: this.roadDataId,
-							startStake: "k" + this.zh1 + "+" + this.zh2,
-							extent: this.extent,
-							width: this.width,
-							staff: this.staff,
-							time: this.time,
-							rankData: this.rankData,
-							detailList: this.form.detailList,
-							totalScore: this.mindata
-						},
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-						}
-					});
+					let data = {
+						direction: this.direction,
+						roadDataId: this.roadDataId,
+						startStake: "K" + this.zh1 + "+" + this.zh2,
+						extent: this.extent,
+						width: this.width,
+						staff: this.staff,
+						time: this.time,
+						rankData: this.rankData,
+						detailList: this.form.detailList,
+						totalScore: this.mindata
+					};
+					let opts = {
+						url: '/bridgecSurvey/add',
+						method: 'post'
+					};
+					this.$http.httpRequest(opts, data).then(res => {
+						console.log(res)
+					})
 					uni.showToast({
 						title: "添加成功！",
 						icon: "none",

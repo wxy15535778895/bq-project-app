@@ -111,21 +111,16 @@
 		},
 		created() {
 			this.surveyList()
-			uni.request({
-				header: {
-					'content-Type': 'application/json'
-				},
-				url: "http://119.27.171.77:8077/rankData/findById", //仅为示例，并非真实接口地址。
-				method: 'POST',
-				data: {
-					id: this.loginData,
-				},
-
-				success: (res) => {
-					console.log(res)
-					this.position = res.data.data.name
-				}
-			});
+			let data = {
+				id: this.loginData,
+			};
+			let opts = {
+				url: '/rankData/findById',
+				method: 'post'
+			};
+			this.$http.httpRequest(opts, data).then(res => {
+									this.position = res.data.data.name
+			})
 		},
 		computed: {
 			...mapState(['loginData'])
@@ -174,69 +169,60 @@
 			getId(index) {
 				console.log(this.list[index])
 				uni.setStorageSync("indexObj", this.list[index])
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/culvert/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {
-						areaId: "",
-						circuitType: "",
-						culvertType: "",
-						currentPage: 1,
-						keyword: "",
-						searchTxt: ""
-					},
-					dataType: 'json',
-					success: (res) => {
-						var arr = []
-						res.data.data.list.forEach(item => {
-							console.log(item.id)
-							if (item.id == this.list[index].culverId) {
-								arr.push(item)
-							}
-						})
-						let _self = this;
-						console.log(_self.list[index])
-						uni.setStorage({
-							key: 'indexObj1',
-							data: arr[0],
-							success: function() {
-
-								uni.navigateTo({
-									url: '../handong/list?id=' + _self.list[index].culverId + _self.list[index].time.substring(0, 7) //需要跳转的页面路径，使用问号进行id的传值，然后再拼接一个要传入的id
-								})
-							}
-						})
-					}
-				});
+				let data = {
+					areaId: "",
+					circuitType: "",
+					culvertType: "",
+					currentPage: 1,
+					keyword: "",
+					searchTxt: ""
+				};
+				let opts = {
+					url: '/culvert/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					var arr = []
+					res.data.data.list.forEach(item => {
+						console.log(item.id)
+						if (item.id == this.list[index].culverId) {
+							arr.push(item)
+						}
+					})
+					let _self = this;
+					console.log(_self.list[index])
+					uni.setStorage({
+						key: 'indexObj1',
+						data: arr[0],
+						success: function() {
+					
+							uni.navigateTo({
+								url: '../handong/list?id=' + _self.list[index].culverId + _self.list[index].time.substring(0, 7) //需要跳转的页面路径，使用问号进行id的传值，然后再拼接一个要传入的id
+							})
+						}
+					})
+				})
 			},
 			surveyList(page) {
 				if(page==1){
 					this.list=[]
 					this.params.currentPage=1
 				}
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/culvertExamine/page/list", //仅为示例，并非真实接口地址。
-					method: 'POST',
-					data: {
+				let data = {
 						currentPage: this.params.currentPage,
 						stake: "",
 						startTime: this.startTime,
 						endTime: this.endTime
-					},
-
-					success: (res) => {
-						this.total = res.data.data.total
-						uni.hideNavigationBarLoading(); //关闭加载动画
-						this.list = this.list.concat(res.data.data.list); //合并数组
-
-					}
-				});
+				};
+				let opts = {
+					url: '/culvertExamine/page/list',
+					method: 'post'
+				};
+				this.$http.httpRequest(opts, data).then(res => {
+					this.total = res.data.data.total
+					uni.hideNavigationBarLoading(); //关闭加载动画
+					this.list = this.list.concat(res.data.data.list); //合并数组
+				})
 				uni.request({
 					url: 'http://wthrcdn.etouch.cn/weather_mini?city=西安',
 					method: 'GET',

@@ -530,51 +530,48 @@
 				if (this.Array.length) {
 					console.log('111')
 					this.id = this.Array[0].id
-					uni.request({
-						header: {
-							'content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/bridgeExamine/find", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: {
-							id: this.id
-						},
-						success: (res) => {
-							console.log(res.data.data.detailList)
-							this.form.detailList = res.data.data.detailList
-							this.form.detailList.forEach(re => {
-								this.surveyArr1.forEach(it => {
-									if (it.name == re.name) {
-										console.log(it)
-										console.log(re)
-										re.typeList = it.typeList
-									}
-
-								})
+					let opts = {
+						url: '/bridgeExamine/find',
+						method: 'post'
+					};
+					let data = {
+						id: this.id
+					}
+					this.$http.httpRequest(opts,data).then(res => {
+						console.log(res.data.data.detailList)
+						this.form.detailList = res.data.data.detailList
+						this.form.detailList.forEach(re => {
+							this.surveyArr1.forEach(it => {
+								if (it.name == re.name) {
+									console.log(it)
+									console.log(re)
+									re.typeList = it.typeList
+								}
+						
 							})
-							this.pickers0 = []
-							this.pickers1 = []
-							this.pickers2 = []
-							this.pickers3 = []
-							this.form.detailList.forEach(ite => {
-								this.$delete(ite,'damageTypeList')
-								this.$set(ite,'damageTypeList',ite.damageType.split(","))
-								if (ite.type == "其他") {
-									this.pickers0.push(ite)
-									console.log(this.pickers0)
-								}
-								if (ite.type == "上部结构") {
-									this.pickers1.push(ite)
-								}
-								if (ite.type == "桥面系") {
-									this.pickers2.push(ite)
-								}
-								if (ite.type == "下部结构") {
-									this.pickers3.push(ite)
-								}
-							})
-						}
-					});
+						})
+						this.pickers0 = []
+						this.pickers1 = []
+						this.pickers2 = []
+						this.pickers3 = []
+						this.form.detailList.forEach(ite => {
+							this.$delete(ite,'damageTypeList')
+							this.$set(ite,'damageTypeList',ite.damageType.split(","))
+							if (ite.type == "其他") {
+								this.pickers0.push(ite)
+								console.log(this.pickers0)
+							}
+							if (ite.type == "上部结构") {
+								this.pickers1.push(ite)
+							}
+							if (ite.type == "桥面系") {
+								this.pickers2.push(ite)
+							}
+							if (ite.type == "下部结构") {
+								this.pickers3.push(ite)
+							}
+						})
+					})
 				}
 			},
 			getCouponSelected(e) {
@@ -603,62 +600,50 @@
 				})
 			},
 			surveyList() {
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridge/listAll",
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						console.log(res)
-						res.data.data.forEach(item => {
-							this.roadDataList.push(item.bridgeName)
-							this.roadData.push(item)
-							// console.log(this.roadData)
-						})
-					}
-				});
-				uni.request({
-					header: {
-						'content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridgeExamine/page/list",
-					method: 'POST',
-					data: {
-						currentPage: 1,
-						stake: ""
-					},
-
-					success: (res) => {
-						this.bridge = res.data.data
-					}
-				});
-				uni.request({
-					header: {
-						'Content-Type': 'application/json'
-					},
-					url: "http://119.27.171.77:8077/bridgeComponent/listAll",
-					method: 'POST',
-					data: {},
-					dataType: 'json',
-					success: (res) => {
-						res.data.data.forEach(item => {
-							this.$delete(item, 'id')
-							this.$set(item, 'id', '')
-							this.$set(item, 'damageTypeList', [])
-							this.$set(item, 'damageScope', '')
-							this.$set(item, 'opinion', '')
-							this.surveyArr1.push(item)
-							this.surveyArr.push(item.type)
-							var arr2 = this.surveyArr.filter(function(value, index, self) {
-								return self.indexOf(value) === index;
-							});
-							this.arr = arr2
-						})
-					}
-				});
+				let opts = {
+					url: '/bridge/listAll',
+					method: 'post'
+				};
+				let data = {}
+				this.$http.httpRequest(opts,data).then(res => {
+					console.log(res)
+					res.data.data.forEach(item => {
+						this.roadDataList.push(item.bridgeName)
+						this.roadData.push(item)
+						// console.log(this.roadData)
+					})
+				})
+				let opts1 = {
+					url: '/bridgeExamine/page/list',
+					method: 'post'
+				};
+				let data1 = {
+					currentPage: 1,
+					stake: ""
+				}
+				this.$http.httpRequest(opts1,data1).then(res => {
+					this.bridge = res.data.data
+				})
+				let opts2 = {
+					url: '/bridgeComponent/listAll',
+					method: 'post'
+				};
+				let data2 = {}
+				this.$http.httpRequest(opts2,data2).then(res => {
+					res.data.data.forEach(item => {
+						this.$delete(item, 'id')
+						this.$set(item, 'id', '')
+						this.$set(item, 'damageTypeList', [])
+						this.$set(item, 'damageScope', '')
+						this.$set(item, 'opinion', '')
+						this.surveyArr1.push(item)
+						this.surveyArr.push(item.type)
+						var arr2 = this.surveyArr.filter(function(value, index, self) {
+							return self.indexOf(value) === index;
+						});
+						this.arr = arr2
+					})
+				})
 			},
 			save() {
 				if (this.e0 === null) {
@@ -692,44 +677,38 @@
 						countScore: this.form.countScore,
 						totalScore: this.form.totalScore
 					}
-					console.log(data)
-					uni.request({
-						header: {
-							'Content-Type': 'application/json'
-						},
-						url: "http://119.27.171.77:8077/bridgeExamine/add", //仅为示例，并非真实接口地址。
-						method: 'POST',
-						data: data,
-						dataType: 'json',
-						success: (res) => {
-							console.log(res)
-							if (res.data.data == -1) {
-								uni.showModal({
-									title: '提示',
-									content: '该桥梁本月已检查！',
-								});
-							} else {
-								uni.showToast({
-									title: "添加成功！",
-									icon: "none",
-									duration: 1500
-								});
-								setTimeout(() => {
-									uni.switchTab({
-										url: "../jiancha/index",
-										success() {
-											let page = getCurrentPages().pop(); //跳转页面成功之后                 
-											console.log(page)
-											if (!page) return;
-											page.onLoad(); //如果页面存在，则重新刷新页面
-										}
-									})
-								}, 1500)
-								uni.setStorageSync("username", "0")
-
-							}
+					let opts = {
+						url: '/bridgeExamine/add',
+						method: 'post'
+					};
+					this.$http.httpRequest(opts,data).then(res => {
+						console.log(res)
+						if (res.data.data == -1) {
+							uni.showModal({
+								title: '提示',
+								content: '该桥梁本月已检查！',
+							});
+						} else {
+							uni.showToast({
+								title: "添加成功！",
+								icon: "none",
+								duration: 1500
+							});
+							setTimeout(() => {
+								uni.switchTab({
+									url: "../jiancha/index",
+									success() {
+										let page = getCurrentPages().pop(); //跳转页面成功之后                 
+										console.log(page)
+										if (!page) return;
+										page.onLoad(); //如果页面存在，则重新刷新页面
+									}
+								})
+							}, 1500)
+							uni.setStorageSync("username", "0")
+						
 						}
-					});
+					})
 
 				}
 			}

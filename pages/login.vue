@@ -29,8 +29,8 @@
 	export default {
 		data() {
 			return {
-				acct: "test01",
-				password: "123456",
+				acct: "",
+				password: "",
 				latitude: "",
 				longitude: ""
 			};
@@ -51,8 +51,8 @@
 						method: 'post'
 					};
 					let param = {
-						acct: 'gaosu',
-						password: "123456"
+						acct: that.acct,
+						password: that.password
 					};
 					that.$http.httpRequest(opts, param).then(res => {
 						console.log(res)
