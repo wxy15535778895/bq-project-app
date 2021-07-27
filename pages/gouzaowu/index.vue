@@ -170,7 +170,7 @@
 						this.date = res.data.data.forecast[0].date.slice(3)
 						this.temperature = res.data.data.forecast[0].high.slice(3)
 						console.log(this.temperature)
-						this.cylinderEmpty.temperature = Math.round(res.data.data.wendu);
+						// this.cylinderEmpty.temperature = Math.round(res.data.data.wendu);
 					},
 					fail: () => {
 						this.openmsg("警告", "天气接口获取失败")

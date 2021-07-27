@@ -38,6 +38,7 @@
 		methods: {
 			...mapMutations(['loginData']),
 			login() {
+				console.log('1')
 				if (this.acct == "" || this.password == "") {
 					uni.showToast({
 						title: "用户名或密码不能为空",
@@ -47,7 +48,7 @@
 				} else {
 					var that = this;
 					let opts = {
-						url: '/user/login',
+						url: '/user/loginGaoSu',
 						method: 'post'
 					};
 					let param = {
@@ -58,28 +59,28 @@
 						console.log(res)
 							console.log(res.data.data)
 							if (res.data.code == 1) {
-								setInterval(function() {
-									uni.getLocation({
-										type: 'gcj02', //返回可以用于uni.openLocation的经纬度
-										success(res) {
-											console.log(res)
-											that.latitude = res.latitude;
-											that.longitude = res.longitude;
-											let opts1 = {
-												url: '/userClockOther/pushUserPoint',
-												method: 'post'
-											};
-											let param1 = {
-												"lat": that.latitude,
-												"lng": that.longitude
-											};
-											that.$http.httpRequest(opts1, param1).then(res => {
-												console.log(res)
-											})
+								// setInterval(function() {
+								// 	uni.getLocation({
+								// 		type: 'gcj02', //返回可以用于uni.openLocation的经纬度
+								// 		success(res) {
+								// 			console.log(res)
+								// 			that.latitude = res.latitude;
+								// 			that.longitude = res.longitude;
+								// 			let opts1 = {
+								// 				url: '/userClockOther/pushUserPoint',
+								// 				method: 'post'
+								// 			};
+								// 			let param1 = {
+								// 				"lat": that.latitude,
+								// 				"lng": that.longitude
+								// 			};
+								// 			// that.$http.httpRequest(opts1, param1).then(res => {
+								// 			// 	console.log(res)
+								// 			// })
 
-										}
-									});
-								}, 10000);
+								// 		}
+								// 	});
+								// }, 10000);
 								uni.showToast({
 									title: "登录成功",
 									icon: "none",
@@ -166,7 +167,7 @@
 	}
 
 	.content-head1 {
-		font-size: 26px;
+		font-size: 24px;
 		margin-bottom: 70px;
 	}
 

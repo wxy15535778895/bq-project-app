@@ -713,7 +713,7 @@
 				let data1 = {
 				};
 				let opts1 = {
-					url: '/bcStructure/listAll',
+					url: '/bcgouzaowu/listAll',
 					method: 'post'
 				};
 				this.$http.httpRequest(opts1, data1).then(res => {

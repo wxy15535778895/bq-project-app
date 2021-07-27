@@ -1,5 +1,6 @@
 // const urlLogin = 'http://119.27.171.77:8077/user/loginApp';
-const baseUrl = 'http://119.27.171.77:8077';
+const baseUrl = 'http://119.27.171.77:8099';
+// const baseUrl = 'http://192.168.0.172:8077';
 const httpRequest = (opts, data) => {
 	console.log(baseUrl + opts.url)
 	let httpDefaultOpts = {
@@ -41,13 +42,14 @@ const weather = (citykey) => {
 	}
 	let promise = new Promise(function(resolve, reject) {
 		uni.request(httpDefaultOpts).then(
-			(res) => {
+			(res) => {	
 				resolve(res[1])
 			}
 		).catch(
 			(response) => {
 				reject(response)
 			}
+			
 		)
 	})
 	return promise

@@ -13,59 +13,91 @@
 			</view>
 		</view>
 		<view class="neck">
+<!-- 			<view class="cate-section">
+				<view class="cate-item" style="width: 87px;" @tap="gotoLaw">
+					<image src="../../static/images/technology.png"></image>
+					<text>技术评定</text>
+				</view>
+			</view> -->
+<!-- 			<view class="cate-section">
+				<view class="cate-item" @tap="gotoLaw">
+					<image src="../../static/images/gonglu.png"></image>
+					<text>执法协作</text>
+				</view>
+			</view> -->
 			<!-- 分类 -->
 			<view class="cate-section">
-				<navigator class="add" open-type="switchTab" url="../pingding/index">
-					<view class="cate-item">
-						<image src="../../static/images/technology.png"></image>
-						<text>技术评定</text>
-					</view>
+<!-- 				<navigator open-type="switchTab" url="../pingding/index" v-if="obj.rankData.name!=='西延分公司'">
+				<view class="cate-item" style="width: 87px;">
+					<image src="../../static/images/technology.png"></image>
+					<text>技术评定</text>
+				</view>
 				</navigator>
-				<navigator class="add" open-type="switchTab" url="../jiancha/index">
-					<view class="cate-item">
-						<image src="../../static/images/Bridge.png"></image>
-						<text>桥隧涵检查</text>
-					</view>
+				<navigator open-type="switchTab" url="../<jiancha></jiancha>/index" v-if="obj.rankData.name!=='西延分公司'">
+				<view class="cate-item" @tap="gotoInspect"  style="width: 87px;">
+					<image src="../../static/images/Bridge.png"></image>
+					<text>桥隧涵检查</text>
+				</view>
 				</navigator>
-				<view class="cate-item" @tap="gotoLunBo">
+				<view class="cate-item" @tap="gotoPrevention" v-if="obj.rankData.name!=='西延分公司'">
+					<image src="../../static/images/Bridge.png"></image>
+					<text>安全双预防</text>
+				</view>
+				<view class="cate-item" @tap="gotoLunBo" v-if="obj.rankData.name!=='西延分公司'">
 					<image src="../../static/images/Bridge.png"></image>
 					<text>考勤打卡</text>
 				</view>
-				<!-- 				<navigator class="add" open-type="switchTab" url="../jiancha/index">
-					<view class="cate-item">
-						<image src="../../static/images/Bridge.png"></image>
-						<text>桥隧涵检查</text>
-					</view>
-				</navigator> -->
-				<view class="cate-item">
-					<!-- 					<image src="../../static/images/yima.png" ></image>
-					<text>一码养护</text> -->
+				<view class="cate-item" @tap="gotoJournal" v-if="obj.rankData.name=='西延分公司'">
+					<image src="../../static/images/jiguan.png"></image>
+					<text>施工日志</text>
 				</view>
-				<view class="cate-item">
-					<!-- 						<image src="../../static/images/shipin.png"></image>
-						<text>视频监控</text> -->
+				<view class="cate-item" @tap="gotoSupervisor" v-if="obj.rankData.name=='西延分公司'&&obj.privilege.name.includes('业主')||obj.privilege.name.includes('监理')">
+					<image src="../../static/images/jiguan.png"></image>
+					<text>监理日志</text>
+				</view>
+				<view class="cate-item" @tap="gosecurity" v-if="obj.rankData.name=='西延分公司'">
+					<image src="../../static/images/gongzuo.png"></image>
+					<text>安全管理</text>
+				</view>
+				<view class="cate-item" @tap="gotoInspection" v-if="obj.rankData.name=='西延分公司'">
+					<image src="../../static/images/daolu.png"></image>
+					<text>现场巡查</text>
+				</view>
+				<view class="cate-item" @tap="goRectification" v-if="obj.rankData.name=='西延分公司'&&obj.privilege.name.includes('业主')">
+					<image src="../../static/images/gonglu.png"></image>
+					<text>施工整改</text>
+				</view> -->
+				<view class="cate-item" @tap="gotoLaw">
+					<image src="../../static/images/gonglu.png"></image>
+					<text>执法协作</text>
+				</view>
+				<view class="cate-item" @tap="gotovehicle">
+					<image src="../../static/images/gongzuo.png"></image>
+					<text>车辆信息</text>
+				</view>
+				<view class="cate-item" @tap="gotovideo">
+					<image src="../../static/images/daolu.png"></image>
+					<text>视频监控</text>
 				</view>
 			</view>
-			<!-- 			<view class="cate-section">
-					<view class="cate-item">
-						<image src="../../static/images/jiguan.png" ></image>
-						<text>机关党建</text>
-					</view>
-					<view class="cate-item">
-						<image src="../../static/images/daolu.png"></image>
-						<text>道路病害</text>
-					</view>
-						<view class="cate-item">
-							<image src="../../static/images/gongzuo.png"></image>
-							<text>工作动态</text>
-						</view>
-					<view class="cate-item">
-						<image src="../../static/images/gonglu.png"></image>
-						<text>公路巡查</text>
-					</view>
-				</view> -->
+<!-- 			<view class="cate-section">
+				<view class="cate-item" @tap="gotoInstructions" v-if="obj&&obj.rankData.name=='西延分公司'&&obj.privilege.name.includes('业主')||obj.privilege.name.includes('监理')">
+					<image src="../../static/images/gonglu.png"></image>
+					<text>监理指令</text>
+				</view>
+				<view class="cate-item" @tap="goRectification" v-if="obj&&obj.rankData.name=='西延分公司'&&obj.privilege.name.includes('业主')||obj.privilege.name.includes('监理')">
+					<image src="../../static/images/gonglu.png"></image>
+					<text>施工整改</text>
+				</view>
+				<view class="cate-item" @tap="goRectification" v-if="obj&&obj.rankData.name=='西延分公司'">
+				</view>
+				<view class="cate-item" @tap="goRectification" v-if="obj&&obj.rankData.name=='西延分公司'">
+				</view>
+				<view class="cate-item" @tap="goRectification" v-if="obj&&obj.rankData.name=='西延分公司'&&obj.privilege.name.includes('施工')">
+				</view>
+			</view> -->
 		</view>
-		<view class="inspect">
+<!-- 		<view class="inspect">
 			<view class="head">
 				<p class="p1">桥隧涵检查</p>
 				<p class="p2">
@@ -82,14 +114,15 @@
 						K20+K30+K15
 					</view>
 					<view class="right-eyes">
-						<image class="icon-eyes" src="https://assets.dxycdn.com/gitrepo/gsk-tooth/images/index/icon-eyes-@2x.png" />
+						<image class="icon-eyes"
+							src="https://assets.dxycdn.com/gitrepo/gsk-tooth/images/index/icon-eyes-@2x.png" />
 						<view class="eyes-num">1</view>
 						<view class="eyes-time">2019-10-25 10:35:23</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<view class="image">
+		</view> -->
+<!-- 		<view class="image">
 			<image src="../../static/images/curing.png" mode=""></image>
 		</view>
 		<view class="end">
@@ -109,7 +142,7 @@
 					</view>
 				</view>
 			</view>
-			<!-- 			<view class="end_s">
+						<view class="end_s">
 				<view class="admin">
 					<image src="../../static/images/admin.png" mode=""></image>
 					<p>ADMIN</p>
@@ -117,9 +150,27 @@
 				<view class="time">
 					<p>06-30 20:00</p>
 				</view>
-			</view> -->
+			</view>
+			<view class="end_s">
+				<view class="admin">
+					<image src="../../static/images/admin.png" mode=""></image>
+					<p>ADMIN</p> 
+				</view>
+				<view class="time">
+					<p>06-30 20:00</p>
+				</view>
+			</view>
+			<view class="end_s">
+				<view class="admin">
+					<image src="../../static/images/admin.png" mode=""></image>
+					<p>ADMIN</p>
+				</view>
+				<view class="time">
+					<p>06-30 20:00</p>
+				</view>
+			</view>
 
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -127,6 +178,7 @@
 	export default {
 		data() {
 			return {
+				obj:null,
 				homeSlide: [{
 						img: '/static/images/banner1.png'
 					},
@@ -143,6 +195,9 @@
 			}
 		},
 		mounted() {
+			// this.getvehicle()
+			this.obj = uni.getStorageSync("currentUser")
+			console.log(this.obj)
 			uni.request({
 				url: 'http://wthrcdn.etouch.cn/weather_mini?city=西安',
 				method: 'GET',
@@ -164,11 +219,76 @@
 			});
 		},
 		methods: {
+			gotovideo(){
+								console.log('3333')
+				uni.navigateTo({
+					url: "../mz/video/index"
+				})
+				},
+			//车辆信息
+			gotovehicle(){
+				uni.navigateTo({
+					url: "../mz/jiancha/index"
+				})
+				},
+			gotoLaw(){
+				uni.navigateTo({
+					url: "../mz/approval/index"
+				})
+			},
 			gotoLunBo() {
 				uni.navigateTo({
 					url: "../index/index"
+                })
+			},
+			gotoPrevention() {
+				uni.navigateTo({
+					url: "../prevention/index"
+				})
+			},
+			gotoTechnology() {
+				console.log('111')
+				uni.navigateTo({
+					url: "../pingding/index"
+				})
+			},
+			//安全性检查
+			gotoInspect() {
+				uni.navigateTo({
+					url: "../jiancha/index"
+				})
+			},
+			gotoJournal() {
+				uni.navigateTo({
+					url: "../Journal/index"
+                })
+			},
+			gotoSupervisor() {
+				uni.navigateTo({
+					url: "../supervisor/index"
+			    })
+			},
+			gotoInspection() {
+				uni.navigateTo({
+					url: "../Inspection/index"
 
 				})
+			},
+			gotoInstructions(){
+				uni.navigateTo({
+					url: "../Instructions/index"
+				
+				})
+				},
+			gosecurity(){
+				uni.navigateTo({
+					url: "../security/index"
+					})
+			},
+			goRectification(){
+				uni.navigateTo({
+					url: "../Rectification/index"
+					})
 			},
 			onNavigationBarButtonTap: function(e) {
 				var _this = this;
@@ -202,7 +322,7 @@
 
 <style lang="less">
 	.swiper {
-		width: 100%; //必须设置高度，我刚开始没有设置宽度，导致图片没有出现，浪费了很长时间才发现这个问题
+		width: 100%; //必须设置高度
 		height: 300upx;
 
 		/deep/.uni-swiper-wrapper {
@@ -431,7 +551,6 @@
 
 	.end {
 		width: 100%;
-		height: 350rpx;
 		top: 736px;
 		background-color: #FFFFFF;
 		position: absolute;
@@ -533,6 +652,7 @@
 			font-size: 14upx;
 			color: black;
 			font-size: 14px;
+			width: 25%;
 			// width: 10%;
 			// padding-right: 2%;
 			// padding-left: 2%;

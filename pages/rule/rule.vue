@@ -72,10 +72,31 @@
 					title: "考勤范围",
 					content1: [{
 						title: "办公地点",
-						content: "陕西省西安市雁塔区电子三路雁塔区西京国际电气中心(电子三路南)  <br/>  外勤打卡将会同步给主管"
+						content: "巨龙信息技术有限公司"
 					}, ],
 				}, ]
 			}
+		},
+		onLoad() {
+			this.weather = uni.getStorageSync('weather');
+			let res = uni.getStorageSync("currentUser")
+			this.username = res
+			console.log(res.id)
+			let userId = res.id
+			const uId = userId
+			var that = this;
+			let opts = {
+				url: '/clockAreaManager/getClockAreaManager?uId=' + userId,
+				method: 'post'
+			};
+			that.$http.httpRequest(opts).then(res => {
+				console.log(res)
+				that.data = res.data.data
+				if (that.data !== null) {
+					that.collData1[0].content1[0].content = that.data.creator;
+					that.collData[0].content1[0].content = that.data.inTime+'-'+that.data.outTime
+				}
+			})
 		},
 		methods: {
 			onNavigationBarButtonTap(){

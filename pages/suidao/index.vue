@@ -78,11 +78,11 @@
 				data:'', //星期
 				weekday:'',
 				year:'',
-				startTime: '2019-01-01',
-				endTime: '2020-12-30',
+				startTime: '2018-01-01',
+				endTime: '2021-12-30',
 				time: new Date().toISOString().slice(0, 10), //日期
-				array: ['2020', '2019', '2018', '2017'],
-				array1: ['2020', '2019', '2018', '2017'],
+				array: ['2021', '2020', '2019', '2018'],
+				array1: ['2021', '2020', '2019', '2018'],
 				index: 1,
 				index1: 0,
 				params: {

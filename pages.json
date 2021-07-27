@@ -1,9 +1,14 @@
 {
-	"pages": [{
-			"path": "pages/login",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
+	"pages": [
+		{
+		      "path": "pages/login",
+		      "style": {
+		        // 去掉头部原生导航
+		        "navigationStyle": "custom",
+		        "app-plus": {
+		          "titleNView": false
+		        }
+		      }
 		},
 		{
 			"path": "pages/homePage/homePage",
@@ -187,12 +192,227 @@
 			"style": {
 				"navigationBarTitleText": "涵洞调查表"
 			}
+		},
+		{
+			"path": "pages/mz/handong/map",
+			"style": {
+				"navigationBarTitleText": "车辆定位"
+			}
+		},
+		{
+			"path": "pages/mz/video/index",
+			"style": {
+				"navigationBarTitleText": "视频监控"
+			}
+		},
+		{
+			"path": "pages/mz/qiaoliang/list",
+			"style": {
+				"navigationBarTitleText": "公交车"
+			}
+		},{
+			"path": "pages/mz/qiaoliang/map",
+			"style": {
+				"navigationBarTitleText": "车辆定位"
+			}
 		}, {
+			"path": "pages/mz/qiaoliang/index",
+			"style": {
+				"navigationBarTitleText": "公交车"
+			}
+		},
+		{
+			"path": "pages/mz/suidao/list",
+			"style": {
+				"navigationBarTitleText": "运管局"
+			}
+		}, {
+			"path": "pages/mz/suidao/index",
+			"style": {
+				"navigationBarTitleText": "运管局"
+			}
+		},{
+			"path": "pages/mz/suidao/map",
+			"style": {
+				"navigationBarTitleText": "车辆定位"
+			}
+		},
+		{
+			"path": "pages/mz/handong/list",
+			"style": {
+				"navigationBarTitleText": "出租车"
+			}
+		}, {
+			"path": "pages/mz/handong/index",
+			"style": {
+				"navigationBarTitleText": "出租车"
+			}
+		}, {
+			"path": "pages/prevention/check/add",
+			"style": {
+				"navigationBarTitleText": "添加巡查结果"
+			}
+		},
+		{
+			"path": "pages/prevention/check/index",
+			"style": {
+				"navigationBarTitleText": "安全巡检"
+			}
+		}, {
+			"path": "pages/Journal/add",
+			"style": {
+				"navigationBarTitleText": "施工日志"
+			}
+		},
+		{
+			"path": "pages/Journal/index",
+			"style": {
+				"navigationBarTitleText": "施工日志"
+			}
+		},{
+			"path": "pages/mz/Journal/add",
+			"style": {
+				"navigationBarTitleText": "执法协作"  //孟州
+			}
+		},
+		{
+			"path": "pages/mz/Journal/index",
+			"style": {
+				"navigationBarTitleText": "执法协作" //孟州
+			}
+		},{
+			"path": "pages/mz/case/add",
+			"style": {
+				"navigationBarTitleText": "案件办理"  //孟州
+			}
+		},
+		{
+			"path": "pages/mz/case/index",
+			"style": {
+				"navigationBarTitleText": "案件办理" //孟州
+			}
+		},{
+			"path": "pages/mz/query/add",
+			"style": {
+				"navigationBarTitleText": "案件查询"  //孟州
+			}
+		},
+		{
+			"path": "pages/mz/query/index",
+			"style": {
+				"navigationBarTitleText": "案件查询" //孟州
+			}
+		},{
+			"path": "pages/supervisor/add",
+			"style": {
+				"navigationBarTitleText": "监理日志"
+			}
+		},
+		{
+			"path": "pages/supervisor/index",
+			"style": {
+				"navigationBarTitleText": "监理日志"
+			}
+		},{
+			"path": "pages/Inspection/add",
+			"style": {
+				"navigationBarTitleText": "现场巡查"
+			}
+		},
+		{
+			"path": "pages/security/index",
+			"style": {
+				"navigationBarTitleText": "安全管理"
+			}
+		},{
+			"path": "pages/security/add",
+			"style": {
+				"navigationBarTitleText": "安全管理"
+			}
+		},
+		{
+			"path": "pages/Inspection/index",
+			"style": {
+				"navigationBarTitleText": "现场巡查"
+			}
+		},{
+			"path": "pages/Instructions/add",
+			"style": {
+				"navigationBarTitleText": "监理指令"
+			}
+		},{
+			"path": "pages/Instructions/index",
+			"style": {
+				"navigationBarTitleText": "监理指令"
+			}
+		},{
+			"path": "pages/Instructions/list",
+			"style": {
+				"navigationBarTitleText": "回执整改"
+			}
+		},{
+			"path": "pages/Rectification/add",
+			"style": {
+				"navigationBarTitleText": "施工整改"
+			}
+		},{
+			"path": "pages/Rectification/index",
+			"style": {
+				"navigationBarTitleText": "施工整改"
+			}
+		},{
+			"path": "pages/Rectification/list",
+			"style": {
+				"navigationBarTitleText": "回复施工整改"
+			}
+		},{
+			"path": "pages/prevention/Risk/add",
+			"style": {
+				"navigationBarTitleText": "添加风险点"
+			}
+		},
+		{
+			"path": "pages/prevention/Risk/index",
+			"style": {
+				"navigationBarTitleText": "风险管控"
+			}
+		},
+		{
+			"path": "pages/prevention/Risk/list",
+			"style": {
+				"navigationBarTitleText": "巡查记录"
+			}
+		}, {
+			"path": "pages/prevention/hidden/add",
+			"style": {
+				"navigationBarTitleText": "新增隐患点"
+			}
+		}, {
+			"path": "pages/prevention/hidden/index",
+			"style": {
+				"navigationBarTitleText": "隐患查治"
+			}
+		},{
+			"path": "pages/prevention/record/add",
+			"style": {
+				"navigationBarTitleText": "添加备案"
+			}
+		},
+		{
+			"path": "pages/prevention/record/index",
+			"style": {
+				"navigationBarTitleText": "安全备案"
+			}
+		},
+		{
+			"path": "pages/prevention/record/list",
+			"style": {
+				"navigationBarTitleText": "整改回复"
+			}
+		},{
 			"path": "pages/pingding/index",
 			"style": {
 				"navigationBarTitleText": "公路技术性评定"
-
-
 			}
 		}, {
 			"path": "pages/jiancha/index",
@@ -201,6 +421,23 @@
 			}
 		},
 		{
+			"path": "pages/mz/jiancha/index",
+			"style": {
+				"navigationBarTitleText": "车辆信息"
+			}
+		},
+		{
+			"path": "pages/mz/approval/index",
+			"style": {
+				"navigationBarTitleText": "执法协作"
+			}
+		},
+		{
+			"path": "pages/prevention/index",
+			"style": {
+				"navigationBarTitleText": "安全双预防"
+			}
+		},{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "考勤打卡",
@@ -266,18 +503,18 @@
 				"iconPath": "static/images/homePage.png",
 				"selectedIconPath": "static/images/homePage1.png"
 			},
-			{
-				"pagePath": "pages/jiancha/index",
-				"text": "桥隧涵检查",
-				"iconPath": "static/images/evaluate.png",
-				"selectedIconPath": "static/images/ins.png"
-			},
-			{
-				"pagePath": "pages/pingding/index",
-				"text": "公路技术评定",
-				"iconPath": "static/images/inspect.png",
-				"selectedIconPath": "static/images/inspect1.png"
-			},
+			// {
+			// 	"pagePath": "pages/jiancha/index",
+			// 	"text": "桥隧涵检查",
+			// 	"iconPath": "static/images/evaluate.png",
+			// 	"selectedIconPath": "static/images/ins.png"
+			// },
+			// {
+			// 	"pagePath": "pages/pingding/index",
+			// 	"text": "公路技术评定",
+			// 	"iconPath": "static/images/inspect.png",
+			// 	"selectedIconPath": "static/images/inspect1.png"
+			// },
 			{
 				"pagePath": "pages/my/my",
 				"text": "我的",

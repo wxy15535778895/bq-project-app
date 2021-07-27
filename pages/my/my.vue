@@ -2,29 +2,10 @@
 	<view class="body">
 		<image class="image-bg" src="~@/static/images/background.png">
 			<view class="head">
-				<h4>王某某</h4>
+				<h4 v-if="obj.rankData">{{obj.rankData.name}}</h4>
 				<p>上次登录时间 {{time}} 8：30</p>
 			</view>
 			<view class="neck">
-				<!-- 			  <view class="neck_o">
-			  	 <p>经常性检查<span>168</span>桥梁<span>162</span>隧道<span>6</span></p>
-			  </view>
-			  <view style="display: flex;">
-			  	<view class="neck_t">
-			  		<p>公路技术状况评定<span>A</span></p>
-			  	</view>
-				<view class="neck_t" style="width: 38%;">
-					<p>涵洞<span>135</span></p>
-				</view>
-			  </view>
-			  <view style="display: flex;">
-			  	<view class="neck_t">
-			  		<p>桥隧涵经常检查<span>A</span></p>
-			  	</view>
-			  	<view class="neck_t" style="width: 38%;">
-			  		<p>修改密码</p>
-			  	</view>
-			  </view> -->
 				<view class="neck_s">
 					<view class="border">
 						<h3>关于我们</h3>
@@ -53,9 +34,12 @@
 		data() {
 			return {
 				time: new Date().toISOString().slice(0, 10), //日期
+				obj:null
 			};
 		},
-		mounted() {},
+		mounted() {
+			this.obj = uni.getStorageSync("currentUser")
+		},
 		computed: {},
 		methods: {
 			// 拨打电话
@@ -74,7 +58,7 @@
 								header: {
 									'content-Type': 'application/json'
 								},
-								url: "http://119.27.171.77:8077/user/logout", //仅为示例，并非真实接口地址。
+								url: "http://119.27.171.77:8099/user/logout", //仅为示例，并非真实接口地址。
 								method: 'POST',
 								data: {
 								},
@@ -87,11 +71,11 @@
 											duration: 1500
 										})
 										setTimeout(() => {
-											uni.navigateTo({
-												url: '../login'
-											})
+											uni.reLaunch({
+											        url: '/pages/login',
+											     })
 										}, 1500)
-										sessionStorage.removeItem("currentUser");
+										uni.clearStorageSync();
 									}
 								}
 							})

@@ -448,6 +448,7 @@
 						that.getAdd()
 					},
 					fail(err) {
+						alert(err)
 						uni.hideLoading();
 						that.address = "请检查位置信息！"
 						uni.showToast({
@@ -485,7 +486,8 @@
 					"isLate": this.data == null ? "0" : this.division == false ? this.intime : "0",
 					"isLeaveEarly": this.data == null ? "0" : this.division == false ? "0" : this.outtime,
 					"lat": this.latitude,
-					"lng": this.longitude
+					"lng": this.longitude,
+					areaPoint:this.is==true?"内":"外"
 				}
 				that.$http.httpRequest(opts, data).then(res => {
 					console.log(res)

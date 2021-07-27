@@ -16,7 +16,7 @@
 			<Lumian ref="mainindex1"></Lumian>
 		</view>
 		<view class="list-1 surveyBox" :class="{dis:btnnum == 3}">
-			<Gouzaowu ref="mainindex3"></Gouzaowu>
+			<gouzaowu ref="mainindex3"></gouzaowu>
 		</view>
 	</view>
 </template>
@@ -25,7 +25,7 @@
 	import Luji from '../luji/index'
 	import Lumian from '../lumian/index'
 	import Yanxian from '../yanxian/index'
-	import Gouzaowu from '../gouzaowu/index'
+	import gouzaowu from '../gouzaowu/index'
 	import uniLoadMore from '../../pages/uni-load/uni-load-more.vue';
 	var _self,
 		currentPage = 1,
@@ -76,7 +76,7 @@
 			Luji: Luji,
 			Lumian: Lumian,
 			Yanxian: Yanxian,
-			Gouzaowu: Gouzaowu,
+			gouzaowu: gouzaowu,
 			uniLoadMore: uniLoadMore
 		},
 		methods: {

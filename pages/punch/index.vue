@@ -8,7 +8,7 @@
 					<uni-list>
 						<view class="uni-list-cell-left">
 							<view v-for="(item,index) in allSign" :key="index" @click="Card(index)" style="border-bottom: 1px dashed #007AFF;">
-								<view v-if="item.clockInOut=='in'">{{item.isLate==0?"正常打卡":'迟到'}}<span @click="replacement(item)" v-if="item.isLate==1" style="color:orange">补卡</span></view>
+								<view v-if="item.clockInOut=='in'">{{item.areaPoint=='内'&&item.isLate==0? "正常打卡": item.areaPoint=='外'&&item.isLate==0? '外勤打卡' : item.areaPoint=='外'&&item.isLate==1? '外勤迟到' : '迟到'}}<span @click="replacement(item)" v-if="item.isLate==1" style="color:orange">补卡</span></view>
 								<view v-else="item.clockInOut=='out'">{{item.isLeaveEarly==0?'正常打卡':'早退'}}<span @click="replacement(item)" v-if="item.isLeaveEarly==1" style="color:orange">补卡</span></view>
 								<view>{{item.addr}}</view>
 								<view>{{item.createTime}}</view>
@@ -136,7 +136,7 @@
 			},
 			getList() {
 				let that=this
-				let months = "2020-09"
+				let months = that.time.substring(that.time.length-3)
 				let opts = {
 					url: '/userClockOther/statClockRecord?months='+months,
 					method: 'post'

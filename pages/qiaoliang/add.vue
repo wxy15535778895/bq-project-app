@@ -646,15 +646,15 @@
 				})
 			},
 			save() {
-				if (this.e0 === null) {
+				if (this.e0 === null) { 
 					uni.showModal({
 						title: '提示',
 						content: '请先选择桥梁名称！',
 					});
 				} else {
-					this.rankDataId = JSON.parse(
-						uni.getStorageSync("currentUser")
-					).rankDataId
+					console.log(uni.getStorageSync("currentUser"))
+					this.rankDataId = 
+						uni.getStorageSync("currentUser").rankDataId
 					console.log(this.pickers0, this.pickers1)
 					this.form.detailList = [...this.pickers0, ...this.pickers1, ...this.pickers2, ...this.pickers3]
 					console.log(this.form.detailList)
